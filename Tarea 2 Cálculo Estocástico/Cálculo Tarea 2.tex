@@ -1,0 +1,518 @@
+\documentclass[letterpaper]{article} 
+\usepackage[left = 0.5in, right = 0.5in, top = 0.9in, bottom = 0.9in]{geometry}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{tikz-cd}
+\usepackage{mathrsfs}
+\usepackage[bbgreekl]{mathbbol}
+\usepackage{dsfont}
+\newcommand{\op}{\operatorname}
+\newcommand{\Op}{^{\op{op}}}
+\newcommand{\scc}{\mathscr C}
+\newcommand{\scd}{\mathscr D}
+\newcommand{\sce}{\mathscr E}
+\newcommand{\sci}{\mathscr I}
+\newcommand{\scj}{\mathscr J}
+\newcommand{\scx}{\mathscr X}
+\newcommand{\var}{\mathrm{Var}}
+\newcommand{\Id}{\operatorname{Id}}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\inv}{^{-1}}
+\renewcommand{\to}{\rightarrow}
+\newcommand{\ent}{\Longrightarrow}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\1}{\mathds{1}}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\theoremstyle{definition}
+\newtheorem{dfn}{Definición}
+\theoremstyle{definition}
+\newtheorem{teo}{Teorema}
+\theoremstyle{definition}
+\newtheorem{cor}{Corolario}
+\theoremstyle{definition}
+\newtheorem{prop}{Proposición}
+\theoremstyle{definition}
+\newtheorem{obs}{Observación}
+
+
+\title{\textbf{Cálculo Estocástico\\
+Tarea 2}}
+\author{Iván Irving Rosas Domínguez}
+\date{\today}
+
+\DeclareSymbolFontAlphabet{\mathbbm}{bbold}
+\DeclareSymbolFontAlphabet{\mathbb}{AMSb}
+\DeclareMathSymbol\bbDelta  \mathord{bbold}{"01}
+
+\begin{document}
+\maketitle
+
+%\begin{abstract}
+%\end{abstract}
+\begin{enumerate}
+    \item [\textbf{1.}] Sea $(B(t))_{t\geq0}$ un movimiento browniano. Muestra que los
+    siguientes procesos también son movimientos brownianos en $[0,T]$:
+    \begin{itemize}
+        \item $X(t)=-B(t)$.
+        \item $X(t)=B(T-t)-B(T)$, donde $T<\infty$.
+        \item $X(t)=c(B(t/c^2))$, donde $T<\infty$.
+        \item $X(t)=t(B(1/t))$, $t>0$ y $X(0)=0$.
+    \end{itemize}
+    Realizamos las pruebas inciso a inciso:
+     \begin{itemize}
+        \item $X(t)=-B(t)$
+         \begin{proof} 
+         Para probar esto veamos que las distribuciones finito-dimensionales del proceso $(X(t))_{t\geq0}$
+         son normales multivariadas (esto es, que el proceso $(X(t))_{t\geq0}$ es un proceso gaussiano).
+         Para ello simplemente notamos que, para cualquier variable normal $X$, $-X$ también es una
+         variable aleatoria normal.
+         \newline
+         
+         Luego, si tomamos $t_0<t_1<....<t_n$, entonces 
+         \[
+         \left(X_{t_1},...,X_{t_n}\right)=\left(-B_{t_1},...,-B_{t_n}\right),   
+         \]
+         pero $B$ es un movimiento browniano, por lo que sus distribuciones finito-dimensionales
+         son normales multivariadas, y por lo tanto, el vector anterior tiene distribuciones
+         finito-dimensionales gaussianas, con lo que $X$ también las tiene.\\
+
+         Resta ver que la función de medias y de covarianzas de $X$ es la función constante
+         cero y $s\wedge t$ respectivamente. La función de medias es clara, pues para $t\geq0$,
+         $\E\left[X(t)\right]=\E\left[-B(t)\right]=0$, pues $B$ es movimiento browniano estándar. Y además,
+         \[
+         \Gamma_X(s,t)=\text{Cov}\left(X(s),X(t)\right)=\text{Cov}(-B(s),-B(t))=\text{Cov}(B(s),B(t))=s\wedge t, \quad s,t\geq0.
+         \]
+         donde hemos hecho uso de que la covarianza es una función bilineal, y nuevamente
+         de que $B$ es un movimiento browniano estándar. 
+         \\
+
+         Por lo tanto, $X$ es un proceso gaussiano con función de medias 0 y función de covarianzas
+         dada por $s\wedge t$ para $s,t\geq0$, y por lo tanto, $X$ es un movimiento browniano.
+         \end{proof}
+        \item $X(t)=B(T-t)-B(T)$, donde $T<\infty$.
+        \begin{proof} 
+          Procedemos de la misma manera que hicimos antes: dado que para cualquier $t\geq0$,
+          $X(t)=B(T-t)-B(T)$ es la resta de dos variables aleatorias gaussianas, por lo que
+          sus distribuciones finito-dimensionales corresponderán a las de una normal 
+          multivariada. Resta ver que su función de medias y de covarianzas son las adecuadas.
+          Cabe mencionar que el hecho de que $T<\infty$ es fundamental para que $B(T)$ esté
+          bien definido, así como $B(T-t)$ para $t\geq0$.
+          \newline
+ 
+          Nótese que para $0\leq t \leq T$, $\E\left[X(t)\right]=\E\left[B(T-t)-B(T)\right]=\E\left[B(T-t)\right]-\E\left[B(T)\right]=0,$
+          ya que $B$ es un movimiento browniano. Para la función de covarianzas, notamos que
+          \begin{align*}
+              \Gamma_X(s,t)&=\text{Cov}\left(B(T-t)-B(T),B(T-s)-B(T)\right)\\
+              &=\Gamma(T-t,T-s)-\Gamma(T-t,T)-\Gamma(T,T-s)+\Gamma(T,T)\\
+              &=(T-t)\wedge(T-s)-(T-t)\wedge T-T\wedge(T-s)+T\\
+              &=T-(s\vee t)-(T-t)-(T-s)+T\\
+              &=-(s\vee t)+(s+t)\\
+              &=s\wedge t,
+          \end{align*}
+          para $0\leq s,t\leq T$. Por lo tanto, $X(t)=B(T-t)-B(T)$ es un movimiento browniano.
+         \end{proof}
+        \item $X(t)=c(B(t/c^2))$, donde $T\leq\infty$.
+        \begin{proof} 
+          Supondremos que $c>0$. De nueva cuenta, probaremos que $X$ es un proceso gaussiano con función 
+          de medias y covarianzas adecuadas. Observamos que $X(t)$, para cualquier $t\geq0$
+          es el producto de una variable aleatoria gaussiana con una constante $c$, por lo 
+          que nuevamente sus distribuciones finito-dimensionales serán vectores
+          gaussianos multivariados, y por lo tanto $X$ en efecto es un proceso gaussiano.\\
+          
+          Notamos que $\E\left[X(t)\right]=\E\left[cB(t/c^2)\right]=0,$ para $0<\leq t \leq T$, ya que $B$ es un
+          movimiento browniano estándar. Resta ver la función de covarianzas:
+          \begin{align*}
+            \Gamma_X(s,t)&=\text{Cov}\left(cB(s/c^2),cB(t/c^2)\right)\\
+            &=c^2\left((s/c^2)\wedge (t/c^2)\right),\\
+          \end{align*}
+          y dado que $c^2>0$, entonces 
+          \[
+          \Gamma_X(s,t)=c^2\left((s/c^2)\wedge (t/c^2)\right)=(c^2/c^2)s\wedge t=s\wedge t,  
+          \]
+          para $0\leq s,t\leq T$. Obsérvese que en la prueba anterior no se usa en ningún momento
+          que $T$ sea finito o infinito salvo por el intervalo en donde se eligen $s$ y $t$. 
+          Concluimos que $X$ en efecto es un movimiento browniano estándar.
+         \end{proof}
+        \item $X(t)=t(B(1/t))$, $t>0$ y $X(0)=0$.
+        \begin{proof} 
+          Verificamos nuevamente que este es un proceso gaussiano. Para $t>0$, $X(t)$ es una
+          variable aleatoria normal, ya que solo se está multiplicando a dicha variable por
+          una constante. Por ende, sus distribuciones finito-dimensionales serán gaussianas
+          nuevamente, y con ello el proceso $X$ también será gaussiano. Aún incluso si $t=0$,
+          la distribución de la variable aleatoria $X(0)=0$ no afecta en nada la distribución
+          de un vector finito-dimensional de variables del proceso $X$. Resta verificar qué sucede con su proceso de medias y de covarianzas.\\
+
+          Obsérvese que para $t>0$, $\E\left[X(t)\right]=\E\left[tB(1/t)\right]=0$, ya que
+          $B$ es un movimiento browniano estándar. Además, por definición, $X(0)=0$, de tal
+          forma que su esperanza es 0. Así, para cualquier $t\geq0$, $\E\left[X(t)\right]=0$.
+          \newline
+
+          Finalmente, la función de covarianzas del proceso es la siguiente:
+          \begin{align*}
+            \Gamma_X(s,t)&=\text{Cov}\left(tB(1/t),sB(1/s)\right)\\
+            &=st\Gamma(1/s,1/t)\\
+            &=st((1/s)\wedge(1/t))\\
+            &=st(1/(s\vee t))\\
+            &=s\wedge t,\\
+          \end{align*}
+          siempre que $s,t>0$. Obsérvese que si $s=0$, entonces directamente
+          \[
+          \Gamma_X(0,t)=\text{Cov}\left(X(0),X(t)\right)=\text{Cov}\left(0,X(t)\right)=0=0\wedge t.
+          \]
+          Análogamente en el caso $t=0$. Por lo tanto, la función de covarianzas es la de un 
+          movimiento browniano y con ello, $X$ también es un movimiento browniano estándar.
+         \end{proof}
+    \end{itemize}
+
+    \item [\textbf{2.}] Considerando $-B(t)$, deducir la distribución conjunta 
+    de $B(t)$ y $\displaystyle m(t)=\min_{s\leq t}B(s)$.
+    \begin{proof} 
+       Notemos que para $x, y$ tales que $-x\leq -y$ y $-y\geq0$,
+       \[
+       \P\left(B(t)\geq x, \ \min_{s\leq t}(B(t))\geq y \right)=\P\left(-B(t)\leq -x, \ \max_{s\leq t}(-B(t)) \leq -y \right), 
+       \]
+      pero recordamos que el proceso $-B$ también es un movimiento browniano,
+       las distribuciones finito-dimensionales de $-B$ y $B$ coinciden, por lo que
+       \[
+        \P\left(B(t)\geq x, \ \min_{s\leq t}(B(t))\geq y \right)=\P\left(B(t)\leq -x, \ \max_{s\leq t}(B(t)) \leq -y \right),
+       \]
+       con $-x\leq -y$ y $-y\geq0$. 
+      Sin embargo, por lo visto en clase ya conocemos la distribución conjunta de $(B,M)$, con $M(t)=\max_{s\geq t} B(t)$,
+      la cual, evaluada en $(-x,-y)$, está dada por
+       \[
+        f_{(B,M)}(-x,-y)=\sqrt{\frac{2}{\pi}}\frac{2(-y)-(-x)}{t^{3/2}}e^{-(2y-x)^2/2t}, \quad -x\leq -y,\  -y\geq0.
+        \]
+        por lo que, 
+        \[
+        f_{(B,m)}(x,y)= \sqrt{\frac{2}{\pi}}\frac{x-2y}{t^{3/2}}e^{-(2y-x)^2/2t}, \quad y \leq 0, \ x\geq y
+        \]
+     \end{proof}
+
+    \item [\textbf{3.}] Muestra que las variables aleatorias $M(t)$, $|B(t)|$ y 
+    $M(t)-B(t)$ tienen las mismas distribuciones.
+    \begin{proof} 
+      Aseguramos que la función de densidad de cada una de las tres variables anteriores, 
+      está dada por:
+      \[
+      f(z)=2\frac{1}{\sqrt{2\pi t}}e^{-z^2/2t}, \quad z\geq0.  
+      \]
+      Procedemos primero con $|B(t)|$. Notemos que
+      \[
+      \P\left(|B(t)|> z\right)=\P\left(B(t)> z\right) + \P\left(-B(t)>z\right),  
+      \]
+      para $z\geq0$. Pero sabemos que la distribución de $B$ y de $-B$ es la misma,
+      por lo que la identidad anterior se convierte en 
+      \begin{equation}
+        \P\left(|B(t)|>z\right)=2\P\left(B(t)>z\right), \quad z\geq 0.  
+      \end{equation}
+          Luego, 
+      \[
+        \P\left(|B(t)|\leq z\right)=1-2\P\left(B(t)>z\right)=-1+2(1-\P\left(B(t)>z\right))=-1+2\P\left(B(t)\leq z\right),
+      \]
+      de forma que, si derivamos la expresión anterior, tenemos que
+      
+      \begin{equation}
+        f_{|B(t)|}(z)=2\frac{1}{\sqrt{2\pi t}}e^{-z^2/2t}, \quad z\geq0,
+      \end{equation}
+      
+      tal y como habíamos predicho.
+      \newline
+
+      Procedemos ahora a mostrar que la función de densidad de $M(t)$ es la mencionada.
+      Sabemos ya que se da la igualdad de eventos $\left\{M(t)\geq z\right\}=\left\{T_z\leq t\right\}$, con $z\geq0$.
+      Además, notamos que 
+      \[
+      \P\left(B(t)>z\right)=\P\left(B(t)>z|T_z\leq t\right)\P\left(T_z\leq t\right)+\P\left(B(t)>z|T_z> t\right)\P\left(T_z> t\right),
+      \]
+      pero $\P\left(B(t)>z|T_z>t\right)$, ya que si el primer tiempo de llegada a $z$ ocurre después de $t$, no puede ser que al tiempo
+      $t$, $B(t)>z$, ya que al ser continuas las trayectorias de $B$, forzosamente por el teorema del valor intermedio, $B(t)=z$ en 
+      algún punto en $[0,t]$.
+      \newline
+
+      Se sigue que 
+      \[
+        \P\left(B(t)>z\right)=\P\left(B(t)>z|T_z\leq t\right)\P\left(T_z\leq t\right).
+      \]
+      Ahora bien, dado que $T_z\leq t$, entonces $B(t)=B(T_z+s)$, donde $s=t-T_z\geq0$, y además $B(T_z)=z$. Luego, 
+      \[
+        \P\left(B(t)>z|T_z\leq t\right)=\P\left(B(T_z+s)-B(T_z)>0|T_z\leq t\right),
+      \]
+      y por la propiedad fuerte de Markov, el proceso $(B(T_z+s)-B(T_z))_{s\geq0}$ es un movimiento browniano que empieza en 0,
+      independiente de $\F_{T_z}$, por lo que
+      \[
+        \P\left(B(t)>z|T_z\leq t\right)=\P\left(B(T_z+s)-B(T_z)>0|T_z\leq t\right)=\P(B(T_z+s)-B(T_z)>0)=\frac{1}{2},
+      \]
+      ya que estamos hablando de una variable aleatoria Gaussiana centrada en 0. Luego,
+      \[
+        \P\left(B(t)>z\right)=\P\left(B(t)>z|T_z\leq t\right)\P\left(T_z\leq t\right)=\frac{1}{2}\P\left(T_z\leq t\right),
+      \]
+      con lo que $2\P\left(B(t)>z\right)=\P\left(T_z\leq t\right)=\P(M(t)\geq z)$. Juntando esto con la ecuación $(1)$, deducimos
+      que las variables $M(t)$ y $|B(t)|$ tienen la misma distribución.
+      \newline
+
+      Finalmente veamos lo que sucede con $M(t)-B(t)$. Por lo visto en clase, sabemos que la densidad de $(B(t),M(t))$ está
+      dada por 
+      \[
+        f_{(B,M)}(x,y)=\sqrt{\frac{2}{\pi}}\frac{2y-x}{t^{3/2}}e^{\frac{-(2y-x)^2}{2t}}, \quad x\leq y, y\geq0.
+      \]
+      Obsérvese entonces que $B(t)=x$ y $M(t)-B(y)=z$ si y sólo si $B(t)=x$ y $M(t)=z+x$, donde $z+x\geq0$ y $x\leq x+z$, es decir,
+      $x\geq -z$ y $z\geq0$. Se sigue entonces que
+      \[
+      f_{B(t),M(t)-B(t)}(x,z)=f_{B(t),M(t)}(x,x+z), \quad z\geq0, \  x\geq -z,  
+      \]
+      de modo que, 
+      
+      \begin{align*}
+        f_{M(t)-B(t)}(z)&=\int_{-z}^{\infty} \sqrt{\frac{2}{\pi}}\frac{2(z+x)-x}{t^{3/2}}e^{\frac{-(2(z+x)-x)^2}{2t}}dx\\
+        &=\sqrt{\frac{2}{\pi}}\frac{1}{t^{3/2}}\int_{-z}^{\infty}(x+2z)e^{\frac{-(x+2z)^2}{2t}}\\
+        &=\sqrt{\frac{2}{\pi}}\frac{1}{t^{3/2}}\left(-t\right)\int_{-z}^{\infty}\frac{-2}{2t}(x+2z)e^{\frac{-(x+2z)^2}{2t}}dx\\
+        &=-\sqrt{\frac{2}{\pi t}}\left(e^{\frac{-(x+2z)^2}{2t}}\Big|_{-z}^{\infty}\right)\\
+        &=-\frac{2}{\sqrt{2\pi t}}\left(0-e^{\frac{-(-z+2z)^2}{2t}}\right)\\
+        &=\frac{2}{\sqrt{2\pi t}}e^{\frac{z^2}{2t}}, \quad z\geq0,\\
+      \end{align*}
+      la cual es justamente la función de la ecuación (2), como buscábamos. Concluimos que los procesos $B, M-B \text{ y } |B|$ tienen 
+      la misma distribución.
+      
+     \end{proof}
+    \item [\textbf{4.}] Formular la ley de grandes números y la ley
+    del logaritmo iterado para el movimiento browniano cerca del cero.\\
+
+    Comenzamos con la ley fuerte de grandes números para el movimiento browniano.\\
+    \begin{teo}(\textbf{Ley fuerte de grandes números para el M. Browniano:})
+      Sea $(B(t))_{t\geq0}$ un movimiento browniano. Entonces 
+      \[
+      \lim_{t\to \infty}\frac{B(t)}{t}=0 \quad \P\text{-c.s.}  
+      \]
+    \end{teo}
+    \begin{proof} 
+       Utilizaremos  el lema de Borel-Cantelli. Sea $\varepsilon>0$. Definimos, para cada $n\geq0$, 
+       $$A_n:=\left\{\omega \in \Omega: \sup_{2^n\leq t \leq 2^{n+1}}\left|\frac{B(t)(\omega)}{t}\right|\geq\varepsilon\right\}.$$
+       Por la desigualdad de Chebyshov, y acotando dentro del supremo, 
+       \[
+        \P\left(A_n\right)=\P\left(\sup_{2^{n}\leq t \leq 2^{n+1}}\left|\frac{B(t)}{t}\right|\geq\varepsilon\right)\leq \frac{\E\left[\left(\sup_{2^{n}\leq t \leq 2^{n+1}}\left|\frac{B(t)}{t}\right|\right)^2\right]}{\varepsilon^2}
+        \leq\frac{\E\left[\sup_{2^{n}\leq t \leq 2^{n+1}}B(t)^2\right]}{(2^n)^2\varepsilon^2},
+        \]
+        y ahora, dado que $B$ es una martingala, y la función $z^2$ es una función convexa, entonces 
+        $B^2$ es una submartingala, por lo que por la desigualdad maximal de Doob, con $p=2$, se tiene que
+        \[
+          \frac{\E\left[\sup_{2^{n}\leq t \leq 2^{n+1}}B(t)^2\right]}{(2^n)^2\varepsilon^2}\leq \left(\frac{2}{2-1}\right)^2\frac{\E\left[B(2^{n+1})^2\right]}{2^{2n}\varepsilon^2}=\frac{4(2^{n+1})}{2^{2n}\varepsilon^2}=\frac{8}{2^{n}\varepsilon^2}.
+        \]
+        Se sigue que 
+        \[
+        \sum_{n=1}^{\infty}\P\left(A_n\right)\leq \sum_{n=1}^{\infty} \frac{8}{2^n\varepsilon^2}<\infty.
+        \]
+        por lo que, por el Lema de Borel-Cantelli, se tiene que 
+        \[
+        P\left(\limsup_{n\to \infty}A_n\right)=0,  
+        \]
+        es decir, 
+        \[
+        \P\left(\liminf_{t\to \infty}A_n^c\right)=1,  
+        \]
+        esto es, la probabilidad de que $\left|\frac{B(t)}{t}\right|$ en el intervalo $[2^{n},2^{n+1}]$
+        sea más grande que $\varepsilon>0$, ocurre solamente una cantidad finita de veces con probabilidad 1. El argumento anterior
+        es para cualquier $\varepsilon>0$, por lo que concluimos que
+        \[
+        \lim_{n\to \infty}\frac{B(t)}{t}=0 \quad \P\text{-c.s.}  
+        \]
+
+        Para formular el equivalente en las cercanías del cero, utilizamos que $X(t)=tB(\frac{1}{t})$
+        es un movimiento browniano también. Nótese entonces que
+        
+        \[
+        0=\lim_{t\to \infty}\frac{B(t)}{t}=\lim_{z\to 0}zB\left(\frac{1}{z}\right).
+        \]
+        En particular, gracias a la propiedad de reversibilidad en el tiempo, las propiedades 
+        con respecto comportamiento del browniano en $\infty$, se traduce en una propiedad
+        del movimiento browniano cerca del 0. 
+     \end{proof}
+     \begin{teo}(\textbf{Ley del Logaritmo Iterado para el M. Browniano:})
+      Sea $(B(t))_{t\geq0}$ un movimiento browniano. Entonces 
+      \[
+      \limsup_{t\to 0}\frac{B(t)}{\sqrt{2t\log(\log(1/t))}}=1, \quad  \liminf_{t\to 0}\frac{B(t)}{\sqrt{2t\log(\log(1/t))}}=-1
+      \]
+    \end{teo}
+    \begin{proof} 
+      Gracias a que el movimiento browniano es simétrico, basta hacer la prueba para el primer
+      enunciado, puesto que suponiendo que este es cierto,
+      \[
+        -1=-\limsup_{t\to 0}\frac{B(t)}{\sqrt{2t\log(\log(1/t))}}=\liminf_{t\to 0}\frac{-B(t)}{\sqrt{2t\log(\log(1/t))}}=\liminf_{t\to 0}\frac{B(t)}{\sqrt{2t\log(\log(1/t))}}
+      \]
+      Probamos entonces el primer enunciado. Denotemos $\phi(t):=\sqrt{2t\log(\log(1/t))}$. Para ello, probaremos que para cualesquiera $\delta>0$ y $\varepsilon>0$,
+      \[
+        \limsup_{t\to 0}\frac{B(t)}{\phi(t)}<1+\delta \quad \text{ y } \limsup_{t\to 0}\frac{B(t)}{\phi(t)}>1-\varepsilon.
+      \]
+      Obsérvese que la arbitrariedad de $\varepsilon$ y de $\delta$ implican la igualdad. Procedemos con la primera
+      desigualdad. La idea es estudiar a $B_t$ a lo largo de una sucesión $(t_n)_{n\geq0}$ tal que $t_n\xrightarrow[n\to \infty]{}0$.
+      Sea $0<\xi<1$, y denotemos $t_n=\xi^n$. Sea $\delta>0$. Consideremos los eventos
+      \[
+        A_n:=\left\{\omega \in \Omega: \exists t\in [t_{n+1},t_n] \text{ tal que } B(t)\geq (1+\delta)\phi(t_{n+1})\right\}
+      \]
+      Para ello, notemos que, denotando $C_n:=\left\{\sup_{t\leq t_n B(t)\geq (1+\delta)\phi(t_{n+1})}\right\}$, se tiene que
+      $A_n\subseteq C_n$, ya que claramente el supremo sobre todo $[0,t_n]$ de $B(t)$ es mayor al valor de $B(t)$ sobre $[t_{n+1},t_n]$. Y además, 
+      se tiene que la función $\phi(t)=\sqrt{2t\log(\log(1/t))}$ es decreciente para $t$ suficientemente pequeño, lo cual se cumple 
+      gracias a que $t^n\to 0$ cuando $n\to \infty$.
+      \newline
+      
+      Así, la contención anterior está justificada, y por lo tanto, $\P\left(A_n\right)\leq \P\left(C_n\right)$. Sin embargo, el evento
+      $C_n$ habla de la cola del máximo del browniano en $[0,t_n]$, así que por el ejercicio 3, y particularmente por lo 
+      visto en la ecuación (2), se tiene que
+      \[
+      \P(A_n)\leq\P(C_n)=2\P\left(\left\{B(t_n)\geq (1+\delta)\phi(t_{n+1})\right\}\right).
+      \]
+      Ahora bien, observando la densidad de una variable normal $Y$ de media 0 y varianza $\sigma^2$, tenemos que para $\lambda>0$,
+      \[
+      \P\left(|Y|\geq\lambda\right)=2\int_{\lambda}^{\infty}\frac{1}{\sqrt{2\pi \sigma^{2}}}e^{-\frac{x^2}{2\sigma^2}}\leq\frac{2}{\sqrt{2\pi}}\frac{\sigma}{\lambda}e^{-\frac{\lambda^2}{2\sigma^2 }},
+      \]
+      por lo que utilizando esta cota en la ecuación que teníamos, se sigue que
+      \[
+        \P(A_n)\leq2\P\left(\left\{B(t_n)\geq (1+\delta)\phi(t_{n+1})\right\}\right)\leq \frac{1}{\sqrt{2\pi}}\frac{\sqrt{t_n}}{(1+\delta)\phi(t_{n+1})}e^{-\frac{(1+\delta)^2\phi^2(t_{n+1})}{2t_n}}.
+      \]
+      Definimos $\gamma:=(1+\delta)^2\xi$. Obsérvese ahora que
+      \begin{align*}
+        \frac{1}{\sqrt{2\pi}}\frac{\sqrt{t_n}}{(1+\delta)\phi(t_{n+1})}e^{-\frac{(1+\delta)^2\phi^2(t_{n+1})}{2t_n}}&=\frac{1}{\sqrt{2\pi}}\frac{\sqrt{t_n}}{(1+\delta)\phi(t_{n+1})}e^{-\frac{(1+\delta)^2\phi^2(t_{n+1})}{2t_n}}\\
+        &=\frac{1}{\sqrt{2\pi}}\frac{\sqrt{t_n}}{(1+\delta)\sqrt{2t_n\log(\log(1/t_n))}}e^{-\frac{(1+\delta)^22t_{n+1}\log(\log(1/t_{n+1}))}{2t_n}}\\
+        &=\frac{1}{\sqrt{2\pi}}\frac{1}{(1+\delta)\sqrt{2\xi^n\log(\log(1/\xi^n))}}e^{-\frac{(1+\delta)^2\xi^{n+1}\log(\log(1/\xi^{n+1}))}{\xi^n}}\\
+        &=\frac{C'}{\sqrt{\xi^n\log(n\log(1/\xi))}}e^{-(1+\delta)^2\xi\log((n+1)\log(1/\xi))}\\
+        &=\frac{C'}{\sqrt{\xi^n\log(n\log(1/\xi))}}(n+1)^{-\gamma}(\log(1/\xi))^{-\gamma}\\
+        &=\frac{C}{(n+1)^{\gamma}\sqrt{\log(n+1)}},\\
+      \end{align*}
+      donde $C'$ y $C$ son constantes que dependen de $\delta$ y $\xi$. Recordemos ahora que $\xi \in (0,1)$ en general.
+      Pero ahora podemos elegir $\xi>\frac{1}{(1+\delta)^2}$, de tal forma que $\gamma>1$, y
+      con ello, $\P(A_n)\leq \frac{C}{(n+1)^{\gamma}\sqrt{\log(n+1)}}$, la cual es una serie
+      convergente. Por lo tanto, por el Lema de Borel-Cantelli, $A_n$ sucede solamente una cantidad
+      finita de veces con probabilidad 1. Esto es, solo para una cantidad finita de naturales $n\geq1$,
+      \[
+        \frac{B(t)}{\sqrt{2t_n\log(\log(1/t_{n}))}}\geq 1+\delta,
+      \]
+      con probabilidad 1. Por lo tanto, la desigualdad contraria ocurre siempre, salvo una cantidad
+      finita de veces, para $\delta>0$ arbitrario. Por lo tanto,
+      \[
+        \limsup_{t\to 0}\frac{B(t)}{\phi(t)}<1+\delta.
+      \]
+      Para la desigualdad restante, tomamos $\varepsilon>0$. Tal como en el inciso anterior,
+      elegimos $\delta>0$, y $\xi \in (0,1)$, y denotamos $t_n=\xi^n$. Definimos $X(n):=B(t_n)-B(t_{n+1})$.
+      Entonces las variables $X(n)$ son independientes entre sí y su varianza es $\text{Var}\left(X(n)\right)=t_n-t_{n+1}=\xi^n(1-\xi)$.
+      \newline
+
+      Aseguramos que $\P\left(X(n)\geq(1-\delta)\phi(t_n) i.o.\right)=1$.\\
+      
+      Obsérvese que, utilizando la desigualdad análoga de la cola de una variable normal de antes,
+
+      \[
+      \P\left(\left\{X(n)\geq(1-\delta)\phi(t_n)\right\}\right)\geq \frac{\sqrt{t_n-t_{n+1}}}{\sqrt{2\pi}\phi(t_n)}e^{-\frac{(1-\delta)^2\phi^2(t_{n})}{2(t_n-t_{n+1})}}.
+      \]
+      Definimos $\gamma:=\frac{(1-\delta)^2}{1-\xi}$. Realizando cuentas similares a las hechas antes, se 
+      puede deducir que
+      \[
+        \frac{\sqrt{t_n-t_{n+1}}}{\sqrt{2\pi}\phi(t_n)}e^{-\frac{(1-\delta)^2\phi^2(t_{n})}{2(t_n-t_{n+1})}}\geq \frac{C}{n^{\gamma}\sqrt{\log(n)}},
+      \]
+      donde $C$ es una constante adecuada. Luego, dado que $\xi \in (0,1)$ fue arbitraria, podemos elegirla de tal forma 
+      que $\gamma<1$, de tal forma que la serie de las probabilidades
+
+      \[
+        \P\left(\left\{X(n)\geq(1-\delta)\phi(t_n)\right\}\right)
+      \]
+      forma una serie divergente. Gracias a la independencia de las variables $X(n)$ entre sí,
+      por el Lema de Borel-Cantelli para eventos independientes, se tiene lo buscado.
+      \newline
+
+      Por otro lado, dado que tenemos que
+      \[
+        \limsup_{t\to 0}\frac{B(t)}{\phi(t)}<1+\delta,
+      \]
+      utilizando la simetría del movimiento browniano, se tiene que
+
+      \[
+        \liminf_{t\to 0}\frac{B(t)}{\phi(t)}>-(1+\delta),  
+      \]
+      de manera que, como $t_n=\xi^n\to0$, para una $n$ suficientemente
+      grande,
+
+      \[
+      B(t_n)=X(n)+B(t_{n+1})>X_n-(1+\delta)\phi(t_{n+1}).  
+      \]
+      Pero como $\P\left(X(n)\geq(1-\delta)\phi(t_n) i.o.\right)=1$, existe una
+      sucesión de $n$, digamos $n_k$, tal que $n_k\to \infty$ para la cual
+
+      \[
+        X_n-(1+\delta)\phi(t_{n+1})>(1- \delta)\phi(t_n)-(1-\delta)\phi(t_{n+1}).
+      \]
+      Por último, nótese que
+      \[
+      \frac{\phi(t_{n+1})}{\phi(t_n)}=\frac{\sqrt{2t_n\log(\log(1/t_n))}}{\sqrt{2t_{n+1}\log(\log(1/t_{n+1}))}}=\frac{\sqrt{\log(n\log(1/\xi))}}{\sqrt{\xi\log((n+1)\log(1/\xi))}}
+      \leq \sqrt{2\xi},
+      \]
+      para $n$ suficientemente grande. De tal forma que, para tal $n\geq1$,
+      \[
+      B(t_n)\geq(1-\delta-2\sqrt{2\xi}(1+\delta))\phi(t_n).  
+      \]
+      Se pueden elegir $\delta$ y $\xi$ suficientemente pequeños para que se siga conservando
+      el que $\gamma<1$, necesario para la primera parte de este segundo inciso, y 
+      de tal forma que
+      \[
+      \delta+\sqrt{2\xi}(1+\delta)<\varepsilon.  
+      \]
+      De hecho, para ser exactos, ambas condiciones se satisfacen eligiendo $\delta<\varepsilon/2$ y $\xi<\varepsilon^2/32$.
+      Luego, existe una sucesión de naturales $n\to \infty$ tales que
+      \[
+      B(t_n)\geq(1-\varepsilon)\phi(t_n), 
+      \]
+      de donde se sigue que hay una sucesión de naturales $n\to \infty$ tales que
+      \[
+        \frac{B(t_n)}{\phi(t_n)}\geq 1-\varepsilon,
+      \]
+      y por lo tanto se tiene la desigualdad de límite superior, con lo que
+      concluimos ambas desigualdades y por lo tanto la igualdad.
+
+  
+     \end{proof}
+    \item [\textbf{5.}] Sea $\left\{\Pi\right\}_{n=1}^{\infty}$ una
+    sucesión de particiones del intervalo $[0,t]$ tales que 
+    \[
+    \lim_{n\to \infty} \|\Pi_{n}^{}\|=0.
+    \]
+    Entonces las variaciones cuadráticas 
+    \[
+    V_t^{(2)}\left(\Pi_{n}^{}\right)\overset{\Delta}{=}\sum_{k=1}^{m_n}|W_{t_k^{(n)}}-W_{t_{k-1}^{(n)}}|^2    
+    \]
+    del movimiento browniano $W$ sobre tales particiones convergen hacia $t$ en $L^2$ conforme
+    $n\to \infty$. Más aún, si las particiones se vuelven suficientemente finas de tal 
+    forma que $\sum_{n=1}^{\infty}\|\Pi_{n}^{}\|<\infty$, entonces la convergencia
+    anterior ocurre con probabilidad 1.
+    \begin{proof} 
+      El caso en el que las particiones son tales que $\sum_{k=1}^{\infty}\|\Pi_n\|<\infty$, la prueba se vio en clase, por lo que
+      solo hay que ver el caso de la convergencia en $L^2$.
+       Si $\Pi=\{t_0,...,t_m\}$ es una partición del intervalo $[0,t]$, entonces 
+       \[
+       V_t^{(2)}(\Pi)-t=\sum_{k=1}^{m}\left(\left(W_{t_k}-W_{t_{k-1}}\right)^2-(t_k-t_{k-1})\right) 
+       \]
+       se puede ver como una suma de variables aleatorias independientes centradas. En consecuencia, 
+       \[
+       \E\left[(V_{t}^{(2)}(\Pi)-t)^2\right]=\sum_{k=1}^{m}(t_k-t_{k-1})^2\E\left[\left(\frac{(W_{t_k}-W_{t_{k-1}})^2}{t_k-t_{k-1}}-1\right)^2\right]\leq \sum_{k=1}^m(t_k-t_{k-1})\|\Pi\| \E\left[(Z^2-1)^2\right]\leq K\|\Pi\|t, 
+       \]
+       donde $Z$ es una variable aleatoria normal estándar (todas las variables de la expresión
+       anterior están siendo normalizadas por su varianza), y $K=\E\left[(Z^2-1)^2\right]$. Pero esta última expresión tiende a cero conforme
+       el tamaño de la partición tiende a cero, así que 
+       
+       \[
+        V_t^{(2)}(\Pi)\xrightarrow[n\to \infty]{L^2} t.
+       \]
+     \end{proof}
+\end{enumerate}
+\end{document}

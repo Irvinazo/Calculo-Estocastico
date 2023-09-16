@@ -1,0 +1,371 @@
+\documentclass[letterpaper]{article} 
+\usepackage[left = 0.5in, right = 0.5in, top = 0.9in, bottom = 0.9in]{geometry}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{tikz-cd}
+\usepackage{mathrsfs}
+\usepackage[bbgreekl]{mathbbol}
+\usepackage{dsfont}
+
+\newcommand{\op}{\operatorname}
+\newcommand{\Op}{^{\op{op}}}
+\newcommand{\scc}{\mathscr C}
+\newcommand{\scd}{\mathscr D}
+\newcommand{\sce}{\mathscr E}
+\newcommand{\sci}{\mathscr I}
+\newcommand{\scj}{\mathscr J}
+\newcommand{\scx}{\mathscr X}
+\newcommand{\var}{\mathrm{Var}}
+\newcommand{\Id}{\operatorname{Id}}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\inv}{^{-1}}
+\renewcommand{\to}{\rightarrow}
+\newcommand{\ent}{\Longrightarrow}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\1}{\mathds{1}}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\theoremstyle{definition}
+\newtheorem{dfn}{Definición}
+\theoremstyle{definition}
+\newtheorem{teo}{Teorema}
+\theoremstyle{definition}
+\newtheorem{cor}{Corolario}
+\theoremstyle{definition}
+\newtheorem{prop}{Proposición}
+\theoremstyle{definition}
+\newtheorem{obs}{Observación}
+
+
+\title{\textbf{Tarea 1\\ Cálculo Estocástico}}
+\author{Iván Irving Rosas Domínguez}
+\date{\today}
+
+\DeclareSymbolFontAlphabet{\mathbbm}{bbold}
+\DeclareSymbolFontAlphabet{\mathbb}{AMSb}
+\DeclareMathSymbol\bbDelta  \mathord{bbold}{"01}
+
+\begin{document}
+\maketitle
+
+%\begin{abstract}
+%\end{abstract}
+
+\begin{enumerate} 
+    \item Sean \(S\) y \(T\) dos tiempos de paro y \(Z\) una variable aleatoria
+    integrable. Demostrar que
+    \[
+        \E\left(\E(Z|\F_T)|\F_S\right)=\E(Z|\F_{T\wedge S}) \quad \text{c.s.}
+        \]
+    \begin{proof}
+            Comenzamos con el siguiente par de afirmaciones (demostradas en curso previo): para dos tiempos de paro $S$ y $T$,
+            \begin{enumerate}
+                \item [1)] $\forall A\in \F_T,\ A\cap\{T\leq S\}\in \F_S$,
+                \item [2)]$\F_{S\wedge T}=\F_S\cap\F_T$.
+            \end{enumerate}
+            
+            Afirmamos ahora que $\{T\leq S\}$ y $\{S\leq T\}$ son conjuntos que pertenecen a $\F_{S}\cap \F_T$, la cual es $\sigma$-álgebra . 
+            Obsérvese que de la primera igualdad se deduce que $\{T\leq S\}\in \F_S$ y por lo tanto $\{T>S\}\in \F_S$. 
+            Esto es debido a que, si tomamos $A=\Omega$ en la afirmación 1, entonces en efecto $\{T\leq S\}\in \F_S$ y podemos tomar complemento.
+            Si además en la afirmación 1 cambiamos los roles de $S$ y $T$, podemos concluir que
+            para cualquier $A\in \F_S$, $A\cap\{S\leq T\}\in \F_T$.
+            Utilizando esta última afirmación, al ser $\{T>S\}$ un elemento de $\F_S$ deducimos que $\{T>S\}\cap\{S\leq T\}=\{T>S\}\in \F_T$ y 
+            por lo tanto $\{T\leq S\}\in \F_T$. Concluimos que $\{T\leq S\}\in \F_S\cap\F_T$ y por lo tanto su complemento también. De manera análoga
+            se prueba que $\{S\leq T\} \in \F_T\cap\F_S$, y su complemento también.
+            Con base en estas afirmaciones, procedemos con la igualdad. \\
+            
+            Primero, demostramos que la variable $\E\left(\E \left(Z|\F_T\right)|\F_S\right)$
+            es $\F_{S\wedge T}$-medible. En vista de la igualdad de $\sigma$-álgebras de la segunda afirmación, basta con ver que es $\F_S\cap \F_T$-medible.
+            Por definición de esperanza condicional se sabe que $\E\left(\E \left(Z|\F_T\right)|\F_S\right)$ es 
+            $\F_S$-medible. Veamos que también es $\F_T$-medible. Descomponemos primero la esperanza condicional:
+        
+        
+            \[
+                \E\left[\E\left[Z|\F_T\right]|\F_S\right]=\1_{\{S\leq T\}}\E\left[\E\left[Z|\F_T\right]|\F_S\right]+\1_{\{S>T\}}\E\left[\E\left[Z|\F_T\right]|\F_S\right].
+            \]
+            Ahora bien, aseguramos que si $X$ es una variable aleatoria, entonces para $B\in \B(\R)$,
+            \begin{enumerate}
+                \item $(\1_A X)^{-1}[B]=A\cap X^{-1}[B]$ \quad si $0\not \in B$
+                \item $(\1_A X)^{-1}[B]=(A\cap X^{-1}[B])\cup A^c$ \quad si $0\in B$.
+            \end{enumerate}  
+            Para el primer inciso, notamos que si $\omega\in (\1_A X)^{-1}[B]$, entonces $\1_A(\omega)X(\omega)\in B$, por lo que si $\omega \in A$, tenemos que
+            $\1_A(\omega)=1$ y así, $X(\omega)=\1_A(\omega)X(\omega)\in B$, es decir, $\omega\in A\cap X^{-1}[B]$. Por otro lado, si $\omega \not \in A$,
+            entonces $\1_A(\omega)=0$ y en consecuencia $0=1_A(\omega)X(\omega)\in B$, lo cual no puede suceder ya que $0\not \in B$.
+            \newline
+
+            Para la contención contraria, si tenemos que $\omega \in A\cap X^{-1}[B]$, entonces $\1_A(\omega)=1$ y $X(\omega)\in B$, así que
+            $\1_(\omega)X(\omega)=X(\omega)\in B$ y por lo tanto $\omega \in(\1_AX)^{-1}[B]$.\\
+
+            En el segundo caso, para la primera contención tomamos $\omega \in (\1_A X)^{-1}[B]$, luego, si $\omega \in A$, como 
+            en el primer caso, $\omega \in A\cap X^{-1}[B]$, mientras que si $\omega \not \in A$, entonces $\omega \in A^c$ y acabamos.\\
+            
+            Para la contención contraria, si $\omega \in (A\cap X^{-1}[B])\cup A^c$, y además $\omega \in A\cap X^{-1}[B]$, como en el primer caso se
+            deduce que $\omega\in (\1_A X)^{-1}[B]$. Sin embargo, si ahora $\omega \in A^c$, entonces $\1_A(\omega)=0$ y con ello $\1_A(\omega)X(\omega)=0\in B$,
+            por lo que $\omega \in (1_AX)^{-1}[B]$ y concluimos.\\
+        
+        Probado lo anterior, notamos que haciendo $X=\E\left[\E\left[Z|\F_T\right]|\F_S\right]$ y $A=\{S\leq T\}$, se tiene, en el caso en que $0\not \in B$,
+        \[
+            \left[\1_{\{T\leq S\}}\E\left[\E\left[Z|\F_T\right]|\F_S\right]\right]^{-1}[B]=A\cap X^{-1}[B]=\{S\leq T\}\cap X^{-1}[B],
+        \]
+        y como $X^{-1}[B]\in \F_S$, por la afirmación 1 cambiando los roles de $S$ y $T$, se tiene que
+        
+        \[
+            \left[\1_{\{T\leq S\}}\E\left[\E\left[Z|\F_T\right]|\F_S\right]\right]^{-1}[B]=\{S\leq T\}\cap X^{-1}[B]\in \F_T.
+        \]
+        Por otro lado, en el caso en el que $0\in B$, entonces nuevamente
+        \[
+            \left[\1_{\{T\leq S\}}\E\left[\E\left[Z|\F_T\right]|\F_S\right]\right]^{-1}[B]=(\{S\leq T\}\cap X^{-1}[B])\cup \{S>T\},    
+        \]
+        y como se vio antes, $\{S\leq T\}\cap X^{-1}[B]\in \F_T$, y dado que probamos que $\{S>T\}\in \F_T$, tenemos que la unión está en $\F_T$.
+        Por lo tanto, $\left[\1_{\{T\leq S\}}\E\left[\E\left[Z|\F_T\right]|\F_S\right]\right]^{-1}[B]\in \F_T$ y se concluye que esta parte
+        es $\F_T-$medible.\\
+        
+       % Notemos ahora para la otra parte que para $B\in \B(\R)$ tal que $0\not\in B$, y haciendo nuevamente $X=\E\left[\E\left[Z|\F_T\right]|\F_S\right]$,
+        %\[
+       %     (\1_{\{S>T\}}\E\left[\E\left[Z|\F_T\right]|\F_S\right])^{-1}[B]=\{S>T\}\cap X^{-1}[B]=\{S\leq T\}.
+       % \]
+       % Observamos que al ser $X$ $\F_S$-medible, entonces $(X^{-1}[B])^c\in \F_S$, por lo que usando la afirmación 1,
+       % $\{S\leq T\}\cap (X^{-1}[B])^c\in \F_T$. Luego, se deduce que
+       % \[
+       %     (\1_{\{S>T\}}\E\left[\E\left[Z|\F_T\right]|\F_S\right])^{-1}[B]=\{S>T\}\cap X^{-1}[B]\in \F_T,
+       % \]
+        %como queríamos.
+       % De manera análoga, y gracias a que $\{S\leq T\} \in \F_T$, se prueba en el caso en que $0\in B$, 
+       % \[
+       %     (\1_{\{S>T\}}\E\left[\E\left[Z|\F_T\right]|\F_S\right])^{-1}[B]=(\{S>T\}\cap X^{-1}[B]\cup)\{S\leq T\}\in \F_T.
+       % \]
+       De manera similar se prueba que la otra parte: $\1_{\{S>T\}}\E\left[\E\left[Z|\F_T\right]|\F_S\right]$ también es $\F_T-$medible.
+        Concluimos que toda $\E\left[\E\left[Z|\F_T\right]|\F_S\right]$ también es $\F_T$-medible y
+        por lo tanto, para $B\in \B(\R)$ arbitrario,
+            \[
+                \left[\E\left(\E \left(Z|\F_T\right)|\F_S\right)\right]^{-1}[B]\in \F_S\cap\F_T,
+            \]
+            lo cual es la definición de que dicha esperanza condicional sea $\F_S\cap\F_T$-medible. Resta entonces
+            ver que para cualquier $A\in \F_S\cap\F_T$, la integral sobre dicho conjunto de las variables coincide. 
+            Nótese que
+            \[
+            \int_{A}\E\left(\E \left(Z|\F_T\right)|\F_S\right)d\P=\int_{A}\E \left(Z|\F_T\right)d\P,
+            \]
+            ya que $A$ en particular es $\F_S$-medible, por lo que utilizamos la definición esperanza
+            condicional. Pero como $A$ también es $\F_T$-medible, 
+            \[
+                \int_{A}\E \left(Z|\F_T\right)d\P=\int_{A}Zd\P,
+            \]
+            pues podemos utilizar nuevamente la definición de esperanza condicional. Y utilizando
+            una vez más la definición, la igualdad anterior y el hecho de que $A\in \F_S\cap\F_T=\F_{S\wedge T}$,
+            \[
+                \int_{A}\E\left(\E \left(Z|\F_T\right)|\F_S\right)d\P=\int_AZd\P=\int_A\E(Z|\F_S\cap\F_T)d\P=\int_A\E(Z|\F_{S\wedge T})d\P,    
+            \]
+            que es la igualdad que buscábamos.
+    \end{proof}
+    
+    \item Sea $\{X_t,\F_t : 0\leq t <\infty\}$ una supermartingala no negativa
+    y continua a la derecha. Demostrar que existe el límite
+     \[
+     X_\infty=\lim_{t\to\infty}X_t \quad \text{c.s.} 
+     \]
+    y que $\{X_t,\F_t:0\leq t \leq \infty\}$ es supermartingala.
+    \begin{proof}
+        Consideremos a la supermartingala $X=\{X_t:t\geq0\}$. Obsérvese que $-X$ es una submartingala
+        que también es continua a la derecha. Además, dado que para cualquier $t\geq0$, $X_t\geq0$, entonces
+        \[
+        \sup_{n\geq0} \E \left(\left(-X_t\right)^+\right)=\sup_{n\geq0}\E \left(0\right)=0<\infty,    
+        \]
+        
+        por lo que por el teorema de convergencia de Doob, se tiene que existe una variable $X_\infty$,
+        integrable y tal que $X_t \xrightarrow[n\to \infty]{} X_\infty$ casi seguramente.\\
+
+        Resta ver que todo el proceso $\{X_t,\F_t:0\leq t \leq \infty\}$ es una supermartingala. Para ello,
+        definimos primero la $\sigma$-álgebra $\F_\infty$ como $\F_\infty=\sigma \left(\bigcup_{t\geq0}\F_t\right)$.
+        Por definición, $\F_\infty$ es una $\sigma$-álgebra. También por definición, $\forall t\geq0$, $\F_t\subseteq\F_\infty$.
+        Así, $(\F_t)_{t=0}^\infty$ es una filtración. Además, se tiene que $X_\infty$ es una variable
+        $\F_\infty$-medible, ya que al ser $X_\infty$ una variable definida a través de un límite, entonces
+        los conjuntos $\{X_\infty\leq x\}$ estarán en la $\sigma-$álgebra cola $\bigcap_{t\geq0}\F_t$, la cual claramente estará
+        contenida en $\F_\infty$.\\
+
+        Asimismo, para cualquier $t\geq0$, se tiene que $X_t$ es $\F_\infty$-medible, ya que en particular
+        $\F_t\subseteq\F_\infty$. Por lo tanto, el proceso $(X_t)_{t=0}^{\infty}$ es adaptado a la filtración
+        $(\F_t)_{t=0}^{\infty}$. Por otro lado, todas las variables aleatorias $X_t$ , con $0\leq t\leq\infty$
+        son integrables, por lo que resta ver la propiedad de supermartingala.\\
+
+        Sea $0\leq s$. Dado que $(X_t)_{t\geq0}$ es una supermartingala no negativa, utilizando el teorema de Fatou
+        para esperanzas condicionales, 
+        \[
+        \E(X_\infty|\F_s)=\E \left(\liminf_{t\to \infty, \ t\geq s}X_t|\F_s\right)\leq \liminf_{t\to \infty, \ t\geq s}\E(X_t|\F_s)
+        \leq \liminf_{t\to \infty, \ t\geq s}X_s=X_s,
+        \]
+        de tal forma que $\E(X_\infty|\F_s)\leq X_s$. Con ello, se concluye que $(X_t,\F_t)_{t=0}^{\infty}$
+        es una supermartingala.
+    \end{proof}
+
+    \item Demostrar que si $\{X_t:t\geq0\}$ es submartingala con esperanza
+    constante, es decir, $\E(X_t)=\E(X_0)$ para toda $t\geq0$, entonces
+    $X_t$ es martingala.
+
+    \begin{proof}
+        Demostraremos esto por definición de esperanza condicional. Sean $0\leq s<t$. Buscamos ver que $X_s=\E \left(X_t|\F_s\right)$
+        Claramente $X_s$ es $\F_s$-medible, pues por definición el proceso $(X_r)_{r\geq 0}$ es adaptado a la filtración $(\F_r)_{r\geq0}$.
+        Resta ver que $X_s$ y $\E(X_t|\F_s)$ tienen la misma integral sobre conjuntos de $\F_s$. Sea pues $A^{c}\in \F_s$ y nótese que 
+        \[
+            \int_{A^c} X_s d\P= \int_{A^c} X_sd\P +\left(\int_AX_s d\P-\int_AX_sd\P\right)=\int_\Omega X_sd\P-\int_A X_s d\P,
+        \]
+        pero recordamos aquí que la submartingala tiene esperanza constante $\E(X_0)$, por lo que
+        \[
+            \int_{A^c} X_s d\P=\int_\Omega X_sd\P-\int_A X_s d\P=\E(X_0)-\int_A X_s d\P.
+        \]
+        Mediante un procedimiento análogo, tenemos que
+        \[
+        \int_{A^c}\E(X_t|\F_s)d\P=\int_\Omega\E(X_t|\F_s)d\P-\int_A \E(X_t|\F_s)d\P.  
+        \] 
+        Usando ahora propiedad de torre y el hecho de que la martingala tiene esperanzas constantes, tenemos que
+        \[
+            \int_\Omega\E(X_t|\F_s)d\P-\int_A \E(X_t|\F_s)d\P=\E(X_t)-\int_A \E(X_t|\F_s)d\P=\E(X_0)-\int_A \E(X_t|\F_s)d\P.
+        \]
+        Finalmente, utilizando la propiedad de submartingala y las dos igualdades que encontramos antes,
+        \[
+            \E(X_0)-\int_A X_s d\P=\int_{A^c} X_s d\P\leq\int_{A^c}\E(X_t|\F_s)d\P=\E(X_0)-\int_A \E(X_t|\F_s)d\P,
+        \]
+        es decir,
+        \[
+            \E(X_0)-\int_A X_s d\P\leq\E(X_0)-\int_A \E(X_t|\F_s)d\P,
+        \]
+        de donde se deduce que 
+        \[
+            \int_A \E(X_t|\F_s)d\P\leq\int_A X_s d\P,
+        \]
+        o mejor dicho, 
+        \[
+        0\leq \int_A X_s-\E(X_t|\F_s)d\P.    
+        \]
+        Pero esto ocurre para cualquier conjunto $A\in \F_s$, y dado que ambas variables de las integrales son
+        $\F_s$-medibles, se tiene que la resta es $\F_s$-medible y por lo tanto, al ser la integral positiva,
+        la resta debe ser una variable aleatoria positiva. Hemos probado así que para cualesquiera $0\leq s<t$,
+        \[
+            \E(X_t|\F_s)\leq X_s,
+        \]
+        lo cuál nos dice que el proceso $(X_r)_{r\geq0}$ es una supermartingala. Pero también es una submartingala
+        por hipótesis, por lo que concluimos que el proceso es martingala. 
+    \end{proof}
+    \item Sea $\{B(t):t\geq0\}$ un movimiento Browniano y $0\leq s<t$.
+    Demostrar que la distribución condicional de $B(s)$, dado que $B(t)=b$, es
+    Normal, y calcular su media y su varianza.
+    \begin{proof} 
+     Primero calculamos la función de densidad conjunta del vector aleatorio $(B(s),B(t))$, el cual sabemos que tiene distribución normal multivariada:
+     \[
+     f_{\left(B(s),B(t)\right)}(x,y)=\frac{1}{(2\pi)^{2/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}(x,y)\Sigma^{-1}\begin{pmatrix}
+        x\\
+        y\\
+     \end{pmatrix}\right\}   
+     \] 
+     Notamos que la matriz de covarianza del vector $(B(s),B(t))$es 
+     \[\Sigma=
+     \begin{pmatrix}
+        s & s\\
+        s & t\\
+     \end{pmatrix},   
+     \]
+     pues las entradas de la diagonal de dicha matriz contienen a las varianzas de $B(s)$ y $B(t)$, las cuales son $s$ y $t$ respectivamente,
+     mientras que las demás entradas están dadas por la covarianza de $B(s)$ y $B(t)$
+     la cual es igual a $s\wedge t=s$, ya que de entrada estamos suponiendo $s<t$, y $B$ es un movimiento Browniano. Calculando la
+     matriz inversa, obtenemos que
+     \[
+        \Sigma^{-1}=\frac{1}{s(t-s)}
+     \begin{pmatrix}
+        t & -s\\
+        -s & s
+     \end{pmatrix},   
+     \]
+     por lo que concluimos que $|\Sigma|^{-1/2}=\sqrt{s(t-s)}$ y además,
+     \[
+        \begin{pmatrix}
+            x & y
+        \end{pmatrix}
+        \Sigma^{-1}
+        \begin{pmatrix}
+            x\\
+            y\\
+        \end{pmatrix}
+        =\frac{1}{s(t-s)}
+        \begin{pmatrix}
+            x & y
+        \end{pmatrix}
+        \begin{pmatrix}
+            tx-sy\\
+            -sx+sy\\
+        \end{pmatrix}
+        =\frac{1}{s(t-s)}-(tx^2-2sxy+sy^2),
+     \]
+     de tal forma que
+     \[
+        f_{\left(B(s),B(t)\right)}(x,y)=\frac{1}{(2\pi)^{2/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}(x,y)\Sigma^{-1}\begin{pmatrix}
+           x\\
+           y\\
+        \end{pmatrix}\right\}  
+        = \frac{1}{2\pi\sqrt{s(t-s)}}\exp\left\{-\frac{tx^2-2sxy+sy^2}{2s(t-s)}\right\}.
+        \] 
+        Por otro lado, la función de densidad de $B(t)$ está dada por:
+        \[
+        f_{B(s)}(y)=\frac{1}{\sqrt{2\pi t}}\exp\{-\frac{y^2}{2t}\},    
+        \]
+        por lo que obtenemos ahora la función de densidad condicional que buscamos, la cual está dada por
+        
+        \begin{align*}
+            f_{B(s)|B(t)}(x|y)=\frac{f_{\left(B(s),B(t)\right)}(x,y)}{f_{B(s)}(y)}&=\frac{\frac{1}{2\pi\sqrt{s(t-s)}}\exp\left\{-\frac{tx^2-2sxy+sy^2}{2s(t-s)}\right\}}{\frac{1}{\sqrt{2\pi t}}\exp\{-\frac{y^2}{2t}\}}\\
+            &=\frac{1}{\sqrt{2\pi\tfrac{s}{t}(t-s)}}\exp\left\{-\frac{tx^2-2sxy+sy^2}{2s(t-s)}+\frac{y^2}{2t}\right\}\\
+            &=\frac{1}{\sqrt{2\pi\tfrac{s}{t}(t-s)}}\exp\left\{-\frac{x^2-2\tfrac{s}{t}xy+\tfrac{s}{t}y^2}{2\tfrac{s}{t}(t-s)}+\frac{y^2}{2t}\right\}\\
+            &=\frac{1}{\sqrt{2\pi\tfrac{s}{t}(t-s)}}\exp\left\{-\frac{x^2-2\tfrac{s}{t}xy+(\tfrac{s}{t}y)^2}{2\tfrac{s}{t}(t-s)}+\frac{(\tfrac{s}{t}y)^2-\tfrac{s}{t}y^2}{2\tfrac{s}{t}(t-s)}+\frac{y^2}{2t}\right\}\\
+            &=\frac{1}{\sqrt{2\pi\tfrac{s}{t}(t-s)}}\exp\left\{-\frac{(x-\tfrac{s}{t}y)^2}{2\tfrac{s}{t}(t-s)}+\frac{sy^2-ty^2}{2t(t-s)}+\frac{y^2(t-s)}{2t(t-s)}\right\}\\
+            &=\frac{1}{\sqrt{2\pi\tfrac{s}{t}(t-s)}}\exp\left\{-\frac{(x-\tfrac{s}{t}y)^2}{2\tfrac{s}{t}(t-s)}\right\},\\
+        \end{align*}
+        y esta última es la función de densidad de una variable aleatoria Normal con media $\mu=\frac{s}{t}y$ y varianza $\sigma^2=\frac{s}{t}(t-s)$ (la densidad condicional
+        es una función del valor que tome $B(t)$). En particular, condicionado a que $B(t)=b$, se tiene que $B(s)$ es una variable normal con media $\mu=\frac{s}{t}b$ y varianza
+        dada por $\sigma^2=\tfrac{s}{t}(t-s)$.
+     \end{proof}
+    \item Sea $\{X(t):t\geq0\}$ un proceso Gaussiano con media 0 y covarianza $\Gamma(s,t)=e^{-\alpha|t-s|}$,
+    donde $\alpha$ es constante. Demostrar que $X$ tiene una versión con trayectorias
+    continuas.
+\begin{proof} 
+     Utilizaremos el teorema de Kolmogorov-Chentsov. Buscamos $\gamma>0$ y $\varepsilon>0$ tales que para cualesquiera $0\leq s\leq t$, 
+     \[
+     \E\left[|X_t-X_s|^\gamma\right]\leq C|t-s|^{1+\varepsilon}.   
+     \]
+     Aseguramos que $\gamma=4$ y $\varepsilon=1$ funcionan. En efecto, sabemos que el proceso es gaussiano, por lo que en particular para cualquier $r\geq0$, 
+     $X_r\sim$Normal$(0,\Gamma(r,r))$. En este caso, como la función de correlación está dada por la expresión dada antes, tenemos que la varianza de 
+     la variable $X_r$ es
+     \[
+     \text{Var}\left(X_r\right)=\Gamma(r,r)= e^{-\alpha|r-r|}=1,   
+     \]
+     así que de hecho, el proceso $(X_r)_{r\geq 1}$ es un proceso tal que todas las variables tienen varianza igual a 1. Sabiendo que
+     la suma de variables normales es normal, y que al ser $X_s$ normal, $X_s$ distribuye igual que $-X_s$, entonces
+     \[
+     \text{Var}\left(X_t-X_s\right)=\text{Var}\left(X_s\right)+\text{Var}\left(X_t\right)-2\Gamma(s,t)=2-2e^{-\alpha|t-s|},   
+     \] 
+    que en particular coincide con el segundo momento de $X_t-X_s$, ya que las variables tienen media 0.\\
+
+    Sabiendo que la varianza de $X_t-X_s$ es $2-2e^{-\alpha|t-s|}$, y que el cuarto momento de una variable normal centrada
+    y con varianza $\sigma^2$ es $3\sigma^4$, deducimos que
+    \[
+    \E\left[|X_s-X_t|^4\right]=3(2-2e^{-\alpha|t-s|})^2=12(1-e^{-\alpha|t-s|})^2,    
+    \]
+    y utilizando la desigualdad $1-x\leq e^{-x}$, 
+    \[
+      \E\left[|X_t-X_s|^4\right]=12(1-e^{-\alpha|t-s|})^2\leq 12(\alpha|t-s|)^2=12\alpha^2|t-s|^{2}=C|t-s|^{1+1},  
+    \]
+\end{proof}
+\end{enumerate}
+
+\end{document}
