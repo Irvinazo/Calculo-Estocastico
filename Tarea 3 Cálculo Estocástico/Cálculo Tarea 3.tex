@@ -64,5 +64,34 @@ Tarea 3}}
 
 %\begin{abstract}
 %\end{abstract}
+\begin{enumerate}
+    \item[\textbf{1. Lema:}] Sea $M^2$ el espacio de las martingalas cuadrado-integrables. Dada una martingala $X\in M^2$, definimos la métrica $\|.\|$ como sigue: 
+    \[
+        \|X\|:=\sum_{n=1}^{\infty} \frac{\|X\|_n\wedge1}{2^n},
+    \]
+    donde $\forall t\geq0$, $\|X\|_t:=\left(\E\left[X_t^2\right]\right)^{\frac{1}{2}}$.\\
+    
+    Entonces el espacio $\left((M^2,\|.\|)\right)$ es un espacio normado completo y el subespacio $M^2_c$ (el espacio de las martingalas cuadrado integrables continuas)
+    es un subespacio cerrado de $M^2$.\\
 
+    \item[\textbf{2.}] Muestra que si $X(t)$ es no aleatorio (no depende de $B(t)$) y es 
+    función de $t$ y $s$ con $\int_{0}^{t}X^2(t,s)ds<\infty$, entonces $\int_{0}^{t}X(t,s)dB(s)$
+    es una variable aleatoria Gaussiana $Y(t)$. La colección $Y(t)$, $0\leq t \leq T$, es
+    un proceso Gaussiano con media cero y función de covarianza para $u\geq0$ dada por 
+    $\text{Cov}\left(Y(t),Y(t+u)\right)=\int_{0}^{\infty}X(t,s)X(t+u,s)ds.$\\
+
+    \item[\textbf{3.}] Muestra que una martingala Gaussiana en un intervalo de tiempo
+    finito $[0,T]$ es una martingala cuadrado-integrable con incrementos independientes.
+    Deducir que si $X$ es no aleatorio y $\int_{0}^{t}X^2(s)ds<\infty$, entonces $Y(t)=
+    \int_{0}^{\infty}X(s)dB(s)$ es una martingala Gaussiana cuadrado-integrable con 
+    incrementos independientes.\\
+
+    \item[\textbf{4.}] Un proceso $X(t)$ en $(0,1)$ tiene un diferencial estocástico 
+    con coeficiente $\sigma^2(x)=x(1-x)$. Suponiendo que $0<X(t)<1$, muestra que 
+    el proceso definido por $Y(t)=\ln(X(t))/(1-X(t))$ tiene un coeficiente de 
+    difusión constante.\\
+
+    \item[\textbf{5.}] Obtener el diferencial de una fórmula de cociente $d \left(\frac{X(t)}{Y(t)}\right)$ 
+    tomando $f(x,y)=x/y$. Suponga que el proceso $Y$ se mantiene lejos de 0.
+\end{enumerate}
 \end{document}
