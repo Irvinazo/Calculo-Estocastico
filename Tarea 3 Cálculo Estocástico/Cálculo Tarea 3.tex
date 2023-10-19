@@ -65,33 +65,396 @@ Tarea 3}}
 %\begin{abstract}
 %\end{abstract}
 \begin{enumerate}
-    \item[\textbf{1. Lema:}] Sea $M^2$ el espacio de las martingalas cuadrado-integrables. Dada una martingala $X\in M^2$, definimos la métrica $\|.\|$ como sigue: 
+    \item[\textbf{1. Lema:}] Sea $M^2$ el espacio de las martingalas cuadrado-integrables continuas a la derecha. Dada una martingala $X\in M^2$, definimos la métrica $\|.\|$ como sigue: 
     \[
         \|X\|:=\sum_{n=1}^{\infty} \frac{\|X\|_n\wedge1}{2^n},
     \]
-    donde $\forall t\geq0$, $\|X\|_t:=\left(\E\left[X_t^2\right]\right)^{\frac{1}{2}}$.\\
+    donde $\forall t\geq0$, $\|X\|_t:=\left(\E\left[X^2(t)\right]\right)^{\frac{1}{2}}$.\\
     
-    Entonces el espacio $\left((M^2,\|.\|)\right)$ es un espacio normado completo y el subespacio $M^2_c$ (el espacio de las martingalas cuadrado integrables continuas)
+    Entonces el espacio $\left(M^2,\|.\|\right)$ es un espacio métrico completo y el subespacio $M^2_c$ (el espacio de las martingalas cuadrado integrables continuas)
     es un subespacio cerrado de $M^2$.\\
+    \begin{proof} 
+       Para ver que este es un espacio métrico completo, tenemos que ver que $\|.\|$ anterior 
+       define en efecto una métrica, sobre $M^2$. Para ello, recordamos la convención de que
+       dos procesos $X$, $Y$ en $M^2$ son iguales si y solo si son indistinguibles entre sí.
+       \newline
+
+       Con la noción de igualdad anterior, notamos que $\| . \| : M^2\to [0,\infty]$ está bien 
+       definida ya que 
+       \[
+       \|X\|= \sum_{n=1}^{\infty} \frac{\|X\|_n\wedge1}{2^n}\leq \sum_{n=1}^{\infty}\frac{1}{2^n}<\infty.
+       \]
+        
+       \begin{itemize}
+        \item $\|X-Y\|=0 \ent X=Y$, donde la igualdad anterior se entiende como que el proceso $X$ y el 
+        proceso $Y$ son indistinguibles. Para ello, basta con ver que un proceso $X$ y el proceso $0$ son 
+        indistinguibles entre sí, puesto que así, para cualesquiera $X$, $Y$ procesos, $X-Y$ indistinguible de
+        $0$ implica $X$ indistinguible de $Y$. Sea entonces $X\in M^2$.
+        \newline
+        
+        Nótese que $\|X\|=0 \ent \sum_{n=1}\frac{\|X\|_n\wedge1}{2^n}=0$,
+        pero dado que $\|X\|_n:=\left(\E\left[X^2(n)\right]^{\frac{1}{2}}\right)\geq0$, 
+        entonces $\|X\|=0 \ent \E\left[X^2(n)\right]=0$, para cualquier $n\geq1$, por lo que para
+        cualquier entero $n\geq1$, $X(n)=0$ casi seguramente, ya que su norma $L^2$ es justamente
+        igual a 0.\\
+        
+        Pero esto significa que para cualquier $t\geq0$, $X(t)=\E\left(X\left(\lceil t \rceil\right)|\F_t\right)=\E(0|\F_t)=0$ casi seguramente,
+        ya que $X$ es una martingala y $\lceil t \rceil$ es un natural, de tal forma que para cualquier $t\geq0$,
+        $X(t)=0$ casi seguramente. Luego, tenemos que $X$ es modificación del proceso idénticamente 0.
+        \newline
+        
+        No obstante, dado que $X$ es adaptado a la misma filtración $\F=(\F_t)_{t\geq0}$ a la que es adaptado el 
+        proceso idénticamente $0$, y $X$ y $0$ tienen trayectorias continuas a la derecha, entonces 
+        se tiene que $X$ y $0$ son indistinguibles, y así, $\|X\|=0 \ent X=0$.
+        \newline
+        \item $\|X-Y\|=\|Y-X\|$. La simetría es clara puesto que 
+        \[
+            \|X-Y\|=\sum_{n=1}^{\infty} \frac{\|X-Y\|_n\wedge1}{2^n}=\sum_{n=1}^{\infty} \frac{\|X(n)-Y(n)\|_{L^2(\Omega)}\wedge1}{2^n}=\sum_{n=1}^{\infty} \frac{\|Y(n)-X(n)\|_{L^2(\Omega)}\wedge1}{2^n}=\|Y-X\|,
+        \]
+        según las observaciones hechas antes, y utilizando el hecho de que la métrica inducida por la norma $L^2(\Omega)$ sí es simétrica.
+        \newline
+
+        \item $\|X-Y\|\leq \|X-Z\|+\|Z-Y\|$, para $X,Y,Z\in M^2$. Para esta propiedad, notemos que
+        \begin{align*}
+            \|X-Y\|&=\sum_{n=1}^{\infty} \frac{\|X-Y\|_n\wedge1}{2^n}\\
+            &=\sum_{n=1}^{\infty} \frac{\|X(n)-Y(n)\|_{L^2(\Omega)}\wedge1}{2^n}\\
+            &\leq \sum_{n=1}^{\infty} \frac{\left(\|X(n)-Z(n)\|_{L^2(\Omega)}+\|Z(n)-Y(n)\|_{L^2(\Omega)}\right)\wedge1}{2^n}\\
+            &\leq\sum_{n=1}^{\infty} \frac{\left(\|X(n)-Z(n)\|_{L^2(\Omega)}\wedge1\right)+\left(\|Z(n)-Y(n)\|_{L^2(\Omega)}\right)\wedge1}{2^n}\\
+            &=\sum_{n=1}^{\infty} \frac{\|X-Z\|_{n}\wedge1}{2^{n}}+\sum_{n=1}^{\infty}\frac{\|Z-Y\|_{n}\wedge1}{2^n}\\
+            &=\|X-Z\|+\|Z-Y\|,\\
+        \end{align*}
+        donde en la primera desigualdad se utiliza la desigualdad del triángulo en $L^2$, y en la segunda que, si $a,b\geq0$, entonces
+        $(a+b)\wedge 1\leq a\wedge 1 + b\wedge 1$. Luego, se vale la desigualdad del triángulo y por lo tanto, $\|.\|$ induce una métrica en $M^2$.
+    \end{itemize}
+     Resta ver ahora que $(M^2,\|.\|)$ es completo.\\
+        
+        
+        Consideramos una sucesión de Cauchy $(X_k)_{k\geq1}\subseteq M^2$ de martingalas cuadrado-integrables, entonces 
+        aseguramos que para cualquier $t\geq0$, $(X_k(t))_{k\geq1}$ es una sucesión de Cauchy en $L^2(\Omega)$. En
+        efecto, primero consideremos $n\geq1$ y veamos que $(X_k(n))_{k\geq1}$ es una sucesión de Cauchy en $L^2(\Omega)$.\\
+        
+        Nos interesamos solamente en los $\varepsilon$ tales que $0<\varepsilon<1$. Sea pues $0<\varepsilon<1$ y nótese que para 
+        $\frac{\varepsilon}{2^n}>0$, como $(X_k)_{k\geq1}$ es de Cauchy en $M^2$, existe un $N_n\in \N$ tal que para cualesquiera $k,m\geq N_n$,
+        \[
+        \sum_{j=1}^{\infty} \frac{\|X_k-X_m\|_j\wedge1}{2^j} = \sum_{j=1}^{\infty} \frac{\|X_k(j)-X_m(j)\|_{L^2(\Omega)}\wedge1}{2^j}<\frac{\varepsilon}{2^n}, 
+        \]
+        por lo que en particular, para nuestro $n\geq1$, 
+        \[
+            \frac{\|X_k(n)-X_m(n)\|_{L^2(\Omega)}\wedge1}{2^n}\leq \sum_{j=1}^{\infty} \frac{\|X_k(j)-X_m(j)\|_{L^2(\Omega)}\wedge1}{2^j}<\frac{\varepsilon}{2^n},
+        \]
+        es decir, para $0<\varepsilon<1$ existe $N_n\in \N$ tal que para cualesquiera $k,m\geq N_n$,
+        \[
+            \|X_k(n)-X_m(n)\|_{L^2(\Omega)}\wedge1<\varepsilon,
+        \]
+        pero como $\varepsilon<1$, se deduce que 
+        \[
+            \|X_k(n)-X_m(n)\|_{L^2(\Omega)}<\varepsilon,
+        \]
+        lo anterior para cualquier $n\geq1$, por lo que concluimos que $(X_k(n))_{k\geq1}$ es de
+        Cauchy en $L^2(\Omega)$. Luego, para $t\geq0$ general se tiene que $(X_k(t))_{t\geq0}$ es de Cauchy
+        también, ya que para $k,m\geq1$, 
+        
+        \begin{align*}
+            \|X_k(\lceil t \rceil)-X_m(\lceil t \rceil)\|_{L^2(\Omega)}&=\E\left[(X_k(\lceil t \rceil)-X_m(\lceil t \rceil))^2\right]\\
+            &=\E\left[\E\left[\left(X_k(\lceil t \rceil)-X_m(\lceil t \rceil)\right)^2|\F_t\right]\right]\\
+            &\geq\E\left[\left(X_k(t)-X_m(t)\right)^2\right]\\
+            &=\|X_k(t)-X_m(t)\|_{L^2(\Omega)},
+        \end{align*}
+        donde utilizamos que $\lceil t \rceil$ es un natural mayor que $t$, que si $X$ y $Y$ son 
+        martingalas, entonces $X-Y$ es martingala (justamente $M^2$ es un espacio vectorial) y que 
+        $(X-Y)^2$ es una submartingala, pues la función cuadrática es convexa.\\
+        
+        
+        Así, dado que $\|X_k(\lceil t \rceil)-X_m(\lceil t \rceil)\|_{L^2(\Omega)}\xrightarrow[k,m\to \infty]{}0$,
+        se sigue que $\|X_k(t)-X_m(t)\|_{L^2(\Omega)}\xrightarrow[k,m\to \infty]{}0$.\\
+
+        Se tiene que para cualquier $t\geq0$, $(X_k(t))_{k\geq1}$ es una sucesión de Cauchy en $L^2(\Omega)$, 
+        por lo que al ser $L^2(\Omega)$ completo, para cada $t\geq0$, existe una variable $X(t)\in L^2(\Omega)$ 
+        tal que $\|X_k(t)-X(t)\|_{L^2(\Omega)}\xrightarrow[k\to \infty]{}0$. Consideremos ahora
+        al proceso $X$ formado por las variables anteriores. Aseguramos que tal proceso
+        es una martingala cuadrado-integrable con trayectorias continuas a la derecha y 
+        tal que $\|X_k-X\|\xrightarrow[k\to \infty]{}0$. 
+        \begin{itemize}
+            \item Notemos que el proceso $X$ es adaptado a la filtración $\F=(\F_t)_{t\geq0}$, 
+            en efecto, como para cualquier $t\geq0$, $X_k(t)\xrightarrow[k\to \infty]{L^2}X(t)$, entonces
+            existe una subsucesión $(X_{k_j})_{j\geq1}$ tal que $X_{k_j}\xrightarrow[k\to \infty]{c.s.}X(t)$, y 
+            como $X_k(t)$ es $\F_t$-medible por hipótesis, para cualquier $k\geq1$, entonces $X(t)$ es $\F_t$-medible.
+            \item Notamos que el proceso $X$ es cuadrado-integrable, pues como $X_k(t)\xrightarrow[k\to \infty]{L^2}X(t)$, 
+            entonces para $\varepsilon=1$ existe un $K\in \N$ tal que 
+            \[
+            \|X_K(t)-X(t)\|_2<1,    
+            \]
+            de tal forma que 
+            \[
+            \|X(t)\|_2\leq \|X(t)-X_K(t)\|_2+\|X_K(t)\|<1+\|X_K(t)\|_2<\infty,    
+            \]
+            ya que $X_K$ es una martingala de $M^2$ y por lo tanto $X_K(t)$ está en $L^2(\Omega)$. Esto nos dice en 
+            particular que el proceso $X$ es integrable.
+            \item Veamos que $X$ es una martingala. Sean $0\leq s\leq t$. Probaremos por definición que $X(s)=\E\left[X(t)|\F_s\right]$.
+            Claramente $X(s)$ es $\F_s$-medible, por lo que resta simplemente ver que para cualquier $A\in \F_s$, 
+            \[
+            \int_A X(s)d\P=\int_A X(t) d\P,   
+            \]
+            pero para ello notamos que 
+            \begin{align*}
+                \int_AX_k(s)d\P&=\E\left[X_k(s)\1_A\right]\\
+                &=\E\left[\1_A\E\left[X_k(t)|\F_s\right]\right]\\
+                &=\E\left[\E\left[X_k(t)\1_A|\F_s\right]\right]\\
+                &=\E\left[X_k(t)\1_A\right]\\
+                &=\int_AX_k(t)d\P,
+            \end{align*}
+            pero nótese también que 
+            \[
+            \abs{\int_AX_k(s)d\P-\int_AX(s)d\P}=\E\left[\left(X_k(s)-X(s)\right)\1_A\right]\leq \E\left[(X_k(s)-X(s))^2\right]^{1/2}\E\left[\1^2_A\right]^{1/2}\xrightarrow[n\to \infty]{}0,
+            \]
+            donde hemos utilizado la desigualdad de Cauchy-Schwarz, ya que $X_k(s)\xrightarrow[n\to \infty ]{L^2}X(s)$, y análogamente se tiene que 
+            \[
+                \abs{\int_AX_k(t)d\P-\int_AX(t)d\P}\xrightarrow[n\to \infty]{}0,
+            \]
+            así que, por la unicidad de los límites:
+            \[
+            \int_A X(s)d\P=\lim_{k\to \infty}\int_AX_k(s)d\P=\lim_{k\to \infty}\int_AX_k(t)d\P=\int_A X(t) d\P,   
+            \]
+            por lo que la igualdad de integrales se sigue y entonces $X$ es una martingala cuadrado-integrable.
+            \newline
+            
+            Finalmente, podemos tomar una modificación $X$ que sea continua a la derecha y con ello $X\in M^2$.
+            Resta solamente ver que en efecto $X_n\xrightarrow[n\to \infty]{}X$ en $(M^2,\|.\|)$. Sea $\varepsilon>0$. Obsérvese que
+            existe un $N_0\in \N$ tal que para cualquier $k\geq\N_0$, 
+            \[
+            \sum_{n=k}^{\infty} \frac{1}{2^{n}}<\frac{\varepsilon}{3},   
+            \]
+            Luego, obsérvese que para toda $n\in \{1,...,N_0-1\}$, las sucesiones $(X_k(n))_{k\geq1}$ convergen 
+            en $L^2(\Omega)$ a $X(n)$, de tal forma que para cada $n\in \{1,...,N_0-1\}$,  seleccionando 
+            $\frac{\varepsilon}{2}>0$, existe un $N_n\in \N$ tal que para toda $k\geq N_n$, se tiene que 
+            \[
+            \|X_k(n)-X(n)\|_{L^2(\Omega)}\leq \frac{\varepsilon}{2},    
+            \]
+            lo anterior para $k\geq N_n$, y para $n\in \{1,...,N_0-1\}$. Definimos $N=\max\{N_0,N_1,...,N_{N_0-1}\}$ y nótese que, para $k\geq N$,
+             
+            \begin{align*}
+                \|X_k-X\|&=\sum_{n=1}^\infty \frac{\|X_k-X\|_n\wedge1}{2^{n}}\\
+                &=\sum_{n=1}^\infty \frac{\|X_k(n)-X(n)\|_{L^2(\Omega)}\wedge1}{2^{n}}\\
+                &=\sum_{n=1}^{N-1} \frac{\|X_k(n)-X(n)\|_{L^2(\Omega)}\wedge1}{2^{n}}+\sum_{n=N}^{\infty} \frac{\|X_k(n)-X(n)\|_{L^2(\Omega)}\wedge1}{2^{n}}\\
+                &\leq\sum_{n=1}^{N-1} \frac{\|X_k(n)-X(n)\|_{L^2(\Omega)}}{2^{n}}+\sum_{n=N}^{\infty} \frac{1}{2^{n}}\\
+                &\leq\sum_{n=1}^{N-1} \frac{\|X_k(n)-X(n)\|_{L^2(\Omega)}}{2^{n}}+\frac{\varepsilon}{3}\\
+                &\leq\sum_{n=1}^{N-1} \frac{\varepsilon}{2^{n+1}}+\frac{\varepsilon}{3}\\
+                &=\frac{\varepsilon}{2^2}\left(\sum_{n=1}^{N-1}\frac{1}{2^{n-1}}\right)+\frac{\varepsilon}{3}\\
+                &=\frac{\varepsilon}{2^2}\left(\sum_{n=0}^{N-2}\frac{1}{2^{n}}\right)+\frac{\varepsilon}{3}\\
+                &=\frac{\varepsilon}{2^2}\left(\frac{1-(1/2)^{N-1}}{1-(1/2)}\right)+\frac{\varepsilon}{3}\\
+                &=\frac{\varepsilon}{2^2}\left(2(1-(1/2)^{N-1})\right)+\frac{\varepsilon}{3}\\
+                &\leq\frac{\varepsilon}{2}\left(1\right)+\frac{\varepsilon}{3}\\
+                &=\frac{\varepsilon}{2}+\frac{\varepsilon}{3}\\
+                &<\varepsilon,
+            \end{align*}
+            por lo que en efecto $\|X_n-X\|\xrightarrow[n\to \infty]{}0$, y concluimos.            
+        \end{itemize}
+        Resta ver ahora que $(M_c^2,\|.\|)$ es un subespacio cerrado de $(M_c^2,\|.\|)$. Para ello, consideremos
+        una sucesión $(X_k)_{k\geq1} \subseteq M^2_c$ y supongamos que dicha sucesión converge a un elemento $X\in M^2$. Buscamos
+        probar que $X$ es una martingala cuadrado integrable continua.
+        \newline
+
+        Para ello, fijamos $T\in [0,\infty)$. Nótese que por las desigualdades de martingalas que 
+        \[
+            \P\left(\sup_{0\leq t\leq T}\abs{X_k(t)-X(t)}\geq \varepsilon\right)\leq \frac{\E(|X_k(T)-X(T)|^+)}{\varepsilon}=\frac{\E(|X_k(T)-X(T)|)}{\varepsilon},
+        \]
+        pero dado que $X_{k}(T)$ converge en $L^2(\Omega)$ a $X(T)$, se tiene que 
+        \[
+            \P\left(\sup_{0\leq t\leq T}\abs{X_k(t)-X(t)}\geq \varepsilon\right)\leq \frac{\E(|X_k(T)-X(T)|)}{\varepsilon}\leq \frac{\left(\E\left[|X_k(t)-X(T)|^2\right]\right)^{1/2}}{\varepsilon}=\frac{\|X_k(T)-X(T)\|_2}{\varepsilon}\xrightarrow[k\to \infty]{}0,
+        \]
+        donde lo anterior es válido para cualquier $\varepsilon>0$. Luego, definimos una subsucesión de $(X_k)$ como sigue: para $1>0$ existe $k_1>0$ tal que 
+        \[
+            \P\left(\sup_{0\leq t\leq T}\abs{X_{k_1}(t)-X(t)}\geq 1\right)\leq \frac{1}{2},
+        \]
+        luego suponiendo que tenemos construidos $k_1,...,k_n$ tales que 
+        \[
+            \P\left(\sup_{0\leq t\leq T}\abs{X_{k_n}(t)-X(t)}\geq \frac{1}{n}\right)\leq \frac{1}{2^n},
+        \]
+        entonces para $\frac{1}{2^{n+1}}>0$ existe $k_{n+1}'$ tal que 
+        \[
+            \P\left(\sup_{0\leq t\leq T}\abs{X_{k_{n+1}'}(t)-X(t)}\geq \frac{1}{n+1}\right)\leq \frac{1}{2^{n+1}},
+        \]
+        por lo que definiendo $k_{n+1}:=\max\{k_1,...,k_n,k_{n+1}'\}+1$, se tiene que $X_{k_{n+1}}(T)$ es tal que cumple
+        lo anterior. Luego, la subsucesión $(X_{k_n})_{n\geq1}$ cumple que 
+        \[
+        \sum_{n=1}^{\infty}  \P\left(\sup_{0\leq t\leq T}\abs{X_{k_n}(t)-X(t)}\geq \frac{1}{n}\right)\leq \sum_{n=1}^{\infty}\frac{1}{2^{n}}<\infty,
+        \]
+        por lo que por el Lema de Borel-Cantelli, 
+        \[
+        \P\left(\limsup_{n\to \infty}\left\{\sup_{0\leq t\leq T}\abs{X_{k_n}(t)-X(t)}\geq \frac{1}{n}\right\}\right)=0,  
+        \]
+        o lo que es lo mismo, 
+        \[
+            \P\left(\liminf_{n\to \infty}\left\{\sup_{0\leq t\leq T}\abs{X_{k_n}(t)-X(t)}< \frac{1}{n}\right\}\right)=1,  
+        \]
+        así que el conjunto de $\omega\in \Omega$ para los cuales hay convergencia uniforme de la subsucesión $(X_{k_n})_{n\geq0}$ a
+        a $X(t)$ tiene probabilidad. Pero como la convergencia es uniforme casi seguramente, y las trayectorias de $(X_k)_{k\geq0}$ son
+        continuas con probabilidad 1, entonces $X$ tiene trayectorias continuas casi seguramente.
+        \newline
+        
+        Lo anterior en cualquier intervalo $[0,T]$, por lo que las trayectorias de $X$ son continuas en todo $[0,\infty)$.
+
+
+     \end{proof}
 
     \item[\textbf{2.}] Muestra que si $X(t)$ es no aleatorio (no depende de $B(t)$) y es 
     función de $t$ y $s$ con $\int_{0}^{t}X^2(t,s)ds<\infty$, entonces $\int_{0}^{t}X(t,s)dB(s)$
     es una variable aleatoria Gaussiana $Y(t)$. La colección $Y(t)$, $0\leq t \leq T$, es
     un proceso Gaussiano con media cero y función de covarianza para $u\geq0$ dada por 
-    $\text{Cov}\left(Y(t),Y(t+u)\right)=\int_{0}^{\infty}X(t,s)X(t+u,s)ds.$\\
+    $\text{Cov}\left(Y(t),Y(t+u)\right)=\int_{0}^{t}X(t,s)X(t+u,s)ds.$\\
+    \begin{proof} 
+       Comenzamos notando que en efecto la variable aleatoria dada por la integral está bien definida.
+       En efecto, dado que $X(s,t)$ es determinista, entonces su esperanza es ella misma, por lo que
+       \[
+       \int_{0}^{T}\E(X^2(t,s))dt=\int_0^TX^2(t,s)dt<\infty,
+       \] 
+       por lo que la integral está bien definida. Probamos ahora que su media es 0. 
+       Esto se deduce directamente de la definición de integral de Itô, ya que por definición,
+       \[
+        \lim_{\delta_n\to0}\sum_{n=0}^{n-1}X(t_j,s)(B(t_{j+1})-B(t_j)),
+       \]
+       pero cada una de estas variables tiene media cero, por lo que se concluye que 
+       el límite tiene media cero. Probamos ahora la fórmula para las covarianzas: sean $u,t\geq0$ y $s\in \R$, 
+       y notamos que 
+       \begin{align*}
+        \text{Cov}\left(Y(t),Y(t+u)\right)&=\E\left[Y(t)Y(t+u)\right]-\E\left[Y(t)\right]\E\left[Y(t+u)\right]\\
+        &=\E\left[Y(t)Y(t+u)\right]-0\\
+        &=\E\left[\int_{0}^{t}X(t,s)dB(s)\cdot \left(\int_{0}^{t}X(t+u,s)dB(s)+\int_{t}^{t+u}X(t+u,s)dB(s)\right)\right]\\
+        &=\E\left[\int_{0}^{t}X(t,s)dB(s)\cdot\int_{0}^{t}X(t+u,s)dB(s)\right]+\E\left[\int_{0}^{t}X(t,s)dB(s)\cdot\int_{t}^{t+u}X(t+u,s)dB(s)\right]\\
+        &=\E\left[\int_{0}^{t}X(t,s)dB(s)\cdot\int_{0}^{t}X(t+u,s)dB(s)\right]+\E\left[\E\left[\int_{0}^{t}X(t,s)dB(s)\cdot\int_{t}^{t+u}X(t+u,s)dB(s)\Big|\F_t\right]\right]\\
+        &=\E\left[\int_{0}^{t}X(t,s)dB(s)\cdot\int_{0}^{t}X(t+u,s)dB(s)\right]+\E\left[\int_{0}^{t}X(t,s)dB(s)\E\left[\int_{t}^{t+u}X(t+u,s)dB(s)\Big|\F_t\right]\right],\\
+       \end{align*}
+       y dado que $X(t+u,s)$ es no aleatorio, su integral desde $t$ hasta $t+u$ es independiente de $\F_t$, de tal forma que 
+       \[
+        \E\left[\int_{t}^{t+u}X(t+u,s)dB(s)\Big|\F_t\right]=\E\left[\int_{t}^{t+u}X(t+u,s)dB(s)\right]=0,
+       \]
+       y con ello el lado derecho de la expresión de la covarianza es 0. Pero el lado izquierdo es tal que 
+       \[
+        \E\left[\int_{0}^{t}X(t,s)dB(s)\cdot\int_{0}^{t}X(t+u,s)dB(s)\right]=\E\left[\int_{0}^{t}X(t,s)X(t+u,s)ds\right],
+       \]
+       de acuerdo a un resultado de clase en el que se demuestra que la esperanza del
+       producto de dos integrales de Itô es la esperanza de la integral de Lebesgue del
+       producto de los procesos. Pero utilizando el teorema de Fubini, dado que los procesos 
+       son no aleatorios, tenemos que 
+       \[
+        \E\left[\int_{0}^{t}X(t,s)X(t+u,s)ds\right]=\int_{0}^{t}\E\left[X(t,s)X(t+u,s)\right]ds=\int_{0}^{t}X(t,s)X(t+u,s)ds,
+       \]
+       como queríamos. Resta simplemente ver que el proceso $(Y(t))_{0\leq t \leq T}$ es un proceso
+       Gaussiano. Por definición de la integral de Itô, se tiene que 
+       \[
+        \lim_{\delta_n\to0}\sum_{n=0}^{n-1}X(t_j,s)(B(t_{j+1})-B(t_j)),
+       \]
+       y obsérvese que cada una de las variables sobre las que actúa el límite 
+       es una variable aleatoria Gaussiana, y por lo tanto la suma es una variable 
+       aleatoria Gaussiana. Luego, dado que el límite de Gaussianas es Gaussiana, se concluye
+       que la integral
+       \[
+        \int_{0}^{t}X(t,s)dB(s)
+       \] 
+       es una variable aleatoria Gaussiana con media cero y varianza 
+       \[
+        \int_{0}^{t}X^2(t,s)ds,
+       \]
+       para cualquier $t\geq0$. Luego, para mostrar que el proceso $Y(t)$ es un proceso
+       Gaussiano, tenemos que considerar las distribuciones finito-dimensionales, pero notemos
+       que cualquier vector $(Y(t_1),...,Y(t_n))$ tiene una distribución finito-dimensional
+       normal multivariada utilizando función característica.
+     \end{proof}
 
     \item[\textbf{3.}] Muestra que una martingala Gaussiana en un intervalo de tiempo
     finito $[0,T]$ es una martingala cuadrado-integrable con incrementos independientes.
     Deducir que si $X$ es no aleatorio y $\int_{0}^{t}X^2(s)ds<\infty$, entonces $Y(t)=
-    \int_{0}^{\infty}X(s)dB(s)$ es una martingala Gaussiana cuadrado-integrable con 
+    \int_{0}^{T}X(s)dB(s)$ es una martingala Gaussiana cuadrado-integrable con 
     incrementos independientes.\\
+    \begin{proof} 
+        Supongamos que $(X(t))_{0\leq t \leq T}$ es una martingala Gaussiana en $[0,T]$. Obsérvese que es cuadrado
+        integrable, ya que al ser la función $x^2$ convexa, $X^{2}$ se convierte en una submartingala y así,
+        \[
+        X^2(t)\leq \E\left[X^2(T)\big|\F_t\right] \quad \ent \quad \E\left[X^2(t)\right]\leq \E\left[\E\left[X^2(T)\big|\F_t\right]\right]=\E\left[X^2(T)\right],    
+        \]
+        y lo anterior para $t\geq0$ arbitrario, de tal forma que 
+        \[
+        \sup_{0\leq t \leq T} \E\left[X^2(t)\right]\leq \E\left[X^2(T)\right]< \infty,    
+        \]
+        donde la última afirmación se debe a que $X(T)$ es una variable aleatoria Gaussiana y por lo tanto 
+        debe tener segundo momento finito. Se sigue que $(X(t))_{0\leq t \leq T}$ es cuadrado-integrable.
+        \newline
+
+        Notamos ahora que posee incrementos independientes. En efecto, sean $0\leq t\leq t+s\leq T$ y
+        recordemos que, al ser $X(t+s)$ y $X(t)$ variables gaussianas, entonces $X(t+s)-X(t)$ y $X(t)$ serán
+        independientes si y solo si su covarianza es cero. Calculamos entonces 
+        \[
+        \text{Cov}\left(X(t+s)-X(t),X(t)\right)=\E\left[(X(t+s)-X(t))X(t)\right]-\E\left[X(t+s)-X(t)\right]\E\left[X(t)\right],    
+        \]
+        pero nótese que, usando la propiedad de torre y martingala, 
+        \[
+        \E\left[X(t+s)-X(t)\right]=\E\left[\E\left[X(t+s)-X(t)\big|\F_t\right]\right]=\E\left[\E\left[X(t+s)\big|\F_t\right]-\E\left[X(t)\big|\F_t\right]\right]=\E\left[X(t)-X(t)\right]=0,    
+        \]
+        y además,
+            \begin{align*}
+                \E\left[(X(t+s)-X(t))X(t)\right]&=\E\left[\E\left[(X(t+s)-X(t))X(t)\big|\F_t\right]\right]\\
+                &=\E\left[X(t)\E\left[X(t+s)-X(t)\big|\F_t\right]\right]\\
+                &=\E\left[X(t)(X(t)-X(t))\right]\\
+                &=0,
+            \end{align*}
+        de modo que la covarianza de los incrementos es cero y por lo tanto, las variables son independientes.
+        Para la última parte, por la proposición vista en clase análoga a lo demostrado aquí arriba, se tiene que para $X$ no aleatorio tal que 
+        \[
+            \int_{0}^{t}X^2(s)ds<\infty,
+        \]
+        el proceso $Y(t)=\int_{0}^{t}X(s)dB(s)$ es una martingala Gaussiana, y esto es posible verlo gracias
+        a que es límite de procesos Gaussianos, similar a como se demostró en el ejercicio 2, mientras que la 
+        propiedad de martingala se obtiene gracias a que el proceso $X$ es determinista, y que los incrementos están
+        dados en función del movimiento Browniano proceso que es una martingala. Por lo tanto, al ser
+        la integral una martingala Gaussiana, por lo mostrado antes $Y(t)$ es también
+        un proceso cuadrado-integrable con incrementos independientes.\\
+    \end{proof}
 
     \item[\textbf{4.}] Un proceso $X(t)$ en $(0,1)$ tiene un diferencial estocástico 
-    con coeficiente $\sigma^2(x)=x(1-x)$. Suponiendo que $0<X(t)<1$, muestra que 
-    el proceso definido por $Y(t)=\ln(X(t))/(1-X(t))$ tiene un coeficiente de 
+    con coeficiente $\sigma(x)=x(1-x)$. Suponiendo que $0<X(t)<1$, muestra que 
+    el proceso definido por $Y(t)=\ln(\frac{X(t)}{1-X(t)})$ tiene un coeficiente de 
     difusión constante.\\
+    \begin{proof} 
+      Utilizamos directamente la fórmula de Itô para procesos de Itô. Escribimos el  diferencial del proceso
+      $X(t)$: 
+      \[
+      dX(t)=\mu(t)dt+\sigma(t)dB(t)=\mu(t)dt+X(t)(1-X(t))dB(t),  
+      \]  
+      luego, para $f(x)=\ln \left(\frac{x}{1-x}\right)=\ln(x)-\ln(1-x)$, con derivadas
+      $f'(x)=\frac{1}{x}+\frac{1}{1-x}$ y $f''(x)=-\frac{1}{x^{2}}+\frac{1}{(1-x)^2}$, 
+      por fórmula de Itô: 
+      
+        \begin{align*}
+            df(X(t))&=f'(X(t))dX(t)+\frac{1}{2}f''(X(t))\sigma^2(t)dt\\
+            &=\left(f'(X(t))\mu(t)+\frac{1}{2}f''(X(t))\sigma^2(t)\right)dt+f'(X(t))\sigma(t)dB(t),\\
+            &=\left(f'(X(t))\mu(t)+\frac{1}{2}f''(X(t))\sigma^2(t)\right)dt+\left(\frac{1}{X(t)}+\frac{1}{1-X(t)}\right)\sigma(t)dB(t)\\
+            &=\left(f'(X(t))\mu(t)+\frac{1}{2}f''(X(t))\sigma^2(t)\right)dt+\frac{\sigma(t)}{X(t)(1-X(t))}dB(t)\\
+            &=\left(f'(X(t))\mu(t)+\frac{1}{2}f''(X(t))\sigma^2(t)\right)dt+\frac{\sigma(t)}{\sigma(t)}dB(t)\\
+            &=\left(f'(X(t))\mu(t)+\frac{1}{2}f''(X(t))\sigma^2(t)\right)dt+dB(t),\\
+        \end{align*}
+        por lo que el proceso $Y(t)$ es tal que su diferencial $dY(t)$ tiene un coeficiente de difusión $\sigma_Y(t)$ constante.
+     \end{proof}
 
     \item[\textbf{5.}] Obtener el diferencial de una fórmula de cociente $d \left(\frac{X(t)}{Y(t)}\right)$ 
     tomando $f(x,y)=x/y$. Suponga que el proceso $Y$ se mantiene lejos de 0.
+    \begin{proof} 
+      Utilizamos nuevamente fórmula de Itô, pero esta vez para dos variables, ambas procesos de Itô. Nótese que para $f(x,y)=\frac{x}{y}$,
+      \begin{align*}
+        d \left(\frac{X(t)}{Y(t)}\right)&=df(X(t),Y(t))\\
+        &=\frac{\partial f}{\partial x}dX(t)+\frac{\partial f}{\partial y}dY(t)+\frac{1}{2}\frac{\partial f}{\partial^2 x^2}\sigma^2_x(t)dt+\frac{1}{2}\frac{\partial^2 f}{\partial y^2}\sigma^2_y(t)dt+\frac{\partial^2 f}{\partial x\partial y}\sigma_x(t)\sigma_y(t)dt\Big|_{X(t),Y(t)}\\
+        &=\frac{1}{Y(t)}dX(t)-\frac{X(t)}{Y^2(t)}dY(t)+0+\frac{1}{2}\frac{2X(t)}{Y^3(t)}\sigma^2_y(t)dt-\frac{1}{Y^2(t)}\sigma_x(t)\sigma_y(t)dt\\
+        &=\frac{1}{Y(t)}dX(t)-\frac{X(t)}{Y^2(t)}dY(t)+\left(\frac{X(t)}{Y^3(t)}\sigma^2_y(t)-\frac{1}{Y^2(t)}\sigma_x(t)\sigma_y(t)\right)dt,\\
+      \end{align*} 
+      pero
+      \[
+        dX(t)=\mu_x(t)dt+\sigma_x(t)dB(t), \qquad   dY(t)=\mu_y(t)dt+\sigma_x(t)dB(t),
+      \]
+      de tal forma que 
+      \begin{align*}
+        d \left(\frac{X(t)}{Y(t)}\right)&=\frac{1}{Y(t)}dX(t)-\frac{X(t)}{Y^2(t)}dY(t)+\left(\frac{X(t)}{Y^3(t)}\sigma^2_y(t)-\frac{1}{Y^2(t)}\sigma_x(t)\sigma_y(t)\right)dt\\
+        &=\left(\frac{\mu_x(t)}{Y(t)}-\frac{X(t)\mu_y(t)}{Y^2(t)}+\frac{X(t)}{Y^3(t)}\sigma^2_y(t)-\frac{1}{Y^2(t)}\sigma_x(t)\sigma_y(t)\right)dt+\left(\frac{\sigma_x(t)}{Y(t)}-\frac{X(t)\sigma_y(t)}{Y^2(t)}\right)dB(t)\\
+      \end{align*}
+      es la fórmula buscada.
+     \end{proof}
 \end{enumerate}
 \end{document}

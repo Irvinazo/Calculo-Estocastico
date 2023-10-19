@@ -1,0 +1,230 @@
+\documentclass[letterpaper]{article} 
+\usepackage[left = 0.5in, right = 0.5in, top = 0.9in, bottom = 0.9in]{geometry}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{tikz-cd}
+\usepackage{mathrsfs}
+\usepackage[bbgreekl]{mathbbol}
+\usepackage{dsfont}
+\usepackage{graphicx}
+\graphicspath{{img/}}
+
+\newcommand{\op}{\operatorname}
+\newcommand{\Op}{^{\op{op}}}
+\newcommand{\scc}{\mathscr C}
+\newcommand{\scd}{\mathscr D}
+\newcommand{\sce}{\mathscr E}
+\newcommand{\sci}{\mathscr I}
+\newcommand{\scj}{\mathscr J}
+\newcommand{\scx}{\mathscr X}
+\newcommand{\var}{\mathrm{Var}}
+\newcommand{\Id}{\operatorname{Id}}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\inv}{^{-1}}
+\renewcommand{\to}{\rightarrow}
+\newcommand{\ent}{\Longrightarrow}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\1}{\mathds{1}}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\theoremstyle{definition}
+\newtheorem{dfn}{Definición}
+\theoremstyle{definition}
+\newtheorem{teo}{Teorema}
+\theoremstyle{definition}
+\newtheorem{cor}{Corolario}
+\theoremstyle{definition}
+\newtheorem{prop}{Proposición}
+\theoremstyle{definition}
+\newtheorem{obs}{Observación}
+
+
+\title{\textbf{Cálculo Estocástico\\
+Tarea 5}}
+\author{Iván Irving Rosas Domínguez}
+\date{\today}
+
+\DeclareSymbolFontAlphabet{\mathbbm}{bbold}
+\DeclareSymbolFontAlphabet{\mathbb}{AMSb}
+\DeclareMathSymbol\bbDelta  \mathord{bbold}{"01}
+
+\begin{document}
+\maketitle
+
+%\begin{abstract}
+%\end{abstract}
+
+\begin{itemize}
+    \item[\textbf{1.}] Resolver la EDE $dX(t)=X(t)dt+B(t)dB(t), X(0)=1$. Comentar si es 
+    una EDE de difusión.\\
+
+    \textbf{Solución:} notamos que la ecuación anterior tiene la forma
+    \[
+    dX(t)=\left(\alpha(t)+\beta(t)X(t)\right)dt+\left(\gamma(t)+\delta(t)X(t)\right)dB(t),    
+    \]
+    donde $\alpha(t)=\delta(t)=0$, $\beta(t)=1$ y $\gamma(t)=B(t)$, para cualquier $t\geq0$. Notamos 
+    también que los coeficientes anteriores son procesos adaptados y continuos como función 
+    de $t$. Por lo tanto, por la solución general para ecuaciones lineales, 
+    
+    \begin{align*}
+        X(t)&=U(t)\left(X(0)+\int_{0}^{t}\frac{\alpha(s)-\delta(s)\gamma(s)}{U(s)}ds + \int_{0}^{t}\frac{\gamma(s)}{U(s)}dB(s)\right)\\
+        &=U(t)\left(1+\int_{0}^{t}\frac{0}{U(s)}ds + \int_{0}^{t}\frac{B(s)}{U(s)}dB(s)\right)\\
+        &=U(t)\left(1+\int_{0}^{t}\frac{B(s)}{U(s)}dB(s)\right),\\
+    \end{align*}
+    donde $U(t)$ está dada por
+    \begin{align*}
+        U(t)&=1\cdot\exp \left\{\int_{0}^{t}(\beta(s)-\frac{1}{2}\delta^2(s))ds+\int_{0}^{t}\delta(s)dB(s)\right\}\\
+        &=\exp \left\{\int_{0}^{t}ds+\int_{0}^{t}0dB(s)\right\}\\
+        &=e^{t}.
+    \end{align*}
+    De lo anterior, deducimos que 
+    \[
+    X(t)=e^{t}\left(1+\int_{0}^{t}\frac{B(s)}{e^{s}}dB(s)\right)=e^{t}\left(1+\int_{0}^{t}e^{-s}B(s)dB(s)\right)\\
+    \]
+    es solución (fuerte) de la ecuación diferencial anterior, y esta es única. Finalmente, recordamos 
+    que una ecuación de la forma 
+    \[
+    dX(t) = \mu(X(t), t)dt + \sigma(X(t), t)dB(t)
+    \]
+    es una ecuación diferencial estocástica de difusión. En este caso,
+    \[
+    \mu(t)=X(t)=\mu(X(t),t) \qquad \text{ y } \qquad \sigma(t)=B(t)=\sigma(X(t),t),    
+    \]
+    por lo que al ser un proceso que no depende de toda la trayectoria de $B$ ni de la de $X$,
+    entonces la ecuación anterior sí es de difusión. 
+    \item[\textbf{2.}] Hallar $d\left(\mathcal{E}(B)(t)\right)^2.$\\
+    
+    \textbf{Solución:} Primero hallamos la exponencial del movimiento browniano. Notamos que 
+    \[
+    U(t):=\mathcal{E}(B)(t) \quad \ent \quad dU(t)=U(t)dB(t)    
+    \]
+    por definición de la exponencial estocástica. Y la solución única a la ecuación anterior
+    está dada en este caso por 
+    \[
+    U(t)=e^{B(t)-B(0)-\frac{1}{2}[B,B](t)}=e^{B(t)-t/2}.
+    \]
+    Luego, si queremos hallar $d\left(\mathcal{E}(B)(t)\right)^2$, entonces buscamos 
+    simplemente 
+    \[
+    d(U^2(t))=d(e^{2B(t)-t})=df(B(t),t),    
+    \]
+    donde $f(x,t)=e^{2x-t}$,  que claramente es una función de clase $C^{2,1}$. Luego,
+    utilizando fórmula de Itô: 
+        \begin{align*}
+            dU^2(t)=df(B(t),t)&=\partial_x f\left(B(t),t\right)dB(t)+\partial_t f\left(B(t),t\right)dt +\frac{1}{2}\cdot\sigma^2_{B}(B(t),t)\cdot\partial_{xx} f(B(t),t)dt\\
+            &=\left(2e^{2x}e^{-t}\Big|_{(B(t),t)}\right) dB(t)+\left(-e^{2x}e^{-t}\Big|_{(B(t),t)}\right) dt+\frac{1}{2}\cdot \sigma^2_{B}(B(t),t)\cdot \left(4e^{2x}e^{-t}\Big|_{(B(t),t)}\right)dt\\
+            &=\left(2e^{2B(t)}e^{-t}\right) dB(t)+\left(-e^{2B(t)}e^{-t}\right) dt+\frac{1}{2}\cdot 1^2\cdot \left(4e^{2B(t)}e^{-t}\right)dt\\
+            &=\left(2e^{2B(t)-t}\right) dB(t)-\left(e^{2B(t)-t}\right) dt+2\left(e^{2B(t)-t}\right)dt\\
+            &=\left(2e^{2B(t)-t}\right) dB(t)+\left(e^{2B(t)-t}\right) dt,
+          \end{align*}
+          lo que se traduce en que:
+          \[
+          \mathcal{E}^2(B)(t)=U^2(t)=\int_{0}^t2e^{2B(s)-s}dB(s) +\int_{0}^t e^{2B(s)-s} ds.
+          \]
+    \item[\textbf{3.}] Supongamos que $X(t)$ satisface $dX(t)=X^2(t)dt+X(t)dB(t), X(0)=1$.
+    Mostrar que $X(t)$ satisface $X(t)=e^{\int_{0}^{t}(X(s)-1/2)ds +B(t)}$.\\
+
+    \textbf{Solución:} supongamos que $X(t)$ cumple la ecuación estocástica anterior. Entonces 
+    $X(t)$ cumple con la ecuación lineal general dada por 
+    \[
+    dX(t)=\left(\alpha(t)+\beta(t)X(t)\right)dt+\left(\gamma(t)+\delta(t)X(t)\right)dB(t),    
+    \]
+    donde ahora $\alpha(t)=0$, $\beta(t)=X(t)$, $\gamma(t)=0$ y $\delta(t)=1$. Obsérvese 
+    que los cuatro procesos anteriores son adaptados. Luego, suponiendo continuidad de 
+    $X(t)$, de la solución general para las ecuaciones lineales, se tiene que  
+    \begin{align*}
+        X(t)&=U(t)\left(X(0)+\int_{0}^{t}\frac{\alpha(s)-\delta(s)\gamma(s)}{U(s)}ds + \int_{0}^{t}\frac{\gamma(s)}{U(s)}dB(s)\right)\\
+        &=U(t)\left(1+\int_{0}^{t}\frac{0}{U(s)}ds + \int_{0}^{t}\frac{0}{U(s)}dB(s)\right)\\
+        &=U(t),\\
+    \end{align*}
+    donde $U(t)$ está dada por
+    \begin{align*}
+        U(t)&=1\cdot\exp \left\{\int_{0}^{t}(\beta(s)-\frac{1}{2}\delta^2(s))ds+\int_{0}^{t}\delta(s)dB(s)\right\}\\
+        &=\exp \left\{\int_{0}^{t}\left(X(s)-\frac{1}{2}\right)ds+\int_{0}^{t}dB(s)\right\}\\
+        &=\exp \left\{\int_{0}^{t}\left(X(s)-\frac{1}{2}\right)ds+B(t)\right\}.\\
+    \end{align*}
+    Se sigue de lo anterior que 
+    \[
+    X(t)=\exp \left\{\int_{0}^{t}\left(X(s)-\frac{1}{2}\right)ds+B(t)\right\},
+    \]
+    tal como se buscaba.
+    \item[\textbf{4.}] Por definición, el logaritmo estocástico satisface $\mathcal{L}(\mathcal{E}(X))=X$.
+    Mostrar que, suponiendo que $U(t)\neq0$ para cualquier $t$, $\mathcal{E}(\mathcal{L}(U))=U.$
+    \begin{proof} 
+      $U\neq0$ para cualquier $t\geq0$, el logaritmo estocástico de $u$ está bien definido y $\mathcal{L}(U)(0)=0$
+      por lo que por la fórmula para la exponencial estocástica y el logaritmo estocástico, 
+      
+      \begin{align*}
+        \mathcal{E}\left(\mathcal{L}(U)\right)(t)&=\exp \left(\mathcal{L}(U)(t)-\mathcal{L}(U)(0)-\frac{1}{2}\left[\mathcal{L}(U),\mathcal{L}(U)\right]\right)\\
+        &=\exp \left(\mathcal{L}(U)(t)-\frac{1}{2}\left[\mathcal{L}(U),\mathcal{L}(U)\right]\right)\\
+        &=\exp \left(\log \left(\frac{U(t)}{1}\right)+\int_{0}^{t}\frac{d[U,U](s)}{2U^2(s)}-\frac{1}{2}\left[\mathcal{L}(U),\mathcal{L}(U)\right]\right)\\
+        &=U(t)\exp \left(\int_{0}^{t}\frac{d[U,U](s)}{2U^2(s)}-\frac{1}{2}\left[\mathcal{L}(U),\mathcal{L}(U)\right]\right)\\
+      \end{align*}
+      Por lo que si probamos que 
+      \[
+        \int_{0}^{t}\frac{d[U,U](s)}{2U^2(s)}-\frac{1}{2}\left[\mathcal{L}(U),\mathcal{L}(U)\right],
+      \]
+      acabamos. Calculamos la variación cuadrática de $\mathcal{L}(U)$. Primero, dado que 
+      $\mathcal{L}(U)$ es justo el logaritmo estocástico de $U$, cumple 
+      \[
+      d(\mathcal{L}(U)(t))=\frac{1}{U(t)}dU(t),  
+      \]
+       Por otro lado, si $U$ es un proceso de Itô, entonces 
+      \[
+      dU(t)=\mu(t)dt+\sigma(t)dB(t),  
+      \]
+      para $\mu$, $\sigma$ procesos adaptados. Luego, $d[U,U](t)=\sigma^2(t)$. 
+      así que 
+      \[
+        d(\mathcal{L}(U)(t))=\frac{1}{U(t)}dU(t)=\frac{\mu(t)}{U(t)}dt+\frac{\sigma(t)}{U(t)}dB(t),  
+      \] 
+      por lo que la covariación de $\mathcal{L}(U)$ está dada por 
+      \[
+      d\left[\mathcal{L}(U),\mathcal{L}(U)\right]=\frac{\sigma^2(t)}{U^2(t)}dt=\frac{\left[U,U\right](t)}{U^2(t)},  
+      \]
+      de modo que 
+      \[
+        \int_{0}^{t}\frac{d[U,U](s)}{2U^2(s)}-\frac{1}{2}\left[\mathcal{L}(U),\mathcal{L}(U)\right]=\int_{0}^{t}\frac{d[U,U](s)}{2U^2(s)}-\frac{1}{2}\int_{0}^{t}\frac{\left[U,U\right](s)}{U^2(s)}=0,
+      \]
+      y con ello, 
+      \[
+      \mathcal{E}(\mathcal{L}(U))(t)=U(t),  
+      \]
+      tal y como queríamos.
+       
+     \end{proof}
+    \item[\textbf{5.}] Hallar el logaritmo estocástico de $B^2(t)+1$.\\
+    
+    \textbf{Solución:} Denotamos por $U(t):=B^2(t)+1$. Tenemos que $U(0)=1$, y con ello, 
+    utilizando la fórmula para el logaritmo estocástico,
+    \[
+        \mathcal{L}(U)(t)=\log \left(\frac{U(t)}{U(0)}\right)+\int_{0}^{t}\frac{d \left[U,U\right](s)}{2U^2(s)}=\log(U(t))+\int_{0}^{t}\frac{d \left[U,U\right](s)}{2U^2(s)}.
+    \]
+    Hallamos ahora $d[U,U]$. Notamos que $U(t)=B^2(t)+1=f(B(t))$, donde $f(x)=x^2+1$ es 
+    claramente una función $C^2$, por lo que usando fórmula de Itô,
+    \[
+    dU(t)=df(B(t))=2B(t)dB(t)+\frac{1}{2}2dt=2B(t)dB(t)+dt.    
+    \]
+    Por lo que $[U,U](t)=\int_{0}^{t}4B^2(s)ds$. Luego, en notación 
+    diferencial $d[U,U](t)=4B^2(t)dt$ 
+    y con ello, 
+    \[
+        \log(U(t))+\int_{0}^{t}\frac{d \left[U,U\right](s)}{2U^2(s)}=\log(1+B^2(t))+\int_{0}^{t}\frac{4B^2(s)}{2(B^2(s)+1)^2}ds.
+    \]
+    es el logaritmo estocástico de $B^2(t)+1$.
+\end{itemize}
+\end{document}

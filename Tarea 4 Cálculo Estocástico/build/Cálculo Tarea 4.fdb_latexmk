@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1695654803 "c:/Users/César Rosas/Documents/Maestría/Semestre 3/Cálculo Estocástico/Tarea 3 Cálculo Estocástico/Cálculo Tarea 3.tex" "build/Cálculo Tarea 3.pdf" "Cálculo Tarea 3" 1695654807 0
+["pdflatex"] 1696433107 "c:/Users/César Rosas/Documents/Maestría/Semestre 3/Cálculo Estocástico/Tarea 4 Cálculo Estocástico/Cálculo Tarea 4.tex" "build/Cálculo Tarea 4.pdf" "Cálculo Tarea 4" 1696433116 0
   "C:/Users/César Rosas/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1694043879 83696 30863f05e67e29e7ec138f04cfc5afb2 ""
   "C:/Users/César Rosas/AppData/Local/MiKTeX/fonts/tfm/public/bbold/bbold10.tfm" 1650778012 788 aa2bfd021367054a224c4cf5a9967398 ""
   "C:/Users/César Rosas/AppData/Local/MiKTeX/fonts/tfm/public/bbold/bbold12.tfm" 1651981839 768 568afddd613f4818fa95373954d5df42 ""
@@ -46,7 +46,6 @@
   "C:/Users/César Rosas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb" 1247596667 31809 8670ca339bf94e56da1fc21c80635e2a ""
   "C:/Users/César Rosas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1247596667 32762 7fee39e011c23b3589931effd97b9702 ""
   "C:/Users/César Rosas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1247596667 32569 5e5ddc8df908dea60932f3c484a54c0d ""
-  "C:/Users/César Rosas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb" 1247596666 32915 7bf7720c61a5b3a7ff25b0964421c9b6 ""
   "C:/Users/César Rosas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1247596666 32716 08e384dc442464e7285e891af9f45947 ""
   "C:/Users/César Rosas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb" 1247596667 37944 359e864bd06cde3b1cf57bb20757fb06 ""
   "C:/Users/César Rosas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb" 1247596673 31764 459c573c03a4949a528c2cc7f557e217 ""
@@ -163,11 +162,11 @@
   "C:/Users/César Rosas/AppData/Local/Programs/MiKTeX/tex/latex/tikz-cd/tikzlibrarycd.code.tex" 1620478817 23059 b4b98da760150611227e2533f15fe352 ""
   "C:/Users/César Rosas/AppData/Local/Programs/MiKTeX/tex/latex/tools/multicol.sty" 1686255640 32515 51caec75eda9c8890135f12f1a4eddc3 ""
   "C:/Users/César Rosas/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1656236890 56148 51a9a8571c07b9921892ae11063ae853 ""
-  "Cálculo Tarea 3.tex" 1695654802 28127 3f6072e4a94af49fa89ce9f2e2e4fe0e ""
-  "build/Cálculo Tarea 3.aux" 1695654807 194 eeedcc42ed7fd3181b659b82dd599442 "pdflatex"
-  "c:/Users/César Rosas/Documents/Maestría/Semestre 3/Cálculo Estocástico/Tarea 3 Cálculo Estocástico/Cálculo Tarea 3.tex" 1695654802 28127 3f6072e4a94af49fa89ce9f2e2e4fe0e ""
+  "Cálculo Tarea 4.tex" 1696433106 15120 9b56bce2ddce902516306feadebf6e0e ""
+  "build/Cálculo Tarea 4.aux" 1696433115 281 0bd2b9cc6048af74295fa1b9ae2deb48 "pdflatex"
+  "c:/Users/César Rosas/Documents/Maestría/Semestre 3/Cálculo Estocástico/Tarea 4 Cálculo Estocástico/Cálculo Tarea 4.tex" 1696433106 15120 9b56bce2ddce902516306feadebf6e0e ""
   (generated)
-  "build/Cálculo Tarea 3.aux"
-  "build/Cálculo Tarea 3.log"
-  "build/Cálculo Tarea 3.pdf"
+  "build/Cálculo Tarea 4.aux"
+  "build/Cálculo Tarea 4.log"
+  "build/Cálculo Tarea 4.pdf"
   (rewritten before read)

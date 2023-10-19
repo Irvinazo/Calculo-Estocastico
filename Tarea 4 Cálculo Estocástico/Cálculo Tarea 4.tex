@@ -1,0 +1,290 @@
+\documentclass[letterpaper]{article} 
+\usepackage[left = 0.5in, right = 0.5in, top = 0.9in, bottom = 0.9in]{geometry}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{tikz-cd}
+\usepackage{mathrsfs}
+\usepackage[bbgreekl]{mathbbol}
+\usepackage{dsfont}
+\usepackage{graphicx}
+\graphicspath{{img/}}
+
+\newcommand{\op}{\operatorname}
+\newcommand{\Op}{^{\op{op}}}
+\newcommand{\scc}{\mathscr C}
+\newcommand{\scd}{\mathscr D}
+\newcommand{\sce}{\mathscr E}
+\newcommand{\sci}{\mathscr I}
+\newcommand{\scj}{\mathscr J}
+\newcommand{\scx}{\mathscr X}
+\newcommand{\var}{\mathrm{Var}}
+\newcommand{\Id}{\operatorname{Id}}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\inv}{^{-1}}
+\renewcommand{\to}{\rightarrow}
+\newcommand{\ent}{\Longrightarrow}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\1}{\mathds{1}}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\theoremstyle{definition}
+\newtheorem{dfn}{Definición}
+\theoremstyle{definition}
+\newtheorem{teo}{Teorema}
+\theoremstyle{definition}
+\newtheorem{cor}{Corolario}
+\theoremstyle{definition}
+\newtheorem{prop}{Proposición}
+\theoremstyle{definition}
+\newtheorem{obs}{Observación}
+
+
+\title{\textbf{Cálculo Estocástico\\
+Tarea 4}}
+\author{Iván Irving Rosas Domínguez}
+\date{\today}
+
+\DeclareSymbolFontAlphabet{\mathbbm}{bbold}
+\DeclareSymbolFontAlphabet{\mathbb}{AMSb}
+\DeclareMathSymbol\bbDelta  \mathord{bbold}{"01}
+
+\begin{document}
+\maketitle
+
+%\begin{abstract}
+%\end{abstract}
+\begin{enumerate}
+    \item $X(t)$ tiene un diferencial estocástico con $\mu(x)=cx$ y $\sigma^2(x)=x^a$, $c>0$. Sea 
+    $Y(t)=X(t)^b$. ¿Qué elección de $b$ resultará en un coeficiente de difusión constante para $Y$?\\
+
+    \textbf{Solución:} notamos que $X(t)$ directamente está definido como proceso de Itô, pues 
+    \[
+    dX(t)=\mu(X(t),t)dt+\sigma(X(t),t)dB(t)=cX(t)dt+X^{a}(t)dB(t),  
+    \]
+    por lo que utilizando la fórmula de Itô para procesos de Itô, dado que $Y(t)=f(X(t))=X^b(t)$, con
+    $f(x)=x^{b}$, función que claramente es $C^2$, tenemos que
+    \begin{align*}
+      dY(t)=df(X(t))&=f'(X(t))dX(t)+\frac{1}{2}\sigma^2(X(t),t)f''(X(t))dt\\
+      &=f'(X(t))\left(\mu(X(t),t)dt+\sigma(X(t),t)dB(t)\right)\\
+      &=\left(\mu(X(t),t)f'(X(t))+\frac{1}{2}\sigma^2(X(t),t)f''(X(t))\right)dt+\sigma(X(t),t)f'(X(t))dB(t)\\
+      &=\left(cX(t)bX^{b-1}(t)+\frac{1}{2}X^a(t)b(b-1)X^{b-2}(t)\right)dt+X^{a/2}bX^{b-1}(t)dB(t)\\
+      &=\left(cbX^{b}(t)+\frac{b(b-1)}{2}X^{a+b-2}(t)\right)dt+bX^{a/2+b-1}(t)dB(t),\\
+    \end{align*}
+    por lo que si queremos que $Y(t)$ tenga un coeficiente de difusión constante, basta 
+    con que pidamos que $\frac{a}{2}+b-1=0$, lo que resolviendo en términos de $b$ significa
+    pedir que 
+    \[
+    b=1-\frac{a}{2},  
+    \]
+    y con ello tendremos que $Y(t)$ tendrá un coeficiente de difusión constante dado justamente
+    por $b=1-\frac{a}{2}$.
+    \item Encuentra $d \left(M(t)\right)^2$, donde $M(t)=e^{B(t)-\frac{t}{2}}$.
+    \begin{proof} 
+      Interpretando $d \left(M(t)\right)^2=d \left(M^2(t)\right)$, calculamos primero  
+      $M^2(t)=e^{2B(t)-t}$. Observamos que $M^2(t)$ es función de $B(t)$ y $t$,  a saber, $M^2(t)=f(B(t),t)$, donde $f(x,t)=e^{2x-t}=e^{2x}e^{-t}$, la cual 
+      claramente es una función de clase $C^{2,1}$. Además, $M(t)$ es un proceso de Itô ya que justamente es función del
+      movimiento browniano que es un proceso de Itô, y de $t$, por lo que podemos hallar el diferencial utilizando la fórmula de Itô para procesos
+      de Itô la forma $X(t)=g \left(B(t),t\right)$:
+      \begin{align*}
+        dM^2(t)=df(B(t),t)&=\partial_x f\left(B(t),t\right)dB(t)+\partial_t f\left(B(t),t\right)dt +\frac{1}{2}\cdot\sigma^2_{B}(B(t),t)\cdot\partial_{xx} f(B(t),t)dt\\
+        &=\left(2e^{2x}e^{-t}\Big|_{(B(t),t)}\right) dB(t)+\left(-e^{2x}e^{-t}\Big|_{(B(t),t)}\right) dt+\frac{1}{2}\cdot \sigma^2_{B}(B(t),t)\cdot \left(4e^{2x}e^{-t}\Big|_{(B(t),t)}\right)dt\\
+        &=\left(2e^{2B(t)}e^{-t}\right) dB(t)+\left(-e^{2B(t)}e^{-t}\right) dt+\frac{1}{2}\cdot 1^2\cdot \left(4e^{2B(t)}e^{-t}\right)dt\\
+        &=\left(2e^{2B(t)-t}\right) dB(t)-\left(e^{2B(t)-t}\right) dt+2\left(e^{2B(t)-t}\right)dt\\
+        &=\left(2e^{2B(t)-t}\right) dB(t)+\left(e^{2B(t)-t}\right) dt,
+      \end{align*}
+      lo que se traduce en que:
+      \[
+      M^2(t)=\int_{0}^t2e^{2B(s)-s}dB(s) +\int_{0}^t e^{2B(s)-s} ds.
+      \]
+      
+
+     \end{proof}
+    \item Let $M(t)=B^3(t)-3tB(t)$. Muestra que $M$ es una martingala, primero directamente y
+    después usando integrales de Itô.
+    \begin{proof} 
+      Comenzamos probando que $M(t)$ es una martingala con respecto
+      a la filtración $(\F_t)_{t\geq0}$ generada por el movimiento browniano, y lo haremos por definición. Notamos que:
+      \begin{enumerate}
+        \item $(\F_t)_{t\geq0}$ es una filtración por definición.
+        \item $(M(t))_{t\geq0}$ es un proceso adaptado a $(\F_t)_{t\geq0}$ ya que para cada $t\geq0$, $M(t)$ es una
+        función de $B(t)$ y por lo tanto, $M(t)$ es $\F_t$-medible.
+        \item Notamos que $M(t)$ es integrable, ya que 
+        \[
+        \int_{\Omega}\abs{M(t)}d\P\leq \int_{\Omega}|B^3(t)|d\P-3t\int_\Omega \abs{B(t)}d\P<\infty, \qquad t\geq0.
+        \]
+        ya que $B(t)\sim N(0,t)$ y por lo tanto sus primeros y terceros momentos absolutos son finitos
+        \item Finalmente, probamos la propiedad de martingala: dado $0\leq s\leq t$, 
+        \begin{align*}
+            \E\left[M(t)|\F_s\right]&=\E\left[B^3(t)-3tB(t)|\F_s\right]\\
+            &=\E\left[\left(B(t)-B(s)+B(s)\right)^3|\F_s\right]-\E\left[3tB(t)|\F_s\right]\\
+            &=\E\left[\left(B(t)-B(s)\right)^3+3\left(B(s)-B(t)\right)^2B(s)+3\left(B(s)-B(t)\right)B^2(s)+B^3(s)
+            |\F_s\right]-\E\left[3tB(t)|\F_s\right]\\
+            &=\E\left[\left(B(t)-B(s)\right)^3|\F_s\right]+3 \E\left[\left(B(s)-B(t)\right)^2B(s)|\F_s\right]\\
+            &\ \ \ +3 \E\left[\left(B(s)-B(t)\right)B^2(s)|\F_s\right]+\E\left[B^3(s)|\F_s\right]-3t \E\left[B(t)|\F_s\right]\\
+            &=\E\left[\left(B(t)-B(s)\right)^3\right]+3B(s)\E\left[(B(s)-B(t))^2|\F_s\right]+3B^2(s)\E\left[B(t)-B(s)|\F_s\right]+B^3(s)-3t \E\left[B(t)|\F_s\right]\\
+            &=0+3B(s)\E\left[\left(B(s)-B(t)\right)^2\right]+3B^2(s)\E\left[B(t)-B(s)\right]+B^3(s)-3t \E\left[B(t)|F_s\right]\\
+            &=3B(s)(t-s)+0+B^3(s)-3tB(s)\\
+            &=B^3(s)+3B(t)-3sB(s)-3tB(t)\\
+            &=B^3(s)-3sB(s),\\
+        \end{align*}
+        por lo que $M(t)$ es en efecto una martingala.
+      \end{enumerate} 
+      Probamos ahora que $M(t)$ es una martingala utilizando solamente integral de Itô. Afirmamos que
+      \[
+      M(t)=\int_{0}^tB^2(s)-s \ dB(s).
+      \]
+      En efecto. Nótese que para $t\geq0$, por la fórmula de Itô para el movimiento browniano, tenemos para
+      la función $f(x)=x^3$, que claramente tiene segundas derivadas continuas, 
+      \begin{align} \notag
+        B^3(t)=f(B(t))&=f(B(0))+\int_{0}^{t}f'(B(s))dB(s)+\frac{1}{2}\int_{0}^{t}f''(B(s))dB(s)\\ \notag
+        &=B^3(0)+\int_{0}^t3B^2(t)dB(s)+\frac{1}{2}\int_{0}^t6B(s)dB(s)\\ 
+        &=3\int_{0}^{t}B^2(t)dB(s)+3\int_{0}^{t}B(s)ds \label{ec0}
+        \end{align}
+        Por otro lado, calculando directamente la última integral del lado derecho de la igualdad, tenemos que 
+        \begin{align}
+            \int_{0}^{t}B(s)ds&=\lim_{\delta_n\to 0}\sum_{i=0}^{n-1}B(t_{i+1}^n)(t_{i+1}^n-t_i^n)\notag\\
+            &=\lim_{\delta_n\to 0}\sum_{i=0}^{n-1}B(t_{i+1}^n)(t_{i+1}^n-t_i^n)\notag\\
+            &=\lim_{\delta_n\to 0}\left[B(t_n^n)(t_n^n-t_{n-1}^n)+B(t_{n-1}^n)(t_{n-1}^n-t_{n-2}^n)+...+B(t_{2}^n)(t_{2}^n-t_{1}^n)+B(t_{1}^n)(t_{1}^n-t_{0}^n)\right]\notag\\
+            &=\lim_{\delta_n\to 0}\left[B(t_n^n)t_{n}^n-B(t_{n}^n)t_{n-1}^n+B(t_{n-1}^n)t_{n-1}^n-B(t_{n-1}^n)t_{n-2}^n+...-B(t_{2}^n)t_{1}^n+B(t_{1}^n)t_{1}^n-B(t_{1}^n)t_{0}^n\right]\notag\\
+            &=\lim_{\delta_n\to 0}B(t)t-\left[t_{n-1}^n(B(t_{n}^n)-B(t_{n-1}^n))+t_{n-2}^n(B(t_{n-1}^n)-B(t_{n-2}^n))+...+t_{1}^n(B(t_{2}^n)-B(t_{1}^n))\right]-B(t_{1}^n)t_{0}^n\notag\\
+            &=tB(t)-B(t_1)\cdot0-\lim_{\delta_n\to 0}\sum_{i=0}^{n-1}t_{i}(B(t_{i+1}^n)-B(t_{i}^n)), \label{ec1}
+        \end{align}
+        donde hemos hecho uso de la definición de la integral de Itô, de la fórmula de suma por partes en las sumas parciales de la integral, y de que el límite anterior se 
+        toma sobre la norma $\delta_n$ de particiones anidadas $0=t_0^n<t_1^n<t_2^n<...<t_{n-1}^n<t_{n}^n=t$ del intervalo $[0,t]$. 
+
+        Notamos ahora que
+         \begin{equation}\label{ec2}
+            \int_0^ts\ dB(s)=\lim_{\delta_n\to 0}\sum_{i=0}^{n-1}t_{i}(B(t_{i+1}^n)-B(t_{i}^n)),
+        \end{equation}
+        ya que la expresión de la derecha anterior es justamente la definición de la integral de Itô del proceso constante
+        $X(s)=s$ en $[0,t]$ vía la aproximación de dicho proceso por medio de procesos simples, a saber, 
+        \[
+            X(s)=\lim_{n\to \infty}0\cdot\1_{\left\{0\right\}}(s)+\sum_{i=1}^{n-1}t_{i}\1_{(t_{i+1}-t_i]}(s),
+        \]
+        y justamente la integral de la izquierda en la ecuación \eqref{ec2} es el límite de las integrales
+        de Itô de los procesos anteriores que aproximan a $X(s)=s$ en el sentido $L^2$.
+
+        Concluimos de lo anterior y de las igualdades en \eqref{ec1} que  
+        \[
+        \int_{0}^t B(s)ds=tB(t)-\int_{0}^{t}s\ dB(s),  
+        \]
+        por lo que sustituyendo la ecuación anterior en la ecuación \eqref{ec0}, tenemos que 
+        \[
+        B^3(t)=3\int_{0}^{t}B^2(t)dB(s)+3 \left(tB(t)-\int_{0}^{t}s\ dB(s)\right),   
+        \]
+        así que podemos reescribir $M(t)$ como:
+        \[
+        M(t)=B^3(t)-3tB(t)=3 \left(\int_{0}^{t}B^2(s)dB(s)-\int_{0}^{t}s\ dB(s)\right)=3 \left(\int_{0}^{t}B^2(s)-s\ dB(s)\right), 
+        \]
+        esto es, $M(t)$ es precisamente una integral de Itô, así que solamente resta ver que 
+        \[
+          \E\left[\int_{0}^{t}\left(B^2(s)-s\right)^2ds\right]<\infty
+        \]
+        para poder deducir que es una martingala. Pero notamos que 
+        \begin{align*}
+          \int_{0}^{t}\E\left[\left(B^2(s)-s\right)^2\right]ds&=\int_{0}^{t}\E\left[B^{4}(s)\right]-2s\E\left[B^2(s)\right]+s^{2}ds\\
+          &=\int_{0}^{t}3s^2-2s^2+s^{2}ds\\
+          &=2t^{3}/3\\
+          &<\infty,
+        \end{align*}
+        de tal forma que la integral de Itô en efecto es una martingala y terminamos.
+     \end{proof}
+    \item Muestra que $M(t)=e^{\frac{t}{2}}\sen(B(t))$ es una martingala utilizando
+    fórmula de Itô.
+    \begin{proof} 
+      Aseguramos que 
+      \[
+      M(t)=\int_{0}^te^{t/2}\cos(B(t))dB(t).
+      \] 
+      En efecto, por la fórmula Itô, dado que $M(t)=e^{t/2}\sen(B(t))$ es una
+      función solamente de $B(t)$ (el cual es un proceso de Itô) y de $t$.
+      Entonces utilizando la fórmula de Itô para procesos de
+      la forma $g(X(t),t)$, se tiene que, para $f(x,t)=e^{t/2}\sen(x)$, función que claramente
+      es de clase $C^{2,1}$, tenemos que 
+      \begin{align*}
+        df(B(t),t)&=\partial_x f\left(B(t),t\right)dB(t)+\partial_t f\left(B(t),t\right)dt +\frac{1}{2}\cdot\sigma^2_B(B(t),t)\partial_{xx} f(B(t),t)dt\\
+        &=\left(e^{t/2}\cos(x)\Big|_{(B(t),t)}\right) dB(t)+\left(\frac{1}{2}e^{t/2}\sen(x)\Big|_{(B(t),t)}\right) dt+\frac{1}{2}\cdot\sigma^2_B(B(t),t)\left(-e^{t/2}\sen(x)\Big|_{(B(t),t)}\right)dt\\
+        &=\left(e^{t/2}\cos(B(t))\right) dB(t)+\left(\frac{s1}{2}e^{t/2}\sen(B(t))\right) dt-\frac{1}{2}\cdot 1^2 \cdot\left(e^{t/2}\sen(B(t))\right)dt\\
+        &=e^{t/2}\cos(B(t))dB(t),\\
+      \end{align*}
+      lo cual se traduce en que 
+      \[
+      e^{t/2}\sen(B(t))=M(t)=f(B(t),t)=\int_{0}^{t}e^{t/2}\cos(B(t))dB(t),
+      \]
+      es decir, $M(t)$ es la integral de Itô de cierto proceso, por lo que en particular si probamos que
+      \[
+      \E\left[\int_{0}^{t}(e^{s/2}\cos(B(s)))^2ds\right]<\infty  
+      \]
+      podremos concluir que es una martingala. Pero notamos que 
+      \begin{align*}
+        \E\left[\int_{0}^{t}(e^{s/2}\cos(B(s)))^2ds\right]&=\E\left[\int_0^te^{s}\cos^2(B(t))ds\right]\\
+        &\leq\E\left[\int_0^te^{s}ds\right]\\
+        &=\E\left[e^{t}-1\right]\\
+        &=e^{t}-1\\
+        &<\infty,
+      \end{align*}
+      por lo que la integral en efecto es una martingala y terminamos.
+    \end{proof}
+    \item Sea $X(t)=(1-t)\int_0^t\frac{dB(s)}{1-s}$, donde $0\leq t<1$. Hallar $dX(t)$.
+    \newline
+
+    \textbf{Solución:} Notamos que, denotando $Y(t)=\int_0^t\frac{dB(s)}{1-s}$, que claramente es 
+    un proceso de Itô, se tiene que 
+    \[
+    X(t)=(1-t)\int_0^t\frac{dB(s)}{1-s}=(1-t)Y(t)=f(Y(t),t),
+    \]
+    donde $f(x,t)=(1-t)x$, así que $X(t)$ es una función de un proceso de Itô. Claramente
+    $f$ es de clase $C^{2,1}$, por lo que usando fórmula de Itô, tenemos que 
+    \begin{align*}
+      dX(t)=df(Y(t),t)&=\partial_x f\left(Y(t),t\right)dY(t)+\partial_t f\left(Y(t),t\right)dt +\frac{1}{2}\cdot\sigma^2_Y(Y(t),t)\partial_{xx} f(Y(t),t)dt\\
+      &=(1-t)dY(t)-Y(t)dt+\frac{1}{2}\cdot\sigma^2_Y(Y(t),t)\cdot0dt\\
+      &=(1-t)\left(\frac{1}{1-t}dB(t)\right)-Y(t)dt\\
+      &=dB(t)-Y(t)dt,\\
+     \end{align*}
+     donde $Y(t)=\int_{0}^{t}\frac{1}{1-s}dB(s)$.
+
+
+
+%      Utilizamos integración por partes para procesos de Itô. Obsérvese que, denotando
+%     por $X'(s)=\frac{1}{1-s}$ y $Y(t)=B(s)$, los cuales son ambos procesos de Itô. Entonces 
+%     \[
+%     \int_{0}^{t}\frac{1}{1-s}dB(s)=\int_0^tX'(s) dY(s),  
+%     \]
+%     por lo que con la fórmula de integración por partes,
+    
+% \begin{align*}
+%         \int_{0}^{t}\frac{1}{1-s}dB(s)&=\int_0^tX'(s) dY(s)\\
+%         &=X'(t)Y(t)-\int_{0}^{t}Y(s)dX'(s)+\int_{0}^{t}\sigma_{X'}(s)\sigma_Y(s)ds,
+% \end{align*}
+% pero dado que el proceso $X'(t)=\frac{1}{1-t}$ es de variación finita, 
+% su variación cuadrática es 0 por lo que la covariación de $X'$ y $Y$ es 0. Luego, 
+% tenemos que 
+% \begin{align*}
+%   \int_{0}^{t}\frac{1}{1-s}dB(s)&=X'(t)Y(t)-\int_{0}^{t}Y(s)dX'(s)\\
+%   &=\frac{B(t)}{1-t}-\int_{0}^{t}B(s)d \left(\frac{1}{1-s}\right)\\
+%   &=\frac{B(t)}{1-t}+\int_{0}^{t}\frac{B(s)}{(1-s)^2}ds,\\
+% \end{align*}
+% de donde se deduce que 
+% \[
+% X(t)=(1-t)\int_0^t\frac{dB(s)}{1-s}=(1-t) \left(\frac{B(t)}{1-t}+\int_{0}^{t}\frac{B(s)}{(1-s)^2}ds\right)=B(t)+\int_{0}^{t}\frac{B(s)}{(1-s)^2}=\int_{0}^{t}\frac{B(s)}{(1-s)^2}+\int_0^tdB(s),
+% \]
+% lo cual en notación diferencial se lee como que 
+% \[
+% dX(t)= \frac{B(t)}{(1-t)^2}dt+dB(t).
+% \]
+\end{enumerate}
+\end{document}

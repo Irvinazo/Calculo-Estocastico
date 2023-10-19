@@ -1,7 +1,7 @@
-PWD c:\Users\César Rosas\Documents\Maestría\Semestre 3\Cálculo Estocástico\Tarea 3 Cálculo Estocástico
+PWD c:\Users\César Rosas\Documents\Maestría\Semestre 3\Cálculo Estocástico\Tarea 4 Cálculo Estocástico
 INPUT C:\Users\César Rosas\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT c:\Users\César Rosas\Documents\Maestría\Semestre 3\Cálculo Estocástico\Tarea 3 Cálculo Estocástico\Cálculo Tarea 3.tex
-OUTPUT c:\Users\César Rosas\Documents\Maestría\Semestre 3\Cálculo Estocástico\Tarea 3 Cálculo Estocástico\build\Cálculo Tarea 3.log
+INPUT c:\Users\César Rosas\Documents\Maestría\Semestre 3\Cálculo Estocástico\Tarea 4 Cálculo Estocástico\Cálculo Tarea 4.tex
+OUTPUT c:\Users\César Rosas\Documents\Maestría\Semestre 3\Cálculo Estocástico\Tarea 4 Cálculo Estocástico\build\Cálculo Tarea 4.log
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\tex\latex\base\size10.clo
@@ -188,10 +188,10 @@ INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\tex\latex\doublestroke
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\tex\latex\doublestroke\dsfont.sty
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
-INPUT c:\Users\César Rosas\Documents\Maestría\Semestre 3\Cálculo Estocástico\Tarea 3 Cálculo Estocástico\build\Cálculo Tarea 3.aux
-INPUT c:\Users\César Rosas\Documents\Maestría\Semestre 3\Cálculo Estocástico\Tarea 3 Cálculo Estocástico\build\Cálculo Tarea 3.aux
-INPUT c:\Users\César Rosas\Documents\Maestría\Semestre 3\Cálculo Estocástico\Tarea 3 Cálculo Estocástico\build\Cálculo Tarea 3.aux
-OUTPUT c:\Users\César Rosas\Documents\Maestría\Semestre 3\Cálculo Estocástico\Tarea 3 Cálculo Estocástico\build\Cálculo Tarea 3.aux
+INPUT c:\Users\César Rosas\Documents\Maestría\Semestre 3\Cálculo Estocástico\Tarea 4 Cálculo Estocástico\build\Cálculo Tarea 4.aux
+INPUT c:\Users\César Rosas\Documents\Maestría\Semestre 3\Cálculo Estocástico\Tarea 4 Cálculo Estocástico\build\Cálculo Tarea 4.aux
+INPUT c:\Users\César Rosas\Documents\Maestría\Semestre 3\Cálculo Estocástico\Tarea 4 Cálculo Estocástico\build\Cálculo Tarea 4.aux
+OUTPUT c:\Users\César Rosas\Documents\Maestría\Semestre 3\Cálculo Estocástico\Tarea 4 Cálculo Estocástico\build\Cálculo Tarea 4.aux
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
@@ -238,7 +238,6 @@ INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\tex\latex\bbold\ubbold
 INPUT C:\Users\César Rosas\AppData\Local\MiKTeX\fonts\tfm\public\bbold\bbold12.tfm
 INPUT C:\Users\César Rosas\AppData\Local\MiKTeX\fonts\tfm\public\bbold\bbold8.tfm
 INPUT C:\Users\César Rosas\AppData\Local\MiKTeX\fonts\tfm\public\bbold\bbold6.tfm
-INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx10.tfm
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam10.tfm
@@ -253,8 +252,9 @@ INPUT C:\Users\César Rosas\AppData\Local\MiKTeX\fonts\tfm\public\rsfs\rsfs5.tfm
 INPUT C:\Users\César Rosas\AppData\Local\MiKTeX\fonts\tfm\public\bbold\bbold10.tfm
 INPUT C:\Users\César Rosas\AppData\Local\MiKTeX\fonts\tfm\public\bbold\bbold7.tfm
 INPUT C:\Users\César Rosas\AppData\Local\MiKTeX\fonts\tfm\public\bbold\bbold5.tfm
+INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx10.tfm
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmti10.tfm
-OUTPUT c:\Users\César Rosas\Documents\Maestría\Semestre 3\Cálculo Estocástico\Tarea 3 Cálculo Estocástico\build\Cálculo Tarea 3.pdf
+OUTPUT c:\Users\César Rosas\Documents\Maestría\Semestre 3\Cálculo Estocástico\Tarea 4 Cálculo Estocástico\build\Cálculo Tarea 4.pdf
 INPUT C:\Users\César Rosas\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\tex\latex\doublestroke\udsrom.fd
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\tex\latex\doublestroke\udsrom.fd
@@ -262,7 +262,7 @@ INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\tex\latex\doublestroke
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\tfm\public\doublestroke\dsrom10.tfm
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\tfm\public\doublestroke\dsrom8.tfm
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\tfm\public\doublestroke\dsrom8.tfm
-INPUT c:\Users\César Rosas\Documents\Maestría\Semestre 3\Cálculo Estocástico\Tarea 3 Cálculo Estocástico\build\Cálculo Tarea 3.aux
+INPUT c:\Users\César Rosas\Documents\Maestría\Semestre 3\Cálculo Estocástico\Tarea 4 Cálculo Estocástico\build\Cálculo Tarea 4.aux
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx12.pfb
@@ -285,8 +285,6 @@ INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\type1\public\ams
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr7.pfb
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb
-INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy5.pfb
-INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy5.pfb
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy7.pfb
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy7.pfb
 INPUT C:\Users\César Rosas\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmti10.pfb
