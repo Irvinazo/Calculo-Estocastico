@@ -53,7 +53,8 @@
 \newtheorem{obs}{Observación}
 
 
-\title{\textbf{}}
+\title{\textbf{Cálculo Estocástico\\
+Tarea 6}}
 \author{Iván Irving Rosas Domínguez}
 \date{\today}
 
@@ -68,11 +69,125 @@
 %\end{abstract}
 
 \begin{enumerate}
-    \item[\textbf{1.}] 
-    \item[\textbf{2.}]
-    \item[\textbf{3.}]
-    \item[\textbf{4.}]
-    \item[\textbf{5.}]
-    \item[\textbf{6.}]     
+    \item[\textbf{1.}] \textbf{Teorema (Existencia y unicidad para ecuaciones diferenciales estocásticas)}\\
+    
+    Sea $T>0$ y sean $b(\cdot, \cdot):[0,T]\times \R^{n}\to \R^{n}, \ \sigma(\cdot, \cdot):[0,T]\times \R^{n}\to \R^{n\times m}$ dos
+    funciones medibles que satisfacen 
+    \[
+    |b(t,x)|+|\sigma(t,x)|\leq C(1+|x|), \qquad x\in \R^{n}, \  t\in [0,T]    
+    \]
+    para alguna constante $C>0$ (donde $|\sigma|^2=\sum|\sigma_{ij}|^2)$ y tales que 
+    \[
+    |b(t,x)-b(t,y)|+|\sigma(t,x)-\sigma(t,y)|\leq D|x-y|, \qquad x,y \in \R^{n}, \ t\in[0,T]    
+    \]
+    para alguna constante $D$. Sea $Z$ una variable aleatoria que es independiente de la $\sigma-$álgebra 
+    $\F_\infty^{(m)}$ generada por $B_s(\cdot)$, $s\geq0$, y tal que 
+    \[
+        \E\left[|Z|^{2}\right]<\infty.
+    \]
+    Entonces la ecuación diferencial estocástica 
+    \[
+    dX_t=b(t,X_t)dt+\sigma(t,X_t)dB_t, \qquad 0\leq t\leq T, \ X_0=Z
+    \]
+    tiene una única solución $X_t(\omega)$, continua en la variable $t$ con la propiedad
+    de que $X_t(\omega)$ es adaptada a la filtración $\F_t^{Z}$ generada por $Z$ y 
+    $B_s(\cdot)$, con $s\leq t$ y 
+    \[
+    \E\left[\int_{0}^{T}|X_t|^{2}dt\right]<\infty.
+    \]
+    \item[\textbf{2.}] Verificar que los procesos dados resuelven las correspondientes ecuaciones diferenciales estocásticas:
+     ($B_t$ denota el movimiento Browniano 1-dimensional)
+     \begin{enumerate}
+        \item $X_t=e^{B_t}$ resuelve $dX_t=\frac{1}{2}X_tdt+X_tdB_t$
+        \item $X_t=\frac{B_t}{1+B_t}; \ B_0=0$ resuelve 
+        \[
+        dX_t=-\frac{1}{1+t}X_tdt+\frac{1}{1+t}dB_t; \qquad X_0=0.    
+        \]
+        \item $X_t=\sen(B_t)$ con $B_0=a \in \left(-\frac{\pi}{2},\frac{\pi}{2}\right)$ resuelve
+        \[
+            dX_t=-\frac{1}{2}X_t dt + \sqrt{1-X_t^2}dB_t \ \text{ para } \ t<T(\omega)=\inf \left\{s>0 : B_s \not \in \left[-\frac{\pi}{2},\frac{\pi}{2}\right]\right\}.
+        \]
+        \item $(X_1(t),X_2(t))=(t,e^{t}B_t)$ resuelve 
+        \[
+        \begin{bmatrix}
+            dX_1\\
+            dX_2
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            1\\
+            X_2
+        \end{bmatrix}dt
+        +
+        \begin{bmatrix}
+            0\\
+            e^{X_1}
+        \end{bmatrix}dB_t
+        \]  
+        \item $(X_1(t), X_2(t))=(\cosh(B_t),\sinh(B_t))$ resuelve 
+            \[
+            \begin{bmatrix}
+                dX_1\\
+                dX_2
+            \end{bmatrix}
+            =\frac{1}{2}
+            \begin{bmatrix}
+                X_1\\
+                X_2
+            \end{bmatrix}dt
+            +
+            \begin{bmatrix}
+                X_2\\
+                X_1
+            \end{bmatrix}dB_t
+            \]  
+     \end{enumerate}
+    \item[\textbf{3.}] Sea $(B_1,...,B_n)$ un movimiento Browniano en $\R^n$, $\alpha_1,...,\alpha_n$ 
+    constantes. Resolver la ecuación diferencial estocástica 
+    \[
+    dX_y=rX_tdt+X_t \left(\sum_{k=1}^n \alpha_k dB_k(t)\right); \qquad X_0>0.    
+    \]
+    (Este es un modelo para un crecimiento exponencial con varias fuentes de ruido blanco independientes 
+    en la tasa de crecimiento relativa.)
+    \item[\textbf{4.}] Resolver las siguientes ecuaciones diferenciales estocásticas 
+    \begin{enumerate}
+        \item \[
+            \begin{bmatrix}
+            dX_1\\
+            dX_2
+        \end{bmatrix}= \begin{bmatrix}
+            1\\
+            0
+        \end{bmatrix}dt + \begin{bmatrix}
+            1 & 0\\
+            0 & X_1
+        \end{bmatrix} \begin{bmatrix}
+            dB_1\\
+            dB_2
+        \end{bmatrix}.
+        \]
+        \item $dX_t=X_tdt + dB_t$. (Sugerencia: multiplicar ambos lados con el `factor integrante' $e^{-t}$
+        y comparar con $d(e^{-t}X_t))$.
+        \item $dX_t=-X_tdt+e^{-t}dB_t$.
+    \end{enumerate}
+    \item[\textbf{5.}] Resolver la ecuación diferencial estocástica (2-dimensional)
+    \begin{align*}
+        &dX_1(t)=X_2(t)dt+\alpha dB_1(t)\\
+        &dX_2(t)=X_1(t)d+\beta dB_2(t)
+    \end{align*}
+    donde $(B_1(t),B_2(t))$ es un movimiento Browniano 2-dimensional y $\alpha$, $\beta$ son constantes.
+    Este es un modelo para una cuerda vibrante sujeta a una fuerza estocástica.
+    \item[\textbf{6.}] \textbf{(El puente Browniano).}
+    
+    Para $a,b\in \R$ fijos, considérese la siguiente ecuación $1$-dimensional.
+    \[
+    dY_t=\frac{b-Y_t}{1-t}dt+dB_t; \qquad 0\leq t<1, \quad Y_0=a.    
+    \]
+    Verificar que 
+    \[
+    Y_t=a(1-t) + bt + (1-t)\int_{0}^{t}\frac{dB_s}{1-s}; \qquad 0\leq t <1    
+    \]
+    resuelve la ecuación y demostrar que $\displaystyle \lim_{t\to 1}Y_t=b$ c.s. El proceso 
+    $Y_t$ es denominado \textit{el puente Browniano} (de $a$ a $b$).
 \end{enumerate}
 \end{document}
