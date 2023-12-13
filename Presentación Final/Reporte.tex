@@ -1,0 +1,505 @@
+\documentclass[letterpaper]{article} 
+\usepackage[left = 0.5in, right = 0.5in, top = 0.9in, bottom = 0.9in]{geometry}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{tikz-cd}
+\usepackage{mathrsfs}
+\usepackage[bbgreekl]{mathbbol}
+\usepackage{dsfont}
+\usepackage{graphicx}
+\graphicspath{{img/}}
+
+\newcommand{\op}{\operatorname}
+\newcommand{\Op}{^{\op{op}}}
+\newcommand{\scc}{\mathscr C}
+\newcommand{\scd}{\mathscr D}
+\newcommand{\sce}{\mathscr E}
+\newcommand{\sci}{\mathscr I}
+\newcommand{\scj}{\mathscr J}
+\newcommand{\scx}{\mathscr X}
+\newcommand{\var}{\mathrm{Var}}
+\newcommand{\Id}{\operatorname{Id}}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\inv}{^{-1}}
+\renewcommand{\to}{\rightarrow}
+\newcommand{\ent}{\Longrightarrow}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\1}{\mathds{1}}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\theoremstyle{definition}
+\newtheorem{dfn}{Definición}
+\theoremstyle{definition}
+\newtheorem{teo}{Teorema}
+\theoremstyle{definition}
+\newtheorem{cor}{Corolario}
+\theoremstyle{definition}
+\newtheorem{prop}{Proposición}
+\theoremstyle{definition}
+\newtheorem{obs}{Observación}
+
+
+\title{\textbf{Reporte de la presentación}\\
+Difusiones de Feller y Difusiones de Wright-Fisher}
+\author{Iván Irving Rosas Domínguez}
+\date{\today}
+
+\DeclareSymbolFontAlphabet{\mathbbm}{bbold}
+\DeclareSymbolFontAlphabet{\mathbb}{AMSb}
+\DeclareMathSymbol\bbDelta  \mathord{bbold}{"01}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    Tanto los procesos de ramificación como el modelo de Wright-Fisher surgen de la Biología. Por un lado, 
+    podemos pensar en los procesos de ramificación como un modelo para el crecimiento de una población que 
+    comienza con un individuo $X(0)=1$, y que a cada tiempo $n\geq1$, el número de individuos en la generación 
+    $n+1$, consiste en el número total de descendientes que tuvieron los individuos de la generación $n$. 
+    Las hipótesis básicas son que los individuos en la generación $n$ se reproducen de manera independiente, y 
+    la distribución de su descendencia es la misma par todos los individuos. 
+    \newline
+    
+    Es conocido que, bajo cierto reescalamiento en espacio y en tiempo, este proceso termina convergiendo 
+    en cierto sentido a un proceso continuo. Este es el análogo continuo para el proceso de ramificación, y se conoce como 
+    la difusión de ramificación de Feller.\\
+    
+    Análogamente, el modelo a tiempo discreto de Wright-Fisher tiene por objetivo describir el comportamiento 
+    de distintas características en una población de individuos. Se supone la población constante, que solo hay 
+    dos características a estudiar, digamos, la característica $\textbf{a}$ y la característica $\textbf{A}$. También se supone 
+    que los individuos en la generación $n+1$ `eligen' a su ancestro de acuerdo a una determinada regla. Típicamente 
+    esta regla consiste en una elección uniforme de un individuo de la generación anterior y en consecuencia 
+    se adopta la característica que tal individuo posea. Luego, podemos estudiar la frecuencia de 
+    la cantidad de individuos con una característica con respecto al total. Este proceso $X(n)$ es por lo tanto 
+    un proceso discreto con valores en $[0,1]$\\
+
+    Nuevamente es conocido que bajo un reescalamiento en espacio y tiempo adecuados, este proceso 
+    también converge en cierto sentido a un proceso continuo. Este proceso es el análogo continuo del modelo 
+    anterior, y se conoce como difusión de Wright-Fisher.
+
+    Presentamos aquí los detalles de las demostraciones realizadas en la presentación sobre 
+    la difusión de Feller y la difusión de Wright-Fisher, así como la prueba de resultados auxiliares que 
+    fueron utilizados para ello.
+\end{abstract}
+
+\section*{Difusión de Ramificación de Feller}
+Un proceso de ramificación simple se puede ver como un modelo para el crecimiento de una población en el que 
+cada individuo se reproduce de manera independiente de los demás, y la descendencia de cada 
+individuo tiene una distribución idéntica. La versión continua de este proceso es la difusión de ramificación.\\
+
+Establecemos a continuación la definición de un proceso de ramificación de Feller.
+\begin{dfn}\label{eq1}
+    Sea $t\geq0$ y supongamos que $X(0)>0$ es una distribución inicial. Entonces $X=(X(t))_{t\geq0}$ es una 
+    difusión de Feller si $X$ cumple la siguiente ecuación diferencial estocástica:
+    \[
+    dX(t)=\alpha X(t)dt+\sigma\sqrt{X(t)}dB(t),
+    \]
+    donde $\alpha\in \R$, y $\sigma>0$.
+\end{dfn}
+El coeficiente $\alpha$ mide la $deriva$ y este coeficiente es positivo, negativo o cero, dependiendo de 
+si el promedio de la población crece o decrece. W. Feller en 1951 \footnote[1]{Ver el artículo original
+de W. Feller de 1951: \url{https://digitalassets.lib.berkeley.edu/math/ucb/text/math_s2_article-17.pdf}}
+estudia este proceso y resuelve la ecuación diferencial parcial de Fokker-Plank asociada a este proceso. A saber, si $p$ representa la densidad de probabilidad
+asociada al generador infinitesimal del proceso, se tiene que 
+\[
+\partial_t p(t,x)=\frac{\sigma^2}{2}\partial_{xx}(xp(t,x))-\alpha \partial_x(xp(t,x)), 
+\]
+por lo que en particular construyó una solución débil de la EDE \eqref{eq1}.\\
+
+En esta sección procedemos a demostrar la existencia y unicidad de una solución fuerte la para la ecuación 
+de difusión de Feller. Posteriormente, se estudian propiedades de las difusiones de ramificación con respecto 
+a las probabilidades de extinción y su comportamiento cuando $t$ tiende a infinito.\\
+
+Observamos directamente de \eqref{eq1} que no es posible aplicar el criterio de existencia y unicidad visto en el 
+curso ya que el coeficiente de difusión dado por $\beta(x)=\sigma\sqrt{x}$ no es una función Lipschitz en 
+cero. Dado que estamos interesados en el comportamiento de la solución cuando $X(t)$ tiende a cero (lo cual sería 
+interpretado como que la población está cerca de extinguirse), debemos sortear esta dificultad, ya que 
+a priori no es clara la existencia y unicidad de la solución.\\
+
+Sin embargo, es posible resolver este problema aproximando por procesos que sí sean Lipschitz en cero. Este 
+resultado se presenta en el siguiente
+\begin{teo}
+La ecuación diferencial estocástica dada por 
+
+\begin{equation}
+    dX(t)=\alpha X(t)dt+\sigma\sqrt{X(t)}dB(t)
+\end{equation}
+
+con $X(0)>0$, tiene una única solución no negativa. Más aún, si $X(t)$ es esa solución y 
+$\tau=\inf\{t\geq0 : X(t)=0\}$, entonces $X(t)=0$ para toda $t\geq\tau$.
+\end{teo}
+\begin{proof} 
+    Para cada $n\geq1$, consideramos la siguiente EDE:
+    \begin{equation}\label{eq2}
+        dX^{n}(t)=\alpha X^{n}(t)dt+\sigma \sqrt{\tfrac{1}{n}\vee X^{n}(t)}dB(t), \qquad X^{n}(0)=0.    
+    \end{equation}
+     
+    Notamos que el coeficiente de difusión de la ecuación anterior, $\beta_n(x)=\sigma\sqrt{\tfrac{1}{n}\vee x}$
+    es Lipschitz continuo. Una manera de ver lo anterior es que su derivada existe $\lambda$ - casi en todas partes, donde 
+    $\lambda$ representa la medida de Lebesgue. Notamos que esta derivada está dada casi en todas partes por 
+    \[
+    \frac{d}{dx}\beta(x)=\begin{cases}
+        0 &  \text{ si } 0\leq x\leq \frac{1}{n}\\
+        \frac{1}{2\sqrt{x}} & \text{ si } x\geq \frac{1}{n},
+    \end{cases}    
+    \]
+    la cual es una función que está acotada, para cada $n\geq1$, por $\tfrac{\sqrt{n}}{2}$. Lo anterior
+    garantiza que $\beta_n(x)$ es una función Lipschitz.  Dado que $\mu_n(x)=\mu(x)=\alpha x$, se tiene que 
+    para cada $n\geq1$, $\mu_n(x)$ y $\beta_n(x)$ son funciones Lipschitz y de crecimiento lineal. Por lo 
+    tanto, por el criterio de existencia y unicidad de soluciones fuertes, existe una única solución fuerte 
+    a la ecuación \ref{eq2}.\\
+
+    Denotamos $\tau_0=0$ y $\tau_n:=\inf\{t>0:X^{n}(t)=\tfrac{1}{n}\}$, con la convención usual 
+    $\inf(\varnothing)=\infty$. Dado que $\tfrac{1}{n+1}\leq \tfrac{1}{n}$, entonces 
+    para $N\in \N$ fijo y para $t<\tau_N$, se tiene que $X^{n}$ es también solución de la ecuación que resuelve $X^{N}$, para cualquier $n\geq N$. Pero 
+    las soluciones son únicas. Luego, $X^{n}(t)=X^{N}(t)$ para $t<\tau_N$,y para $n\geq N$.
+    \newline
+
+    Por otro lado, de la definición de los tiempos de paro $\tau$, $\tau_{n+1}\geq \tau_n$ para cualquier $n\geq1$.
+     Denotamos $\tau:=\lim_{n\to\infty}\tau_n$. Obsérvese que dicho límite existe y es una variable aleatoria ya que 
+     los tiempos de paro son positivos y crecientes. Obsérvese también que dicho límite puede ser $\infty$.\\
+
+    Definimos al proceso $X$ de la siguiente manera: 
+    \[
+    \begin{cases}
+        X(t\wedge \tau)=X^{n+1}(t) & \text{ si } \tau_n\leq t \leq \tau_{n+1}\\
+        X(t)=0 & \text{ si } t>\tau \ (\text{si es que $\tau<\infty$}).
+    \end{cases}    
+    \]
+    Hemos entonces construido una solución a la ecuación \eqref{eq1}. Más áun, esta solución 
+    es tal que, si $X(t)=0$ para algún $t>0$, entonces $X(t)=0$ para cualquier $t\geq0$. 
+    Además, dado que $X(0)>0$, y las soluciones a las ecuaciones \eqref{eq2} son continuas, 
+    por definición de $\tau_n$ los hitting times al 0, la solución $X$ construida antes es positiva. 
+    Finalmente, argumentamos la unicidad de la solución recordando el siguiente
+    \begin{teo}{(Yamada-Watanabe).}
+        En $\R$, si $\mu(x)$ es Lipschitz y $\sigma(x)$ es $\alpha-$Hölder continua, con $\alpha\geq \tfrac{1}{2}$, entonces 
+        existe una solución fuerte a la ecuación de difusión homogénea en el tiempo, y esta es única.
+    \end{teo}
+    Nótese que $X$ cumple las condiciones anteriores, concluyendo la demostración.
+\end{proof}
+Una vez que establecimos la existencia y la unicidad de la solución anterior, establecemos el siguiente resultado que nos 
+habla sobre el crecimiento exponencial de la población. Para ello, primero probamos el siguiente Lema:
+\begin{prop}\label{prop1}
+    Sea $g$ una función no negativa definida en $[0,\infty]$. Entonces para cualesquiera $t,T>0$, se tiene 
+    que 
+    \[
+        \int_{0}^{t\wedge T}g(s)ds\leq \int_{0}^{\text{t}}g(s\wedge T) ds
+    \]
+\end{prop}
+\begin{proof} 
+  La prueba va por casos. Supongamos primero que $t<T$, $s\wedge T=s$ para cualquier $s\leq t$, y con ello, 
+  \[
+    \int_{0}^{t\wedge T}g(s)ds=\int_{0}^{t}g(s)ds=\int_{0}^{t}g(s\wedge T)ds,
+  \] 
+  así que de hecho se tiene la igualdad de las integrales. En el caso en que $T\leq t$, 
+  \[
+  \int_{0}^{t\wedge T} g(s)ds=\int_{0}^{T}g(s)ds\leq \int_{0}^{T}g(s)ds+\int_{T}^{t}g(T)ds=\int_{0}^{T}g(s\wedge T)ds+\int_{T}^{t}g(s\wedge T)ds=\int_{0}^{t}g(s\wedge T)ds.
+  \] 
+ \end{proof}
+ Probamos ahora la siguiente afirmación.
+\begin{teo} 
+  Sea $X(t)$ la solución de la ecuación diferencial \eqref{eq1}, y $X(0)>0$. Entonces 
+  $\E\left[X(t)\right]=X(0)e^{-\alpha t}$. Además, $X(t)e^{-\alpha t}$ es una martingala no negativa y que converge 
+  casi seguramente a un límite no trivial cuando $t$ tiende a $\infty$ si $\alpha>0$
+  \end{teo}
+\begin{proof} 
+    Para probar que en efecto el proceso $X(t)e^{-\alpha t}$ es martingala, es importante probar que el proceso $X(t)$ es
+    en efecto integrable. Para ello, notemos que de la ecuación de difusión de Feller $\eqref{eq1}$, se 
+    tiene que 
+    \[
+    \int_{0}^{t}\sqrt{X(s)}dB(s), \qquad 0\leq t
+    \]
+    es solamente una martingala local en principio. Por lo tanto, la propiedad de martingala solo se vale en 
+    alguna sucesión de tiempos de paro crecientes y que convergen a $+\infty$. tales que . 
+    Notamos que $T_n:=\inf \left\{t\geq0 : X(t)\geq n\right\}$ es una sucesión de tiempos de paro, creciente, 
+    y tal que $T_n\xrightarrow[n\to \infty]{}\infty$. Además, se puede demostrar que esta es una sucesión localizante 
+    para la integral de Itô. Usando tal sucesión, la ecuación de difusión de 
+    Feller toma la siguiente forma integral: para $n\geq1$,
+    \[
+    X(t\wedge T_n)-X(0)=\alpha\int_0^{t\wedge T_n}X(s)ds+\sigma\int_{0}^{t\wedge T_n}\sqrt{X(s)}dB(s).    
+    \]
+    Dado que para $t\leq T_n$, $X(t)\leq n$, las esperanzas están definidas, así que 
+    tomando esperanzas en ambos lados y usando la propiedad de martingala local, se tiene que 
+    \[
+    \E\left[X(t\wedge T_n)\right]=X(0)+\alpha \E\left[\int_{0}^{t}X(s)ds\right]    
+    \]
+    Ahora bien, utilizando \ref{prop1}, y el teorema de Tonelli, se tiene que 
+    \begin{align*}
+        X(0)+\alpha \E\left[\int_{0}^{t\wedge T_n}X(s)ds\right]&\leq X(0)+\alpha \E\left[\int_{0}^{t}X(s\wedge T_n)ds\right]\\
+        &=X(0)+\alpha \int_{0}^{t} \E\left[ X(s \wedge T_n) \right] ds\\
+        &\leq X(0)e^{\alpha t},
+\end{align*} 
+    donde para el último paso hemos utilizado la desigualdad de Grownwall con la función $\E\left[X(t\wedge T_n)\right]$.
+    Ahora bien, dado que $X$ es una solución a la EDE \eqref{eq1}, $X$ tiene trayectorias continuas, por lo que 
+    $X(t\wedge T_n)\xrightarrow[n\to\infty]{}X(t)$. Luego, por el Lema de Fatou,
+
+    \[
+        \E(X(t))=\E\left[\liminf_{n\to\infty}X(t\wedge T_n)\right]\leq \liminf_{n\to\infty}\E\left[X(t\wedge T_n)\right]\leq X(0)e^{\alpha t}.
+    \]    
+    Por lo tanto, las esperanzas están bien definidas. Probamos ahora que de hecho el término de la integral de Itô es 
+    de hecho una Martingala. Para ello, calculamos su variación cuadrática:
+    \[
+        \E\left[[M,M](t)\right]=\E\left[\int_{0}^{t}X(s)ds\right]\leq \int_{0}^{t}X(0)e^{\alpha s}ds\leq Ce^{\alpha t},
+    \]
+    donde hemos usado la desigualdad anterior para las esperanzas y Tonelli. Luego, $M$ es una martingala local, que 
+    se anula en cero, y tal que $\E\left[\sqrt{[M,M](t)}\right]<\infty$ para cualquier $t$.
+    Entonces $M$ es una martingala uniformemente integrable en $[0,T]$, para cualquier $T>0$.\\
+
+    Regresamos nuevamente a la ecuación de Feller, la cual en forma integral y para $t>0$ arbitrario es:
+    \[
+    X(t)=X(0)+\alpha\int_{0}^{t}X(s)ds+\sigma\int_{0}^{t}\sqrt{X(s)}dB(s),    
+    \]
+    Gracias a que probamos que la integral es martingala, si tomamos esperanzas dicho término es cero, por lo que
+    \[
+    \E(X(t))=\E(X(0))+\alpha \E\left[\int_{0}^{t}X(s)ds\right]=\E\left[X(t)\right]+\alpha\int_{0}^{t}\E(X(s))ds,    
+    \]
+    por lo que haciendo $f(t)=\E(X(t))$, tenemos que 
+    \[
+    f(t)=K+\alpha\int_{0}^{t}f(s)ds,     
+    \]
+    con $K=\E\left[X(0)\right]$. Escribiendo la ecuación en forma diferencial se tiene la siguiente ecuación 
+    diferencial con condición inicial:
+    \[
+    \begin{cases}
+        f'(t)=f(t), & \text{ si } 0\leq t\\
+        f(0)=K
+    \end{cases}    
+    \]
+    y resolviendo, tenemos que 
+    $\E\left[X(t)\right]=\E\left[X(0)\right]e^{\alpha t}$. En particular, si elegimos $X(0)=x$ una condición puntual, 
+    se tiene que 
+    \[
+    \E\left[X(t)\right]=X(0)e^{\alpha t}. 
+    \]
+    Finalemente, probamos que $X(t)e^{-\alpha t}$ es una martingala que posee un límite no trivial. Para ello, 
+    utilizamos integración por partes con el término $X(t)e^{-\alpha t}$. Notamos que
+    \[
+        d(X(t)e^{-\alpha t})=X(t)(-\alpha e^{-\alpha t})dt + e^{-\alpha t}dX(t)+d[e^{-\alpha \cdot},X](t).
+    \]
+    Dado que conocemos el diferencial de $X$, y que el proceso $e^{-\alpha t}$ es de variación finita, 
+    el término de variación cruzada es cero, por lo que la ecuación anterior toma la siguiente forma:
+    \begin{align*}
+        d(X(t)e^{-\alpha t})&=-\alpha X(t)e^{-\alpha t}dt+e^{-\alpha t}\alpha X(t)dt+\sigma^{2}e^{-\alpha t}\sqrt{X(t)}dB(t)\\
+        &=\sigma^{2}e^{-\alpha t}\sqrt{X(t)}dB(t),\\
+    \end{align*}
+    que en términos de integrales se escribe:
+    \[
+    X(t)e^{-\alpha t}=X(0)+\sigma^2\int_{0}^{t}e^{-\alpha s}\sqrt{X(s)}ds.    
+    \]
+    Aseguramos que el término anterior es en realidad una martingala uniformemente integrable. Para ello, denotamos $U(t)
+    =X(t)e^{-\alpha t}$ y notamos que, al ser una integral de Itô, se tiene que $U$ es una martingala local. Ahora, calculando 
+    la esperanza de su variación cuadrática, tenemos que 
+    \[
+    \E\left[[U,U](t)\right]=\E\left[\int_0^{t}e^{-2\alpha s}X(s)ds\right]=\int_0^{t}e^{-2\alpha s}\E\left[X(s)\right]ds=\int_0^{t}e^{-2\alpha s}\E\left[X(0)\right]e^{\alpha s}ds= \E\left[X(0)\right]\frac{1-e^{-\alpha t}}{\alpha} <\infty  
+    \]
+    Por lo tanto, se tiene que $X(t)e^{-\alpha t}$ es una martingala cuadrado integrable sobre todo $[0,T]$, $T>0$ y además es uniformemente 
+    integrbale sobre todo $[0,T]$. Más aún, si $\alpha>0$, entonces la parte de la derecha de la cota anterior es decreciente, 
+    por lo que si tomamos supremo sobre $t$, se tiene que 
+    \[
+    \sup_{t\geq0}\frac{\E\left[X(0)\right](1-e^{-\alpha t})}{\alpha}=\E\left[X(0)\right]\frac{1}{\alpha}<\infty.    
+    \]
+    Luego, se tiene que $U$ es una martingala uniformemente integrable, e incluso es cuadrado-integrable.\newline
+
+    Dado que $U$ tiene esa forma tan particular, tenemos que $U$ tiene segundos momentos finitos, por lo que 
+    tiene, como martingala, un último elemento no trivial $U_\infty$, y se tiene que 
+    \[
+    U(t)=\E\left[U_\infty|\F_t\right], 0\leq t\leq \infty.    
+    \]
+    y además, 
+    \[
+    U(t)\xrightarrow[t\to\infty]{0}U_\infty    
+    \]
+    casi seguramente y en $L^2$. 
+\end{proof}
+Lo anterior nos dice que el comportamiento de la población cuando $t\to\infty$ es del orden exponencial. Luego, si 
+$\alpha>0$, entonces el término exponencial que multiplica a la martingala `empuja' la población hacia el cero, de tal forma que 
+cuando el tiempo pasa, la población se estabiliza en un límite no trivial.\\
+
+Finalmente probamos un resultado que tiene que ver con las probabilidades de extinción del proceso.
+\begin{teo} 
+ Sea $X(t)$ una solución a la ecuación diferencial estocástica \eqref{eq1} y supongamos $X(0)=x>0$. Entonces la probabilidad de 
+ extinción última está dada por 
+ \[
+    P(\text{Extinción})=e^{-\frac{2\alpha}{\sigma^2}x}
+\]
+si $\alpha>0$ y es 1 si $\alpha\leq 0$. 
+ \end{teo}
+ \begin{proof} 
+    Sean $T_0:=\inf{t\geq0 : X(t)=0}$ y $T_b:=\{t\geq0:X(t)=b\}$ los tiempos de paro que indican 
+    el primer instante en el que la población llega a 0 y llega a $b>0$ respectivamente. Las probas de salida
+    de $[0,b]$ están dadas, de acuerdo a lo visto en clase, por 
+    \[
+    \P_x\left(T_0<T_b\right)=\frac{S(b)-S(x)}{S(a)-S(0)},
+    \]
+    donde $S(x)$ la función de escala está dada por 
+    \[
+    S(x)=\int_{x_1}^{x}\exp \left\{-\int_{x_0}^{u}\frac{2\alpha}{\sigma^2}dy\right\}du=Ke^{-\frac{2\alpha x}{\sigma^2}}+L,
+    \]
+    donde $K$ y $L$ son constantes que dependen de los puntos positivos $x_0$, $x_1$ y $\alpha, \sigma$.
+    Simplificando, 
+    \[
+        \P_x(T_0<T_b)=\frac{e^{-cx}-e^{-cb}}{1-e^{-cb}}, \qquad c=\frac{2\alpha}{\sigma^2}
+    \]  
+    Luego, la probabilidad de extinción está dada por el límite cuando $b$ tiende a $+\infty$. Denotando
+    por $T_\infty=:\lim_{b\to\infty}T_b$, usando el hecho de que $T_b$ converge crecientemente a $T_\infty$, se 
+    tiene por el teorema de continuidad de la medida de probabilidad que
+    \[
+        \P_x(T_0<T_\infty)=\lim_{b\to\infty} \P_x(T_0<T_b)=\lim_{b\to \infty}\frac{e^{-cx}-e^{-cb}}{1-e^{-cb}}=\begin{cases}
+            e^{-\frac{2\alpha}{\sigma^2}x} & \text{ si } \alpha>0\\
+            1 & \text{ si } \alpha\leq 0,
+        \end{cases}
+    \]
+    donde al momento de pasar al límite, si $\alpha>0$, entonces el comportamiento del límite está dado esencialmente por 
+    la expresión $e^{-cx}=e^{-\frac{2\alpha}{\sigma^2}x}$, mientras que si $\alpha\leq 0$ el comportamiento está dado 
+    por el cociente $\frac{e^{-cb}}{e^{-cb}}$, que en el límite se vuelve 1 y obtenemos lo anteriormente dicho.\\
+
+    Resta ahora ver qué sucede con la expresión $T_\infty$. Dicha expresión indica el instante en el cual el proceso llega a $+\infty$. 
+    Si dicho instante es finito con probabilidad positiva, entonces la población explotará en un tiempo finito. Sin embargo, 
+    utilizamos el test de Feller para ver que la solución a la ecuación anterior no explota en un tiempo finito:
+
+    donde $T_\infty$ es el tiempo de explosión, el cual será infinito si la explosión no ocurre.
+    \newline
+
+    Pero usando el test de explosión de Feller, no hay explosión y $T_\infty=\infty$. Luego, la probabilidad de que la población se 
+    extinga en un tiempo finito está dada por 
+    \[
+        \P_x(T_0<\infty)=\begin{cases}
+            e^{-\frac{2\alpha}{\sigma^2}x} & \text{ si } \alpha>0\\
+            1 & \text{ si } \alpha\leq 0,
+        \end{cases}
+    \]
+  \end{proof}
+  Finalmente, se presenta en [1] una nueva manera de ver a la difusión en términos de un movimiento Browniano con cambio de tiempo, aplicando
+  el teorema Davis-Dubins-Schwarz. Ver Capítulo 7.
+  
+\section*{Difusión de Wright-Fisher}
+
+\begin{teo} 
+ El proceso de difusión de Wright-Fisher está dado por 
+ \[
+ dX(t)=(-\gamma_1X(t))+\gamma_2(1-X(t))dt+\sqrt{X(t)(1-X(t))}dB(t),
+ \]
+ con $0<X(0)<1$. Y este cumple con las siguientes propiedades:
+ \begin{itemize}
+    \item Cuando no hay mutación (i.e. $\gamma_1=\gamma_2=0$), la función ecuación se vuelve 
+    \[
+    dX(t)=\sqrt{X(t)(1-X(t))}dB(t),
+    \]
+    y la función de escala está dada por $S(x)=x$, por lo que en consecuencia para $0\leq a<x<b<1$, 
+    \[
+    \P_x(T_b<T_a)=\frac{x-a}{b-a}    
+    \]
+    Además, el tiempo esperado para fijación de un alelo está dada como solución de la ecuación $Lv=-1$, la cual es 
+    \[
+    v(x)=\E_x\left[\tau\right]=-2((1-x)\ln(1-x)+x\ln(x)).    
+    \]
+    \item Cuando el modelo tiene una constante de mutación positiva, digamos, cuando $\gamma_2=0$ y $\gamma:=\gamma_1>0$, entonces 
+    la ecuación estocástica se vuelve 
+    \[
+    dX(t)=-\gamma X(t)dt+\sqrt{X(t)(1-X(t))}dB(t),
+    \]
+    con $0<X(0)<1$. En este caso, la función de escala está dada por 
+    \[
+    S(x)=\frac{1-(1-x)^{1-2\gamma}}{1-2\gamma}    
+    \]
+    si $\gamma\neq \frac{1}{2}$ y está dada por 
+    \[
+    S(x)=-\log(1-x),    
+    \]
+    cuando $\gamma=\frac{1}{2}$. Se tiene también que $T_b\xrightarrow[t\to b]{}T_1$ y si $\gamma\geq \frac{1}{2}$, se tiene 
+    \[
+        \P_x\left(T_1<T_0\right)=\lim_{t\to\infty}\P_x(T_b<T_0)=0
+    \]
+    El tiempo esperado de fijación es finito y este ocurre con probabilidad 1 si $\gamma\geq \frac{1}{2}$, y con proba positiva ocurren ambas
+    fijaciones si $\gamma<\frac{1}{2}$.
+    \item En el caso en el que $\gamma_1,\gamma_2>0$, se tiene que las fijaciones no ocurren y $X(t)$ admite una distribución estacionaria. Esta 
+    tiene la forma 
+    \[
+    \frac{1}{\beta(2\gamma_1,2\gamma2)}(1-x)^{2\gamma_1-1}x^{2\gamma_2-1},
+    \]
+    es decir, la distribución estacionaria de $X(t)$ es una variable $\beta(2\gamma1,2\gamma2)$
+ \end{itemize}
+ \end{teo}
+ \begin{proof} 
+
+    Para probar 
+    \[
+        \P_x(\text{La característica A se fijó})=\P_x(T_0<T_1)=x,
+    \]
+    se calcula la función de escala de $X(t)$. Notamos que, como $\mu(x)=0$, entonces 
+    \[
+    S(x)=\int_{x_1}^{x}\exp \left\{-\int_{x_0}^{u}\frac{2\mu(s)}{\sigma^2(s)}ds \right\} du =x  
+    \]
+    Luego, 
+    \[
+    \P_x(T_b<T_a)=\frac{x-a}{b-a}, \qquad 0\leq a<x<b\leq1    
+    \]
+    Tomando $a=0$, $b=1$, se tiene lo buscado.
+
+    El tiempo esperado de salida de la difusión del intervalo $[0,1]$ está dado por la solución 
+    a la ecuación diferencial $v(0)=v(1)=0$, y $Lv=-1$.
+
+    El generador infinitesimal del proceso $L_tf$ está dado por 
+    \[
+        L_tf(x)=\mu(x)\partial_xf(x) +\frac{1}{2}\sigma^2(x)\partial_{xx}f(x)=0+\frac{x(1-x)}{2}f''(x),
+    \]
+    por lo que tenemos que resolver la ecuación diferencial 
+    \[
+    \begin{cases}
+        \frac{x(1-x)}{2}v''(x)=-1 & \text{ si } 0<x<1,\\
+        v(0)=v(1)=0 
+    \end{cases}    
+    \]
+    Resolviendo la EDO de segundo orden anterior, utilizando que 
+    \[
+    \int_0^{t}\ln(x)= x\ln(x)-x,     
+    \]
+    se tiene que 
+    \[
+    v(x)=\E_x\left[\tau_{a,A}\right]=-2((1-x)\ln(1-x)+x\ln(x))    
+    \]
+    Para el caso en el que tenemos mutación unilateral, las cuentas son análogas pero más técnicas. En particular, el proceso tiene trayectorias continuas, por lo que el límite
+    cuando $b\to \infty$ está justificado.
+    \newline
+
+    Finalmente, para el tercer caso en el que se tiene la posibilidad de mutaciones bilaterales, encontramos explícitamente 
+    la distribución invariante del proceso.\\
+    
+    Para ello, utilizamos el criterio para hallar la fórmula para la densidad:
+    \begin{align*}
+        \pi(x)=\frac{C}{\beta^2(x)}\exp \left(\int_{x_0}^{x}\frac{2\mu(s)}{\sigma^2(s)}ds\right)&=\frac{C}{1-x}\exp \left(\int_{x_0}^{x}\frac{-2\gamma_1x+2\gamma_2(1-x)}{x(1-x)}dx\right)\\
+        &=\frac{C}{x(1-x)}\exp \left\{2\gamma_1 \ln(1-x)+2\gamma_2\ln(x)\right\}\\
+        &=\frac{C}{x(1-x)}(1-x)^{2\gamma_1}x^{2\gamma_2}\\
+        &=Cx^{2\gamma_2-1}(1-x)^{2\gamma_1-1},
+    \end{align*}
+    que es proporcional a la densidad de una variable $Beta(2\gamma_1,2\gamma_2)$. Añadiendo la constante 
+    $C$ adecuada obtenemos el resultado.
+    \newline
+
+    Karlin \& Taylor (1981), A second course in Stochastic Processes, sección 15, es una referencia que contiene 
+    a detalle muchos más resultados sobre la difusión de Wright-Fisher.
+    
+\end{proof}
+
+ %entre corchetes: para permitir que los frames se corten y la bibliografía se distribuya bien. Entre llaves: cambia el nombre a 
+%referencias
+    \begin{thebibliography}{2} %Número de referencias que se pondrán
+        \bibitem[1]{klebaner} Klebaner, F. (2012). \emph{An Introduction to Stochastic Calculus with Applications}. ($3^\text{ra}$ ed.) England: Imperial College Press.
+        \bibitem[2]{karlin} S. Karlin, H. Taylor (1981. \emph{A second course in Stochastic Processess}). Nueva York: Academic Press, Inc.
+\end{thebibliography}
+\end{document}

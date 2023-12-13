@@ -1,0 +1,92 @@
+\documentclass[letterpaper]{article} 
+\usepackage[left = 0.5in, right = 0.5in, top = 0.9in, bottom = 0.9in]{geometry}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{tikz-cd}
+\usepackage{mathrsfs}
+\usepackage[bbgreekl]{mathbbol}
+\usepackage{dsfont}
+\usepackage{graphicx}
+\graphicspath{{img/}}
+
+\newcommand{\op}{\operatorname}
+\newcommand{\Op}{^{\op{op}}}
+\newcommand{\scc}{\mathscr C}
+\newcommand{\scd}{\mathscr D}
+\newcommand{\sce}{\mathscr E}
+\newcommand{\sci}{\mathscr I}
+\newcommand{\scj}{\mathscr J}
+\newcommand{\scx}{\mathscr X}
+\newcommand{\var}{\mathrm{Var}}
+\newcommand{\Id}{\operatorname{Id}}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\inv}{^{-1}}
+\renewcommand{\to}{\rightarrow}
+\newcommand{\ent}{\Longrightarrow}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\1}{\mathds{1}}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\theoremstyle{definition}
+\newtheorem{dfn}{Definición}
+\theoremstyle{definition}
+\newtheorem{teo}{Teorema}
+\theoremstyle{definition}
+\newtheorem{cor}{Corolario}
+\theoremstyle{definition}
+\newtheorem{prop}{Proposición}
+\theoremstyle{definition}
+\newtheorem{obs}{Observación}
+
+
+\title{\textbf{Cálculo Estocástico\\
+Tarea 8}}
+\author{Iván Irving Rosas Domínguez}
+\date{\today}
+
+\DeclareSymbolFontAlphabet{\mathbbm}{bbold}
+\DeclareSymbolFontAlphabet{\mathbb}{AMSb}
+\DeclareMathSymbol\bbDelta  \mathord{bbold}{"01}
+
+\begin{document}
+\maketitle
+
+%\begin{abstract}
+%\end{abstract}
+
+\begin{itemize}
+    \item[\textbf{1.}] Mostrar que para cualquier $u$, $f(x,t)=\exp \left\{ux-u^2t/2\right\}$ resuleve 
+    la ecuación backward para el movimiento Browniano. Tómense las derivadas primeras, segundas, etc.,
+    de $\exp \left\{ux-u^2t/2\right\}$ con respecto a $u$ e igualese $u=0$ para obtener que 
+    las funciones $x$, $x^2-t$, $x^3-3tx$, $x^{4}-6tx^2+3t^2$, etc. también resuelven la ecuación backward 6.13.
+    Deducir que $B^2(t)-t,B^3(t)-3tB(t)$ y $B^4(t)-6tB^2(t)+3t^2$ son martingalas.
+
+    \item[\textbf{2.}] Hallar $f(x)$ tal que $f(B(t)+t)$ es una martingala.
+    
+    \item[\textbf{3.}] Investigar las explosiones del siguiente proceso 
+    \[
+        dX(t)=X^2(t)dt+\sigma X^{\alpha}(t)dB(t).  
+    \]
+    \item[\textbf{4.}] Mostrar que el cuadrado del proceso de Bessel $X(t)$ en 6.64 se acerca
+    arbitrariamente al cero cuando $n=2$, esto es, $\P\left(T_y<\infty\right)=1$ para cualquier 
+    $y>0$ suficientemente pequeña, pero cuando $n\geq3$, $\P\left(T_y<\infty\right)<1$.
+
+    \item[\textbf{5.}] Sea $X(t)$ una difusión con coeficientes $\sigma(x)=1$, $\mu(x)=-1$ para $x<0$, 
+    $\mu(x)=1$ para $x>0$ y $\mu(0)=0$. Mostrar que $\pi(x)=e^{-|x|}$ es una distribución 
+    estacionaria para $X$.
+\end{itemize}
+\end{document}

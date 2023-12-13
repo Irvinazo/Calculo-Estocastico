@@ -1,0 +1,569 @@
+\documentclass{beamer}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{tikz-cd}
+\usepackage{mathrsfs}
+\usepackage[bbgreekl]{mathbbol}
+\usepackage[all]{xy}
+\usepackage{dsfont}
+\usepackage{graphicx}
+\graphicspath{{img/}}
+\usetheme{Warsaw}
+\usetheme{CambridgeUS}
+\usecolortheme{beaver}
+\useinnertheme{rectangles}
+\useoutertheme{shadow}
+
+
+\newcommand{\scc}{\mathscr C}
+\newcommand{\scd}{\mathscr D}
+\newcommand{\sce}{\mathscr E}
+\newcommand{\sci}{\mathscr I}
+\newcommand{\scj}{\mathscr J}
+\newcommand{\scx}{\mathscr X}
+\newcommand{\var}{\mathrm{Var}}
+\newcommand{\Id}{\operatorname{Id}}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\inv}{^{-1}}
+\renewcommand{\to}{\rightarrow}
+\newcommand{\ent}{\Longrightarrow}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\renewcommand{\1}{\mathds{1}}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\theoremstyle{definition}
+\newtheorem{dfn}{Definición}
+\theoremstyle{definition}
+\newtheorem{teo}{Teorema}
+\theoremstyle{definition}
+\newtheorem{cor}{Corolario}
+\theoremstyle{definition}
+\newtheorem{prop}{Proposición}
+\theoremstyle{definition}
+\newtheorem{obs}{Observación}
+
+
+\DeclareSymbolFontAlphabet{\mathbbm}{bbold}
+\DeclareSymbolFontAlphabet{\mathbb}{AMSb}
+\DeclareMathSymbol\bbDelta  \mathord{bbold}{"01}
+
+
+\title[Difusiones de Feller y Wright-Fisher]{Aplicaciones a Biología:\\
+Difusiones de Feller y Difusiones de Wright-Fisher}
+\subtitle{}
+\author[]{Iván Irving Rosas Domínguez}
+\institute[]{Centro de Investigación en Matemáticas, A.C.}
+\date[]{\today}
+
+\setbeamertemplate{navigation symbols}{} %Para quitar los símbolos de navegación inferiores derechos
+
+\begin{document}
+
+\frame{\titlepage}
+
+% \begin{frame}{Índice}
+% 	\tableofcontents
+% \end{frame}
+\section{Introducción}
+\begin{frame}{Introducción}
+    Tanto los procesos de ramificación como el modelo de Wright-Fisher surgen la Biología:
+    \newline
+
+	\begin{itemize}
+        \item Los procesos de ramificación modelan el crecimiento de una población, bajo ciertas hipótesis, como una cadena de Markov discreta.
+        \item El modelo de Wright-Fisher a tiempo discreto estudia la frecuencia de una determinada característica en una población, bajo ciertas hipótesis.
+        \newline
+        
+    \end{itemize}
+    Ambos tienen sus análogos en tiempo y espacio continuos.
+\end{frame}
+\section{Difusiones de Feller}
+\begin{frame}{Difusiones de Feller}
+    Las difusiones de ramificación de Feller se pueden ver como la versión continua de los procesos de ramificación.
+    \newline
+    \begin{block}{Definición}
+        Sea $t\geq0$ y supongamos que $X(0)>0$ es una distribución. Entonces $X=(X(t))_{t\geq0}$ es una 
+        difusión de Feller si cumple la siguiente ecuación diferencial estocástica:
+        \[
+        dX(t)=\alpha X(t)dt+\sigma\sqrt{X(t)}dB(t),
+        \]
+        donde $\alpha\in \R$, y $\sigma>0$.    
+    \end{block}
+    
+\end{frame}
+\subsection{Existencia y unicidad de la solución}
+\begin{frame}{Existencia y unicidad de la solución}
+    Nos percatamos de un problema. En el coeficiente de difusión,  
+    \[
+        \beta(x)=\sigma\sqrt{x} \text{}
+    \]
+    no es Lipschitz-continua en cero. Luego, dado que $X(t)$ bien puede tomar 
+    el valor 0, no es claro en principio que exista solución a la ecuación.\newline
+    \pause
+
+    Sin embargo, se puede construir una (única) solución usando aproximaciones por medio 
+    de coeficientes que sí sean Lipschitz continuos.
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Teorema}
+        Sea $X(0)>0$ una distribución inicial. La ecuación diferencial estocástica 
+        \[
+            dX(t)=\alpha X(t)dt+\sigma\sqrt{X(t)}dB(t),
+        \]
+        tiene una única solución fuerte no negativa. Más aún, si $X(t)$ es dicha solución, 
+        y denotamos 
+        \[
+        \tau:=\inf \left\{t\geq0 : X(t)=0\right\},
+        \]
+        entonces $X(t)=0$ para cualquier $t\geq\tau$. Es decir, 0 es un estado absorbente.
+    \end{block}
+\end{frame}
+\begin{frame}{Sketch de la prueba:}
+    Construimos la solución aproximando por procesos con coeficiente de difusión Lipschitz. Para cada $n\geq1$,
+    consideramos la siguiente EDE:
+    \[
+    dX^{n}(t)=\alpha X^{n}(t)dt+\sigma \sqrt{\tfrac{1}{n}\vee X^{n}(t)}dB(t), \qquad X^{n}(0)=0.    
+    \] 
+    Notamos que el coeficiente de difusión de la ecuación anterior, $\beta_n(x)=\sigma\sqrt{\tfrac{1}{n}\vee x}$
+    es Lipschitz continuo (su derivada está acotada).
+    \newline
+    
+    Luego, dado que $\mu_n(x)=\alpha x$, existe una única solución fuerte a la EDE anterior por el criterio 
+    de existencia y unicidad de soluciones fuertes.
+\end{frame}
+\begin{frame}{Sketch de la prueba (cont.):}
+    Denotamos $\tau_0=0$ y $\tau_n:=\inf{t>0:X^{n}(t)=\tfrac{1}{n}}$, con $\inf(\varnothing)=\infty$.
+    \newline
+
+    Dado que $\tfrac{1}{n+1}\leq \tfrac{1}{n}$, para un $N\in \N$ fijo, y $t<\tau_N$, se tiene que 
+    $X^{n}$ es solución de la misma ecuación que $X^{N}$, para cualquier $n\geq N$, pues resuelven la misma EDE.
+    \newline
+    
+    Luego, $X^{n}(t)=X^{N}(t)$ para $t<\tau_N$,y para $n\geq N$.
+    \newline
+
+    Se tiene que $\tau_{n+1}\geq \tau_n$ para cualquier $n\geq1$. Denotamos $\tau:=\lim_{n\to\infty}\tau_n$.
+\end{frame}
+\begin{frame}{Sketch de la prueba (cont.):}
+    Definimos al proceso $X$ de la siguiente manera: 
+    \[
+    \begin{cases}
+        X(t\wedge \tau)=X^{n+1}(t) & \text{ si } \tau_n\leq t \leq \tau_{n+1}\\
+        X(t)=0 & \text{ si } t>\tau \ (\text{si es que $\tau=\infty$}).
+    \end{cases}    
+    \]
+    Luego, recordando el siguiente
+    \begin{block}{Teorema (Yamada-Watanabe)}
+        En $\R$, si $\mu(x)$ es Lipschitz y $\sigma(x)$ es $\alpha-$Hölder continua, con $\alpha\geq \tfrac{1}{2}$, entonces 
+        existe una solución fuerte a la ecuación y esta es única.
+    \end{block}
+    al satisfacer $X$ dicha condición, se tiene lo buscado. $\blacksquare$
+\end{frame}
+\subsection[Algunas propiedades]{Algunas propiedades}
+\begin{frame}{Algunas propiedades}
+    Pensando en $X(t)$ como el tamaño de una población, un par de preguntas que nos podemos hacer 
+    sobre la solución son:
+    \newline
+
+    \begin{itemize}
+        \item ¿Qué sucede con $X(t)$ cuando $t\to \infty$?
+        \item ¿Es probable que la población se extinga?
+        \newline
+
+    \end{itemize}
+
+    Contestamos a continuación ambas.
+\end{frame}
+\begin{frame}{Propiedad de martingala y comportamiento límite.}
+    La solución a la ecuación anterior resulta ser una martingala (no negativa) al ponderarla
+    por un factor exponencial. Como consecuencia, tiene un límite no trivial.
+    \newline
+
+    \begin{block}{Teorema}
+        Sea $X(t)$ la solución a la ecuación de difusión de Feller. Supongamos que $X(0)>0$. Entonces 
+        $\E\left[X(t)\right]=X(0)e^{-\alpha t}$.
+        \newline
+
+        Además, si $\alpha>0$, se cumple que $X(t)e^{-\alpha t}$ es una martingala 
+        no negativa que converge casi seguramente a un límite no trivial cuando $t\longrightarrow \infty$.
+    \end{block}
+\end{frame}
+\begin{frame}{Sketch de la prueba}
+    Primero debemos mostrar que $X(t)$ es en efecto integrable. Se sabe que las integrales de Itô solo son, en general, 
+    martingalas locales, por lo que 
+    \[
+        \int_{0}^{t} \sqrt{X(s)}B(s)
+    \]
+    es una mgla. local. Sea $(T_n)_{n\geq1}$, $T_n:=\inf\{t\geq0:X(t)\geq n\}$. Esta es una sucesión de 
+    tiempos de paro que es localizante para la integral. Usando tal sucesión, la ecuación de difusión de 
+    Feller toma la siguiente forma integral:
+    \[
+    X(t\wedge T_n)-X(0)=\alpha\int_0^{t\wedge T_n}X(s)ds+\sigma\int_{0}^{t\wedge T_n}\sqrt{X(s)}dB(s)    
+    \]
+\end{frame}
+\begin{frame}{Sketch de la prueba (cont.)}
+    $T_n:=\inf\{t\geq0:X(t)\geq n\}$ implica $t\leq T_n \quad \ent \quad X(t)\leq n$. Tomando esperanzas y usando 
+    que $X$ es martingala local,
+    \[
+    \E\left[X(t\wedge T_n)\right]=X(0)+\alpha \E\left[\int_{0}^{t}X(s)ds\right]    
+    \] 
+    y usando desigualdades y Fubini,
+        \begin{align*}
+            X(0)+\alpha \E\left[\int_{0}^{t\wedge T_n}X(s)ds\right]&\leq X(0)+\alpha \E\left[\int_{0}^{t}X(s\wedge T_n)ds\right]\\
+            &=X(0)+\alpha \int_{0}^{t} \E\left[ X(s \wedge T_n) \right] ds\\
+            &\leq X(0)e^{\alpha t},
+    \end{align*}
+    donde usamos la desigualdad de Grownwall en el último paso.
+\end{frame}
+\begin{frame}{Sketch de la prueba (cont.)}
+    Usando la continuidad de $X$ y Fatou, 
+    \[
+        E(X(t))=\E\left[\liminf_{n\to\infty}X(t\wedge T_n)\right]\leq \liminf_{n\to\infty}\E\left[X(t\wedge T_n)\right]\leq X(0)e^{\alpha t}.
+    \]
+    Probamos ahora que
+    \[
+    M(t):=\int_{0}^{t}\sqrt{X(s)}dB(s)    
+    \] 
+    en efecto es Mgla. Calculando su variación cuadrática, se tiene que 
+    \[
+        \E\left[[M,M](t)\right]=\E\left[\int_{0}^{t}X(s)ds\right]<Ce^{\alpha t},
+    \]
+    donde hemos usado la desigualdad anterior. Luego, $M$ es una martingala local, que 
+    se anula en cero, y tal que $\E\left[\sqrt{[M,M](t)}\right]<\infty$ para cualquier $t$.
+    Entonces $M$ es una martingala uniformemente integrable en $[0,T]$, $T>0$.
+\end{frame}
+\begin{frame}{Sketch de la prueba (cont.)}
+    Por lo tanto, la ecuación de Feller en forma integral se vuelve:
+    \[
+    X(t)=X(0)+\alpha\int_{0}^{t}X(s)ds+\sigma\int_{0}^{t}\sqrt{X(s)}dB(s),    
+    \]
+    y tomando esperanzas,
+    \[
+    E(X(t))=E(X(0))+\alpha \E\left[\int_{0}^{t}X(s)ds\right]=\E\left[X(t)\right]+\alpha\int_{0}^{t}E(X(s))ds,    
+    \]
+    por lo que haciendo $f(t)=E(X(t))$, tenemos que 
+    \[
+    f(t)=\E\left[X(0)\right]+\alpha\int_{0}^{t}f(s)ds.     
+    \]
+    Escribiendo la ecuación en forma diferencial, y resolviendo, tenemos que 
+    $\E\left[X(t)\right]=X(0)e^{\alpha t}$.
+\end{frame}
+\begin{frame}{Sketch de la prueba (cont.)}
+    Finalmente, para ver que $X(t)e^{-\alpha t}$ es Mgla, procedemos de manera estándar:
+    usamos integración por partes, y se tiene que 
+    \[
+    U(t)=X(t)e^{-\alpha t}=X(0)+\sigma \int_{0}^{t}e^{-\alpha s}\sqrt{X(s)}dB(s).    
+    \]
+    Se tiene que $U$ es una integral de Itô y por lo tanto es mgla. local. Pero 
+    \[
+    \E\left[[U,U](t)\right]=\sigma^2\int_{0}^{t}e^{-\alpha s}ds<\infty, \qquad t\in [0,\infty).
+    \]
+    Luego, $U(t)$ no sólo es Mgla. u.i. en $[0,T]$, es cuadrado integrable en $[0,T]$.
+    Más aún, si $\alpha>0$, entonces $U\in M^2([0,\infty))$, por lo que 
+    al ser u.i., converge a un límite no trivial. \qedsymbol
+\end{frame}
+\begin{frame}{Probabilidad de extinción}
+    Es natural preguntarse por el comportamiento a largo plazo. Este es el contenido del siguiente\\
+    \begin{block}{Teorema}
+        Sea $X(t)$ la solución de la ecuación de la difusión de Feller. Supongamos que $X(0)=x>0$. Entonces 
+        la probabilidad de extinción está dada por 
+        \[
+        \P\left(\text{Extinción}\right)=
+        \begin{cases}
+            e^{-\frac{2\alpha}{\sigma^2}x} & \text{ si } \alpha>0,\\
+            1 & \text{ si } \alpha\leq 0.
+        \end{cases}
+        \] 
+    \end{block}
+\end{frame}
+\begin{frame}{Sketch de la prueba}
+    Sean $T_0:=\inf{t\geq0 : X(t)=0}$ y $T_b:=\{t\geq0:X(t)=b\}$. Las probas de salida
+    de $[0,b]$ están dadas por 
+    \[
+    \P_x\left(T_0<T_b\right)=\frac{S(b)-S(x)}{S(a)-S(0)},
+    \]
+    donde $S(x)$ la función de escala está dada por 
+    \[
+    S(x)=\int_{x_1}^{x}\exp \left\{-\int_{x_0}^{u}\frac{2\alpha}{\sigma^2}dy\right\}du=Ke^{-\frac{2\alpha x}{\sigma^2}}+L,
+    \]
+    donde $K$ y $L$ son constantes que dependen de los puntos positivos $x_0$, $x_1$ y $\alpha, \sigma$.
+\end{frame}
+\begin{frame}{Sketch de la prueba (cont.)}
+    Simplificando, 
+    \[
+        \P_x(T_0<T_b)=\frac{e^{-cx}-e^{-cb}}{1-e^{-cb}}, \qquad c=\frac{2\alpha}{\sigma^2}
+    \]  
+    Luego, la probabilidad de extinción está dada por el límite cuando $b$ tiende a $+\infty$. Denotando
+    por $T_\infty=:\lim_{b\to\infty}T_b$,
+    \[
+        \P_x(T_0<T_\infty)=\lim_{b\to\infty} P_x(T_0<T_b)=\begin{cases}
+            e^{-\frac{2\alpha}{\sigma^2}x} & \text{ si } \alpha>0\\
+            1 & \text{ si } \alpha\leq 0
+        \end{cases}
+    \]
+    donde $T_\infty$ es el tiempo de explosión, el cual será infinito si la explosión no ocurre.
+    \newline
+
+    Pero usando el test de explosión de Feller, no hay explosión y $T_\infty=\infty$. $\blacksquare$
+\end{frame}
+\section{Difusiones de Wright-Fisher}
+\begin{frame}{Difusiones de Wright-Fisher}
+    El análogo a tiempo continuo de la cadena de Wright-Fisher. 
+    Trabajamos a continuación con base en las siguientes hipótesis:
+    \newline
+    
+    \begin{itemize}
+        \item Supongamos que tenemos una población de tamaño fijo $N\in \N$,
+        \item Tenemos solamente dos características (alelos) a estudiar: \ $A$ y $a$,
+        \item Los individuos pueden mutar de la característica $A$ hacia $a$ a tasa $\tfrac{\gamma_a}{N}$,
+        \item Los individuos pueden mutar de la característica $a$ a la $A$ a tasa $\tfrac{\gamma_A}{N}$.
+    \end{itemize}
+\end{frame}
+\begin{frame}
+    Entonces se puede aproximar \underline{la frecuencia} de los individuos del tipo $A$, denotado por $X(t)$, 
+    por medio de la difusión de Wright-Fisher:
+    \newline
+
+    \begin{block}{Definición}
+        Sean $\gamma_a,\gamma_A\geq0$, y supongamos una distribución inicial $0<X(0)<1$.
+        Entonces $X=(X(t))_{t\geq0}$ es una difusión de Wright-Fisher si $X$ cumple la siguiente 
+        ecuación diferencial estocástica:
+        \[
+            dX(t)=(-\gamma_aX(t)+\gamma_A(1-X(t)))dt+\sqrt{X(t)(1-X(t))}dB(t), 
+        \]
+
+    \end{block}
+
+    Cuando ocurre que $X(t)=0$ ó $X(t)=1$ para algún $t>0$, se interpreta que en la población se fijó 
+    una de las dos características.
+\end{frame}
+\begin{frame}{Tres casos a estudiar:}
+    Dependiendo de los coeficientes $\gamma_1,\gamma_2$, se pueden distinguir tres casos a estudiar 
+    en esta difusión:
+    \newline
+
+    \begin{itemize}
+        \item Si $\gamma_a=\gamma_A=0$, no existe posibilidad de mutación. 
+        \item Si $\gamma_a=0$ y $\gamma:=\gamma_A>0$, hay mutación unilateral.
+        \item Si $\gamma_a,\gamma_A>0$, hay mutación bilateral.
+        \newline
+
+    \end{itemize}
+    Estudiamos brevemente cada uno de los tres casos.
+\end{frame}
+\subsection{Población sin mutación.}
+\begin{frame}{Caso 1: población sin mutación}
+    En este caso, suponemos que no existen mutaciones. La EDE se convierte en 
+    \[
+    dX(t)=\sqrt{X(t)(1-X(t))}dB(t), \qquad 0<X(0)<1.
+    \]
+    Nos preguntamos qué propiedades cumple $X(t)$ una solución a la ecuación anterior:
+    \begin{itemize}
+        \item ¿Cuáles son las probabilidades de fijación?
+        \item ¿Cuál es el tiempo medio de fijación de una de las características?
+    \end{itemize}
+\end{frame}
+\begin{frame}{Probabilidades y tiempos medios de fijación}
+    \begin{block}{Teorema}
+        Sea $X(t)$ una difusión de Wright-Fisher sin mutación. Supongamos que $X(0)=x\in (0,1)$. Si el estado $X(t)=1$, 
+        indica que la característica $A$ se fijó en la población, y $X(t)$=0 lo mismo para 
+        la característica $a$, se tiene que
+        \begin{itemize}
+            \item $\P_x(\text{La característica A se fijó})=\P_x(T_0<T_1)=x$,
+            \item $\text{Tiempo medio de fijación de la característica A empezando en $x$}$\\
+            $=\E_{x}\left[T_0\right]=-2((1-x)\ln(1-x)+x\ln(x))$.
+        \end{itemize}
+    \end{block}
+\end{frame}
+\begin{frame}{Sketch de la prueba}
+    Para probar 
+    \[
+        \P_x(\text{La característica A se fijó})=\P_x(T_0<T_1)=x,
+    \]
+    se calcula la función de escala de $X(t)$. Notamos que, como $\mu(x)=0$, entonces 
+    \[
+    S(x)=\int_{x_1}^{x}\exp \left\{-\int_{x_0}^{u}\frac{2\mu(s)}{\sigma^2(s)}ds \right\} du =x  
+    \]
+    Luego, 
+    \[
+    \P_x(T_b<T_a)=\frac{x-a}{b-a}, \qquad 0\leq a<x<b\leq1    
+    \]
+    Tomando $a=0$, $b=1$, se tiene lo buscado.
+\end{frame}
+\begin{frame}
+    El tiempo esperado de salida de la difusión del intervalo $[0,1]$ está dado por la solución 
+    a la ecuación diferencial $v(0)=v(1)=0$, y $Lv=-1$.
+    \newline
+
+    El generador infinitesimal del proceso $L_tf$ está dado por 
+    \[
+        L_tf(x)=\mu(x)\partial_xf(x) +\frac{1}{2}\sigma^2(x)\partial_{xx}f(x)=0+\frac{x(1-x)}{2}f''(x),
+    \]
+    por lo que tenemos que resolver la ecuación diferencial 
+    \[
+    \begin{cases}
+        \frac{x(1-x)}{2}v''(x)=-1 & \text{ si } 0<x<1,\\
+        v(0)=v(1)=0 
+    \end{cases}    
+    \]
+\end{frame}
+\begin{frame}
+    Resolviendo la EDO de segundo orden anterior, utilizando que 
+    \[
+    \int_0^{t}ln(x)= xln(x)-x,     
+    \]
+    se tiene que 
+    \[
+    v(x)=\E_x\left[\tau_{a,A}\right]=-2((1-x)\ln(1-x)+x\ln(x))    
+    \]
+\end{frame}
+\subsection{Población con mutación unilateral.}
+\begin{frame}{Caso 2: población con mutación unilateral.}
+    En este caso, suponemos que solamente una característica puede mutar hacia la otra, pero no al revés.
+    \newline
+
+    Matemáticamente, esto se traduce en que, por ejemplo, $\gamma_A=0$ y $\gamma:=\gamma_a>0$, por lo que la EDE se transforma ahora 
+    en 
+    \[
+    dX(t)=-\gamma X(t)dt+\sqrt{X(t)(1-X(t))}dB(t), \qquad 0<X(0)<1.  
+    \]
+    Nuevamente nos preguntamos algunas propiedades de la solución $X(t)$ a este nuevo proceso.
+\end{frame}
+\begin{frame}{Probabilidades y tiempos medios de fijación}
+    Dependiendo de $\gamma_a$, $A$ se puede fijar, aún cuando $A$ puede mutar a $a$. 
+    \begin{block}{Teorema}
+        Sea $X(t)$ la solución a la EDE de Wright-Fisher con mutación unilateral. Supongamos que $X(0)=x \in (0,1)$.
+        Entonces, interpretando al estado 0 como que la característica $a$ se fijó en la población,
+        \begin{itemize}
+            \item La función de escala está dada por: 
+            \[
+            S(x)=\begin{cases}
+                \frac{1-(1-x)^{1-2\gamma}}{1-2\gamma} & \text{ si } \gamma\neq\frac{1}{2},\\
+                -\log(1-x) & \text{ si } \gamma=\frac{1}{2}.
+            \end{cases}
+            \]
+            \item Si $\gamma\geq \frac{1}{2}$, entonces 
+            \[
+                \P_x(\text{La característica A se fijó})=\P\left(T_1<T_0\right)=\lim_{b\to 1}\P\left(T_b< T_0\right)=0
+            \]
+            y además, $\E_x\left[T_0\wedge T_1\right]<\infty$. En consecuencia, $\P_x\left(T_0<\infty\right)=1$. 
+        \end{itemize}
+    \end{block}
+\end{frame}
+\begin{frame}{}
+    \begin{block}{Teorema (continuación)}
+        \begin{itemize}
+            \item Si $\gamma<\frac{1}{2}$, entonces se puede ver que, definiendo $T=T_0\wedge T_1$, 
+            \[
+            \E_x\left[T\right]<\infty,    
+            \]
+            pero bien puede suceder que $\P_x\left(T_1<\infty\right)>0$.
+        \end{itemize}
+    \end{block}
+\end{frame}
+\subsection{Población con mutación bilateral.}
+\begin{frame}{Caso 3: población con mutación bilateral}
+    En este caso, suponemos que es posible una característica se transforme en la otra y viceversa conforme 
+    el tiempo pasa. Esto se representa con el hecho de que $\gamma_1,\gamma_2>0$ y con ello, la EDE
+    está en su forma completa 
+    \[
+        \begin{cases}
+            dX(t)=(-\gamma_1X(t))+\gamma_2(1-X(t))dt+\sqrt{X(t)(1-X(t))}dB(t),\\
+             0<X(0)<1.
+        \end{cases}
+    \]
+    Nos hacemos la misma pregunta que antes con respecto a la solución de esta ecuación.
+\end{frame}
+\begin{frame}{}
+    Lo interesante de este proceso y a diferencia de los primeros, es que si $X$ es la solución a la EDE,
+    ni $a$ ni $A$ tienen probabilidad positiva de fijación, y además, $X$ admite una distribución estacionaria.
+    \begin{block}{Teorema}
+        Sea $X(t)$ la solución a la EDE de Wright-Fisher con mutación bilateral. Entonces 
+        $X$ posee una distribución estacionaria con densidad dada por  
+        \[
+        \pi(x)= \frac{1}{\beta(2\gamma_a,2\gamma_A)}(1-x)^{2\gamma_a-1}x^{2\gamma_A-1},
+        \]
+        esto es, $X$ tiene a la distribución $Beta(2\gamma_a,2\gamma_A)$ como distribución 
+        estacionaria.
+    \end{block}  
+\end{frame}
+\begin{proof} 
+
+        Para probar 
+        \[
+            \P_x(\text{La característica A se fijó})=\P_x(T_0<T_1)=x,
+        \]
+        se calcula la función de escala de $X(t)$. Notamos que, como $\mu(x)=0$, entonces 
+        \[
+        S(x)=\int_{x_1}^{x}\exp \left\{-\int_{x_0}^{u}\frac{2\mu(s)}{\sigma^2(s)}ds \right\} du =x  
+        \]
+        Luego, 
+        \[
+        \P_x(T_b<T_a)=\frac{x-a}{b-a}, \qquad 0\leq a<x<b\leq1    
+        \]
+        Tomando $a=0$, $b=1$, se tiene lo buscado.
+
+        El tiempo esperado de salida de la difusión del intervalo $[0,1]$ está dado por la solución 
+        a la ecuación diferencial $v(0)=v(1)=0$, y $Lv=-1$.
+    
+        El generador infinitesimal del proceso $L_tf$ está dado por 
+        \[
+            L_tf(x)=\mu(x)\partial_xf(x) +\frac{1}{2}\sigma^2(x)\partial_{xx}f(x)=0+\frac{x(1-x)}{2}f''(x),
+        \]
+        por lo que tenemos que resolver la ecuación diferencial 
+        \[
+        \begin{cases}
+            \frac{x(1-x)}{2}v''(x)=-1 & \text{ si } 0<x<1,\\
+            v(0)=v(1)=0 
+        \end{cases}    
+        \]
+        Resolviendo la EDO de segundo orden anterior, utilizando que 
+        \[
+        \int_0^{t}ln(x)= xln(x)-x,     
+        \]
+        se tiene que 
+        \[
+        v(x)=\E_x\left[\tau_{a,A}\right]=-2((1-x)\ln(1-x)+x\ln(x))    
+        \]
+        Para el caso en el que tenemos mutación, las cuentas son análogas. En particular, el proceso tiene trayectorias continuas, por lo que el límite
+        cuando $b\to \infty$ está justificado.
+        \newline
+
+        Finalmente, para el tercer caso, utilizamos el critero para hallar la fórmula para la densidad:
+        \begin{align*}
+            \pi(x)=\frac{C}{\beta^2(x)}\exp \left(\int_{x_0}^{x}\frac{2\mu(s)}{\sigma^2(s)}ds\right)&=\frac{C}{1-x}\exp \left(\int_{x_0}^{x}\frac{-2\gamma_1x+2\gamma_2(1-x)}{x(1-x)}dx\right)\\
+            &=\frac{C}{x(1-x)}\exp \left\{2\gamma_1 \ln(1-x)+2\gamma_2\ln(x)\right\}\\
+            &=\frac{C}{x(1-x)}(1-x)^{2\gamma_1}x^{2\gamma_2}\\
+            &=Cx^{2\gamma_2-1}(1-x)^{2\gamma_1-1},
+        \end{align*}
+        que es proporcional a la densidad de una variable $Beta(2\gamma_1,2\gamma_2)$. Añadiendo la constante 
+        $C$ adecuada obtenemos el resultado.
+        \newline
+
+        Karlin \& Taylor (1981), A second course in Stochastic Processes, sección 15, es una referencia que contiene 
+        a detalle muchos más resultados sobre la difusión de Wright-Fisher.
+        
+ \end{proof}
+
+\begin{frame}[allowframebreaks=1]{Referencias} %entre corchetes: para permitir que los frames se corten y la bibliografía se distribuya bien. Entre llaves: cambia el nombre a 
+	%referencias
+		\begin{thebibliography}{2} %Número de referencias que se pondrán
+            \bibitem[1]{klebaner} Klebaner, F. (2012). \emph{An Introduction to Stochastic Calculus with Applications}. ($3^\text{ra}$ ed.) England: Imperial College Press.
+            \bibitem[2]{karlin} S. Karlin, H. Taylor (1981. \emph{A second course in Stochastic Processess}). Nueva York: Academic Press, Inc.
+	\end{thebibliography}
+\end{frame}
+\end{document}

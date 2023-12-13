@@ -1,0 +1,109 @@
+\documentclass[letterpaper]{article} 
+\usepackage[left = 0.5in, right = 0.5in, top = 0.9in, bottom = 0.9in]{geometry}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{tikz-cd}
+\usepackage{mathrsfs}
+\usepackage[bbgreekl]{mathbbol}
+\usepackage{dsfont}
+\usepackage{graphicx}
+\graphicspath{{img/}}
+
+\newcommand{\op}{\operatorname}
+\newcommand{\Op}{^{\op{op}}}
+\newcommand{\scc}{\mathscr C}
+\newcommand{\scd}{\mathscr D}
+\newcommand{\sce}{\mathscr E}
+\newcommand{\sci}{\mathscr I}
+\newcommand{\scj}{\mathscr J}
+\newcommand{\scx}{\mathscr X}
+\newcommand{\var}{\mathrm{Var}}
+\newcommand{\Id}{\operatorname{Id}}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\inv}{^{-1}}
+\renewcommand{\to}{\rightarrow}
+\newcommand{\ent}{\Longrightarrow}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\1}{\mathds{1}}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\theoremstyle{definition}
+\newtheorem{dfn}{Definición}
+\theoremstyle{definition}
+\newtheorem{teo}{Teorema}
+\theoremstyle{definition}
+\newtheorem{cor}{Corolario}
+\theoremstyle{definition}
+\newtheorem{prop}{Proposición}
+\theoremstyle{definition}
+\newtheorem{obs}{Observación}
+
+
+\title{\textbf{Cálculo Estocástico\\
+Tarea 7}}
+\author{Iván Irving Rosas Domínguez}
+\date{\today}
+
+\DeclareSymbolFontAlphabet{\mathbbm}{bbold}
+\DeclareSymbolFontAlphabet{\mathbb}{AMSb}
+\DeclareMathSymbol\bbDelta  \mathord{bbold}{"01}
+
+\begin{document}
+\maketitle
+
+%\begin{abstract}
+%\end{abstract}
+
+\begin{itemize}
+    \item[\textbf{1.}] Demostrar el siguiente Teorema:\\
+    
+    \textbf{Teorema:}
+    Sea $X(t)$ una solución de la ecuación 
+    \[
+        dX(t)=\mu(X(t))dt+\sigma(X(t))dB(t).  
+    \]
+    y definamos $Y(t)=X(\tau_t)$. Entonces $Y(t)$ es una solución débil a la ecuación
+    diferencial estocástica 
+    \[
+        dY(t)=\frac{\mu(Y(t))}{g(Y(t))}dt+\frac{\sigma(Y(t))}{\sqrt{g(Y(t))}}dB(t), \qquad \text{ con } \quad Y(0)=X(0).   
+    \]
+    \item[\textbf{2.}] Si $X(t)$ es una difusión con coeficientes $\mu(x)=cx$ y $\sigma(x)=1$.
+    Dar su generador y mostrar que 
+    \[
+    X^2(t)-2c\int_{0}^{t}X^2(s)ds-t    
+    \]
+    es una martingala.
+    \item[\textbf{3.}] $X(t)$ es una difusión con $\mu(x)=2x$ y $\sigma^2(x)=4x$. Dar su generador 
+    $L$. Resolver $Lf=0$ y dar una martingala $M_f$. Hallar la EDE para el proceso 
+    $Y(t)=\sqrt{X(t)}$, y dar el generador de $Y(t)$.
+    \item[\textbf{4.}] Mostrar que el tiempo medio de salida de una difusión a partir 
+    de un intervalo, que por el teorema (\dots) satisface la ecuación diferencial 
+    \[
+        Lv=-1,
+    \]
+    está dada por 
+    \[
+    v(x)=-\int_{a}^{x}2G(y)\int_{a}^{y}\frac{ds}{\sigma^2(s)G(s)}dy+\int_{a}^{b}2G(y)\int_{a}^{y}\frac{ds}{\sigma^2(s)G(s)}dy\frac{\int_{a}^{x}G(s)ds}{\int_{a}^{b}G(s)ds},    
+    \]
+    donde $G(x)=\exp \left(-\int_{a}^{x}\frac{2\mu(s)}{\sigma^2(s)}ds\right)$.
+    \item[\textbf{5.}] Dar una representación probabilística de la solución $f(x,t)$ de la EDP
+    \[
+        \frac{1}{2}\frac{\partial^2f}{\partial x^2}+\frac{\partial f}{\partial t}=0, \quad 0\leq t\leq T, \quad f(x,T)=x^2.    
+    \]
+    Resolver esta EDP utilizando la solución de la correspondiente ecuación diferencial estocástica.
+\end{itemize}
+\end{document}

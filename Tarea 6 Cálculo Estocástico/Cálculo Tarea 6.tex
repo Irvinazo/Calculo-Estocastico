@@ -86,27 +86,244 @@ Tarea 6}}
         \E\left[|Z|^{2}\right]<\infty.
     \]
     Entonces la ecuación diferencial estocástica 
-    \[
-    dX_t=b(t,X_t)dt+\sigma(t,X_t)dB_t, \qquad 0\leq t\leq T, \ X_0=Z
-    \]
-    tiene una única solución $X_t(\omega)$, continua en la variable $t$ con la propiedad
+        \begin{equation}\label{eq1}
+        dX_t=b(t,X_t)dt+\sigma(t,X_t)dB_t, \qquad 0\leq t\leq T, \ X_0=Z
+    \end{equation}
+        tiene una única solución $X_t(\omega)$, continua en la variable $t$ con la propiedad
     de que $X_t(\omega)$ es adaptada a la filtración $\F_t^{Z}$ generada por $Z$ y 
     $B_s(\cdot)$, con $s\leq t$ y 
     \[
     \E\left[\int_{0}^{T}|X_t|^{2}dt\right]<\infty.
     \]
+    \begin{proof} 
+       Comenzamos por probar la unicidad (salvo indistinguibilidad). Supongamos que $X(t,\omega)$ y $\widehat{X}(t,\omega)$, $(t,\omega)\in [0,\infty)\times \Omega$ son 
+       dos soluciones continuas en $t$ a la ecuación diferencial \eqref{eq1}, con condiciones iniciales $X(0,\omega)=Z(\omega)$ y $\widehat{X}(0,\omega)=\widehat{Z}(\omega)$, 
+       con $\omega \in \Omega$. Supongamos que $Z=\widehat{Z}$ casi seguramente.
+
+       Denotemos por $a(s,\omega)=b(s,X_s(\omega))-b(s,X_s(\omega))$ y $\gamma(s,\omega)=\sigma(s,X_s(\omega))-\sigma(s,\widehat{X}_s(\omega))$. Entonces 
+       se tienen las siguientes estimaciones.
+       \begin{align*}
+        \E\left[\abs{X_t-\widehat{X_t}}^2\right]&=\E\left[\left(Z-\widehat{Z}+\int_0^{t}a ds + \int_0^{t}\gamma dB_s\right)^2\right]\\
+        &\leq  2 \E\left[\left(\int_0^{t}a ds\right)^2\right] +2 \E\left[ \left(\int_0^{t}\gamma dB_s\right)^2\right]\\
+        &\leq 2t \E\left[\int_0^{t}a^2 ds\right] +2\E\left[ \int_0^{t}\gamma^2ds\right],
+    \end{align*}
+        donde en la primera desigualdad usamos que $(|v|+|w|)^2\leq 2v^2+2w^2$, y en la segunda 
+        desigualdad usamos Cauchy-Schwarz en la integral de $a$, mientras que en la integral estocástica utilizamos 
+        la isometría de Itô (ya que las soluciones las suponemos cuadrado-integrables, por lo que la integral es martingala y cumple dicha propiedad).
+         Ahora bien, por hipótesis los coeficientes $b$ y $\sigma$ son Lipschitz, por lo que 
+        
+        \begin{align}
+            2t \E\left[\int_0^{t}a^2 ds\right] &+2 \E\left[ \int_0^{t}\gamma^2ds\right]= 2(1+t)\E\left[\int_0^{t}a^2 +\gamma^2ds\right]\notag\\
+            &=2(1+t)\E\left[\int_0^{t} \left(b(s,X_s)-b(s,\widehat{X}_s)\right)^2+\left(\sigma(s,X_s)-\sigma(s,\widehat{X}_s)\right)^2ds\right]\notag\\
+            &\leq 2(1+t)\E\left[\int_0^{t} \left(\abs{b(s,X_s)-b(s,\widehat{X}_s)}+\abs{\sigma(s,X_s)-\sigma(s,\widehat{X}_s)}\right)^2ds\right]\notag\\
+            &\leq 2(1+t)D^2\E\left[\int_0^{t} \abs{X_s-\widehat{X}_s}^2ds\right]\notag\\
+            &\leq2(1+T)D^2\int_0^{t} \E\left[\abs{X_s-\widehat{X}_s}^2\right]ds\label{eq2},
+        \end{align}
+        donde en la última igualdad hemos utilizado el teorema de Tonelli.
+        Lo anterior nos dice que la función $v:[0,T]\to \R$, $v(t)=\E\left[\abs{X_t-\widehat{X}_t}^2\right]$
+        satisface la desigualdad 
+        \[
+        v(t)\leq 0+A\int_{0}^{t}v(s)ds, \qquad A:=2(1+T)D^2.
+        \]
+        Por lo tanto, por la desigualdad de Gronwall, se deduce que 
+        \[
+        v(t)\leq 0\cdot e^{At}.    
+        \]
+        Se sigue que $v(t)=0$ para cualquier $t\geq0$ y con ello, $\E\left[\abs{X_t-\widehat{X}_t}^2\right]=0$, así que 
+        forzosamente para cualquier $t\in \R$, $X_t=\hat{X}_t$. Esto hace a los procesos $X$ y $\hat{X}$ modificaciones el uno del otro.
+        Sin embargo, como los procesos se suponen soluciones de la ecuación anterior, ambos son continuos y en particular son continuos por derecha, por lo que entonces son indistinguibles y por 
+        lo tanto la solución es única salvo indistinguibilidad.\\
+
+        Procedemos a la demostración de la existencia. Esta sigue la misma línea de la prueba de existencia para 
+        ecuaciones diferenciales ordinarias. Definimos de manera recursiva $Y_t^{(0)}:=X_0$ y para 
+        cualquier $k\geq0$, 
+        \[
+        Y_{t}^{(k+1)}:=X_0+\int_0^{t}b(s,Y_s^{(k)})ds+\int_0^t\sigma(s,Y_s^{(k)})dB_s.    
+        \]
+        Realizando exactamente las mismas cuentas que nos condujeron a \eqref{eq2}, por definición de las $Y^{(k)}$ deducimos que 
+        
+        \begin{equation}\label{eq4}
+                \E\left[\abs{Y_t^{(k+1)}-Y_t^{(k)}}^2\right]\leq 2(1+T)D^2\int_0^{t} \E\left[\abs{Y_s^{(k)}-Y_s^{(k-1)}}^2\right]ds,
+        \end{equation}
+        
+        para $k\geq1$ y $t\leq T$. Además, en el caso $k=0, t\leq T$, se tiene que 
+        
+        \begin{align*}
+            \E\left[\abs{Y_t^{(1)}-Y_t^{(0)}}^2\right]&=\E\left[\abs{X_0+\int_0^{t}b(s,X_0)ds+\int_0^t\sigma(s,X_0)dB_s-X_0}^2\right]\\
+            &\leq 2\E\left[\left(\int_0^{t}b(s,X_0)ds\right)^2+\left(\int_0^t\sigma(s,X_0)dB_s\right)^2\right]\\
+            &\leq 2\E\left[t\int_0^{t}b^2(s,X_0)ds+\int_0^t\sigma^2(s,X_0)ds\right]\\
+            &\leq 2(1+T)\E\left[\int_{0}^{t}b^2(s,X_0)+\sigma^2(s,X_0)ds\right]\\
+            &\leq 2(1+T)\E\left[\int_{0}^{t}\left(|b(s,X_0)|+|\sigma(s,X_0)|\right)^2ds\right]\\
+            &\leq 2(1+T)\E\left[\int_{0}^{t}C^2(1+X_0)^2ds\right]\\
+            &=2(1+T)tC^2 \E\left[(1+X_0^2)\right]\\
+            &\leq 4(1+T)tC^2(1+\E\left[X_0^2\right])\label{eq3},
+        \end{align*}
+        donde hemos hecho uso de la desigualdad $a^2+b^2\leq(|a|+|b|)^2\leq 2(a^2+b^2)$, de Cauchy-Schwarz, de la condición de crecimiento lineal y de la isometría de Itô (ya que suponemos 
+        que $X_0$ es cuadrado integrable y por lo tanto $\sigma(s,X_0)$ es cuadrado integrable justo por la condición de crecimiento lineal). Nótese que podemos reescribir lo anterior simplemente como 
+        
+        \begin{equation}\label{eq6}
+                \E\left[\abs{Y_t^{(1)}-Y_t^{(0)}}^2\right]\leq 4(1+T)tC^2(1+\E\left[X_0^2\right])\leq A_1t,
+        \end{equation}
+        
+        donde $A_1$ es una constante que solo depende de $C$, $T$ y $\E\left[X_0^2\right]$.
+
+        Obsérvese que utilizando las cotas obtenidas antes, para $k=1$ tenemos que 
+        \[
+        \E\left[|Y_t^{(2)}-Y_t^{(1)}|^2\right]\leq 2(1+T)D^2\int_{0}^{t}\E\left[\abs{Y_t^{(1)}-Y_t^{(0)}}^2\right]ds\leq 2(1+T)D^2\int_{0}^{t}A_1s \ ds=2(1+T)D^2A_1\frac{t^2}{2}.
+        \] 
+        En general, utilizamos ahora un argumento recursivo sobre $k$ para obtener que 
+        
+        \begin{equation}\label{eq5}
+            \E\left[|Y_t^{(k+1)}-Y_t^{(k)}|^2\right]\leq \frac{{A_2}^{k+1}t^{k+1}}{(k+1)!},
+        \end{equation}
+        
+        para cualquier $k\geq0$ y $t\in [0,T]$, donde $A_2$ es una constante 
+        que solo depende de $C$, $D$, $T$ y $\E\left[X_0^2\right]$.\\
+
+        Por otro lado, notemos que $\P-$ casi seguramente, se tiene
+        \[
+            \sup_{0\leq t\leq T} |Y^{(k+1)}_t-Y^{(k)}_t|\leq \int_{0}^{T}|b(s,Y_s^{(k)})-b(s,Y_s^{(k-1)})|ds+\sup_{0\leq t\leq T}\abs{\int_{0}^{t}\sigma(s,Y_s^{(k)})-\sigma(s,Y_s^{(k-1)})dB_s}, 
+        \]
+        por monotonía de la integral. Luego, por monotonía 
+        de la probabilidad, para cualquier $k\geq1$,
+        
+        \begin{align*}
+            \P\left(\sup_{0\leq t\leq T}|Y_t^{(k+1)}-Y_t^{(k)}|>\frac{1}{2^{k}}\right)&\leq \P\left(\left(\int_{0}^{T}|b(s,Y_s^{(k)})-b(s,Y_s^{(k-1)})|ds\right)^2>2^{-2(k-1)}\right)\\
+            &+\P\left(\sup_{0\leq t\leq T}\abs{\int_{0}^{t}\sigma(s,Y_s^{(k)})-\sigma(s,Y_s^{(k-1)})dB_s}>2^{-k-1}\right)\\
+            &\leq 2^{2(k+1)}\E\left[\left(\int_{0}^{T}|b(s,Y_s^{(k)})-b(s,Y_s^{(k-1)})|ds\right)^2\right]\\
+            &+2^{2(k+1)}\E\left[\left(\sup_{0\leq t\leq T}\abs{\int_{0}^{t}\sigma(s,Y_s^{(k)})-\sigma(s,Y_s^{(k-1)})dB_s}\right)^2\right],
+        \end{align*}
+        donde hemos usado en el último paso la desigualdad de Chebyshev. Usando nuevamente Cauchy-Schwarz en la última integral de la izquierda, y aplicando 
+        la desigualdad maximal de Doob usando el hecho de que la integral de Itô es una martingala (ya que la resta de las funciones $\sigma$ es cuadrado-integrable) e isometría de Itô, se tiene que 
+        \begin{align*}
+            &2^{2(k+1)}\E\left[\left(\int_{0}^{T}|b(s,Y_s^{(k)})-b(s,Y_s^{(k-1)})|ds\right)^2\right]+2^{2(k+1)}\E\left[\left(\sup_{0\leq t\leq T}\abs{\int_{0}^{t}\sigma(s,Y_s^{(k)})-\sigma(s,Y_s^{(k-1)})dB_s}\right)^2\right]\\
+            &\leq 2^{2(k+1)}T \int_{0}^T\E\left[|b(s,Y_s^{(k)})-b(s,Y_s^{(k-1)})|^2\right]ds+2^{2(k+1)}\cdot\left(\frac{2}{2-1}\right)^2 \E\left[\abs{\int_{0}^{T}\sigma(s,Y_s^{(k)})-\sigma(s,Y_s^{(k-1)})dB_s}^2\right]\\
+            &=2^{2(k+1)}T \int_{0}^T\E\left[|b(s,Y_s^{(k)})-b(s,Y_s^{(k-1)})|^2\right]ds+2^{2(k+1)}\cdot4 \E\left[\int_{0}^{T}\left(\sigma(s,Y_s^{(k)})-\sigma(s,Y_s^{(k-1)})\right)^2ds\right]\\
+            &=2^{2(k+1)}T \int_{0}^T\E\left[|b(s,Y_s^{(k)})-b(s,Y_s^{(k-1)})|^2\right]ds+2^{2(k+2)}\int_{0}^{T}\E\left[\left(\sigma(s,Y_s^{(k)})-\sigma(s,Y_s^{(k-1)})\right)^2\right]ds\\
+            &=2^{2(k+2)}\int_{0}^T\E\left[|b(s,Y_s^{(k)})-b(s,Y_s^{(k-1)})|^2+|\sigma(s,Y_s^{(k)})-\sigma(s,Y_s^{(k-1)})|^2\right]ds\\
+        \end{align*}
+            De lo anterior y de la ecuación $\eqref{eq4}$, se sigue que 
+            \[
+                \P\left(\sup_{0\leq t\leq T}|Y_t^{(k+1)}-Y_t^{(k)}|>\frac{1}{2^{k}}\right)\leq 2^{2(k+2)}D^2(T+1)\E\left[\abs{Y_s^{(k)}-Y_s^{(k-1)}}^2\right]ds
+            \]
+            y combinando lo anterior con la ecuación \eqref{eq5}, se tiene que 
+            \[
+                \P\left(\sup_{0\leq t\leq T}|Y_t^{(k+1)}-Y_t^{(k)}|>\frac{1}{2^{k}}\right)\leq 4^{k+2}D^2(T+1)\int_{0}^{T}\frac{A_2^{k}t^{k}}{k!}dt=4^{k+2}D^2(T+1)A_2^{k}\frac{T^{k+1}}{(k+1)!},
+            \]
+            por lo que si $A_2\geq2D^2(T+1)$ (lo cual está en nuestro control según definimos $A_2$ en \eqref{eq6}), tenemos que 
+            \[
+                \P\left(\sup_{0\leq t\leq T}|Y_t^{(k+1)}-Y_t^{(k)}|>\frac{1}{2^{k}}\right)\leq \frac{(4A_2T)^{k+1}}{(k+1)!}.
+            \]
+            Recordemos que $A_2$ solamente depende de $C,T$ y $\E\left[X_0^2\right]$, por lo que 
+            la serie 
+            \[
+                \sum_{n\geq0}\frac{(4A_2T)^{k+1}}{(k+1)!}
+            \]
+            es convergente y es una cota independiente de $t\in [0,T]$. Luego, 
+            \[
+            \P\left(\limsup_{k\geq0}\left\{\sup_{0\leq t\leq T}|Y_t^{(k+1)}-Y_t^{(k)}|>\frac{1}{2^{k}}\right\}\right)=0,    
+            \]
+            por lo que entonces para cualquier $k\geq0$ el conjunto de $\omega\in\Omega$ para los cuales la serie anterior es menor a $\frac{1}{2^{k}}$ tiene 
+            probabilidad 1. Acabamos de mostrar que $\P-$casi seguramente, la sucesión 
+            \[
+            Y_t^{(n)}:=Y_t^{(0)}+\sum_{k=0}^{n-1}(Y_t^{(k+1)}-Y^{(k)}_t)
+            \]
+            es uniformemente convergente para $t\in[0,T]$. 
+            
+            Denotamos tal límite como $X_t$. Dicho límite está definido casi seguramente. Notemos que, por la continuidad de las trayectorias de $Y_t^{(n)}$ para 
+            casi todo $\omega\in\Omega$, se sigue que $(X_t)_{t\geq0}$ es un proceso con trayectorias continuas casi seguramente. Además, dado que para cualquier 
+            $t\geq0$, $Y_t^{(n)}$ es $\F_t$-medible, se sigue que $X_t$ es $\F_t$-medible, por lo que el proceso 
+            $(X_t)_{t\geq0}$ es adaptado a la filtración $(\F_t)_{t\geq0}$.
+
+            Notamos ahora que el límite $X_t$ también es el límite de la sucesión en $L^2$. Sean $m\geq n\geq0$ y notemos que 
+            \begin{align*}
+                \|Y_t^{(m)}-Y_t^{(n)}\|_2&=\|\sum_{k=n}^{m-1}(Y_t^{(k+1)}-Y_t^{(k)})\|_2\\
+                &\leq \sum_{k=n}^{m-1}\|Y_t^{(k+1)}-Y_t^{(k)}\|_2\\
+                &\leq \sum_{k=n}^{\infty}\left(\frac{(A_2t)^{k+1}}{(k+1)!}\right)^{1/2},
+            \end{align*}
+            donde hemos hecho uso de la ecuación \eqref{eq5}. Dado que los coeficientes de la serie 
+            anterior convergen (se trata de una serie exponencial), entonces se tiene que 
+            \[
+                \|Y_t^{(m)}-Y_t^{(n)}\|_2\xrightarrow[n\to\infty]{} 0,
+            \]
+            por lo que la sucesión $(Y_t^{(n)})_{n\geq0}$ es de Cauchy en $L^2$, y por lo 
+            tanto converge. Luego. Dado que la sucesión converge en $L_2$, converge también en 
+            probabilidad, por lo que existe una subsucesión $(Y_{t}^{(n_k)})_{k\geq0}$ que converge 
+            casi seguramente. Pero dado que $(Y_t^{(n)})_{n\geq0}$ converge casi seguramente 
+            a $(X_t)_{t\geq0}$, el límite $(X_t)_{t\geq0}$ también es el límite en $L^2$ de la sucesión $Y$.
+            \newline
+
+            De la convergencia en $L^2$ del proceso, se sigue que 
+            \[
+            \E\left[\int_{0}^{T}X_t^2dt\right]<\infty.
+            \]
+            Finalmente, resta ver que el proceso $(X_t)_{t\geq0}$ en efecto satisface la ecuación diferencial. Para ello, 
+            notamos que por definición, 
+            
+            \begin{equation}\label{eq7}
+                dY_t^{(k+1)}=b(t,Y_t^{(k)})dt+\sigma(t,Y_t^{(k)})dB_t    
+            \end{equation}
+            
+            De aquí se sigue que , como $Y_t^{(n)}\xrightarrow[n\to\infty]{}X_t$ uniformemente en $[0,T]$ y casi seguramente en $\P$, entonces por 
+            la convergencia en $L^2$ y el Lema de Fatou aplicado dos veces,
+            \begin{align*}
+                    \E\left[\int_{0}^{T}(X_t-Y_t^{(n)})^2dt\right]&= \E\left[\int_{0}^{T}\liminf_{m\to \infty}(Y_t^{(m)}-Y_t^{(n)})^2dt\right]\\
+                    &\leq \E\left[\liminf_{m\to \infty}\int_{0}^{T}(Y_t^{(m)}-Y_t^{(n)})^2dt\right]\\
+                    &\leq \liminf_{m\to\infty}\E\left[\int_{0}^{T}(Y_t^{(m)}-Y_t^{(n)})^2dt\right]\\
+                    &\leq \limsup_{m\to \infty}\E\left[\int_{0}^{T}(Y_t^{(m)}-Y_t^{(n)})^2dt\right]
+            \end{align*}
+            y esta última expresión tiende a 0 conforme $n$ tiende a infinito. Finalmente, expandiendo 
+            $X_t$ y $Y_t^{(n)}$, se sigue de la isometría de Itô que
+            \[
+                \int_{0}^{t}\sigma(s,Y_s^{(n)})dB_s\to \int_0^{t}\sigma(s,X_s)dB_s
+            \]
+            y de la desigualdad de Hölder que 
+            \[
+            \int_0^tb(s,Y_s^{(n)})\to \int_{0}^{t}b(s,X_s)ds.    
+            \]
+            Ambos límites en el sentido $L^2$. Por lo tanto, tomando el límite en el sentido integral 
+            de \eqref{eq7}, se sigue que $X_t$ cumple $dX_t=b(t,X_t)dt+\sigma(t,X_t)dB_t$.
+     \end{proof}
+     
+
     \item[\textbf{2.}] Verificar que los procesos dados resuelven las correspondientes ecuaciones diferenciales estocásticas:
      ($B_t$ denota el movimiento Browniano 1-dimensional)
      \begin{enumerate}
-        \item $X_t=e^{B_t}$ resuelve $dX_t=\frac{1}{2}X_tdt+X_tdB_t$
+        \item $X_t=e^{B_t}$ resuelve $dX_t=\frac{1}{2}X_tdt+X_tdB_t$\\
+        
+        \textbf{Solución:} Utilizando fórmula de Itô con la función $f(x)=e^{x}$, que claramente es 
+        $C^2$, y recordando que la variación cuadrática del movimiento Browniano es $<B,B>_t=t$, se tiene que 
+        \[
+        dX_t=d(e^{B_t})=e^{B_t}dB_t+\frac{1}{2}e^{B_t}d<B,B>_t=\frac{1}{2}X_tdt +X_tdB_t,   
+        \]
+        tal y como se quería.
         \item $X_t=\frac{B_t}{1+B_t}; \ B_0=0$ resuelve 
         \[
         dX_t=-\frac{1}{1+t}X_tdt+\frac{1}{1+t}dB_t; \qquad X_0=0.    
         \]
+        
+        \textbf{Solución:} Utilizamos ahora la función $f(x,t)=\frac{x}{1+t}$. Claramente dicha función es de clase $C^{2,1}$, por 
+        lo que por fórmula de Itô,
+        \[
+            dX_t=df(B_t,t)=\frac{1}{1+t}dB_t-\frac{X_t}{1+t}dt+0\cdot d<B,B>_t=\frac{1}{1+t}dB_t-\frac{X_t}{1+t}dt,  
+        \] 
+        por lo que el proceso dado cumple con la ecuación diferencial estocástica. Finalmente, es claro que 
+        \[
+        \frac{B_0}{1+t}=0 \qquad \P-c.s,    
+        \]
+        por lo que también cumple la condición inicial.
         \item $X_t=\sen(B_t)$ con $B_0=a \in \left(-\frac{\pi}{2},\frac{\pi}{2}\right)$ resuelve
         \[
             dX_t=-\frac{1}{2}X_t dt + \sqrt{1-X_t^2}dB_t \ \text{ para } \ t<T(\omega)=\inf \left\{s>0 : B_s \not \in \left[-\frac{\pi}{2},\frac{\pi}{2}\right]\right\}.
         \]
+        
+        \textbf{Solución:} Ahora usamos la función $f(x)=sen(x)$, la cual claramente es $C^2$ en $(-\frac{\pi}{2},\frac{\pi}{2})$, se tiene que
+        \[
+        dX_t=df(B_t)=\cos(B_t)dB_t-\sen(B_t)d<B,B>_t=\sqrt{\cos^2(B_t)}dB_t-\sen(B_t)dt=\sqrt{1-X_t^2}dB_t-X_tdt,  
+        \]
+        tal y como queríamos. Es importante destacar que en la ecuación anterior, dado que $t<T(\omega)=\inf \left\{s>0 : B_s \not \in \left[-\frac{\pi}{2},\frac{\pi}{2}\right]\right\}$,
+        entonces $\cos(B_t)\geq0$, por lo que la expresión $\cos(B_t)=\sqrt{\cos^2(B_t)}$ utilizada antes tiene sentido, además de que $B_0=a\in  \left(-\frac{\pi}{2},\frac{\pi}{2}\right)$ hace que la 
+        solución sea consistente.
         \item $(X_1(t),X_2(t))=(t,e^{t}B_t)$ resuelve 
         \[
         \begin{bmatrix}
@@ -124,6 +341,24 @@ Tarea 6}}
             e^{X_1}
         \end{bmatrix}dB_t
         \]  
+                
+        \textbf{Solución:} Resolvemos entrada a entrada. Notamos que $X_1$ debe cumplir 
+        la ecuación $dX_1(t)=1\cdot dt$, cuyo significado es
+        \[
+        X_1(t)=X_1(0)+\int_0^t1\ ds=X_1(0)+t,    
+        \] 
+        por lo que si $X_1(t)=t$, claramente $X_1(t)=0+t=t$ y acabamos. Para la segunda parte, utilizamos 
+        la fórmula de Itô en la función $f(x,t)=xe^{t}$, la cual claramente es $C^{2,1}$, por lo que 
+        \[
+            dX_2(t)=d(B_te^{t})=e^{t}dB_t+e^{t}B_tdt+\frac{1}{2}\cdot 0=X_2(t)dt+e^{t}dB_t.
+        \]
+        Y dado que $X_1(t)=t$ para cualquier $t\geq0$, entonces 
+        \[
+        dX_2(t)=X_2(t)dt+e^{t}dB_t=X_2(t)+e^{X_1(t)}dB_t,    
+        \]
+        de tal forma que en efecto el proceso $X_2(t)=e^{t}B_t$ cumple la ecuación correspondiente. Se concluye
+        que el vector $(X_1(t),X_2(t))=(t,e^{t}B_t)$ resuelve el sistema de ecuaciones anterior.
+
         \item $(X_1(t), X_2(t))=(\cosh(B_t),\sinh(B_t))$ resuelve 
             \[
             \begin{bmatrix}
@@ -140,15 +375,59 @@ Tarea 6}}
                 X_2\\
                 X_1
             \end{bmatrix}dB_t
-            \]  
+            \]
+        
+            \textbf{Solución:} Utilizamos fórmula de Itô nuevamente en cada entrada. Recordamos que 
+            \[
+            \cosh(x)=\frac{e^{x}+e^{-x}}{2} \qquad \sinh(x)=\frac{e^{x}-e^{-x}}{2},    
+            \] 
+            son funciones definidas en todo el plano complejo, son funciones analíticas y además cumplen que $\sinh'(x)=\cosh(x)$ y $\cosh'(x)=\sinh(x)$. Con esto en mente 
+            y utilizando la función $f(x)=\cosh(x)$, por Itô:
+            \[
+            dX_1(t)=df(B_t)=\sinh(B_t)dB_t+\frac{1}{2}\cosh(B_t)d<B,B>_t=\frac{1}{2}X_1(t)dt+\sinh(B_t)dB_t.
+            \]
+            Por otro lado, utilizando la fórmula de Itô ahora con la función $f(x)=\sinh(x)$, se tiene que 
+            \[
+            dX_2(t)=df(B_t)=\cosh(B_t)dB_t+\frac{1}{2}\sinh(B_t)d<B,B>_t=\frac{1}{2}X_2(t)dt+\cosh(B_t)dB_t.    
+            \]
+            Y dado que $(X_1(t),X_2(t))=(\cosh(B_t),\sinh(B_t))$, se tiene claramente que 
+            \[
+                dX_1(t)=\frac{1}{2}X_1(t)dt+\sinh(B_t)dB_t=\frac{1}{2}X_1(t)dt+X_2(t)dB_t, \qquad dX_2(t)=\frac{1}{2}X_2(t)dt+\cosh(B_t)dB_t=\frac{1}{2}X_2(t)dt+X_1(t)dB_t,    
+            \]
+            por lo que el vector anterior cumple los sistemas de ecuaciones dados.
      \end{enumerate}
+
     \item[\textbf{3.}] Sea $(B_1,...,B_n)$ un movimiento Browniano en $\R^n$, $\alpha_1,...,\alpha_n$ 
     constantes. Resolver la ecuación diferencial estocástica 
     \[
-    dX_y=rX_tdt+X_t \left(\sum_{k=1}^n \alpha_k dB_k(t)\right); \qquad X_0>0.    
+    dX_t=rX_tdt+X_t \left(\sum_{k=1}^n \alpha_k dB_k(t)\right); \qquad X_0>0.    
     \]
     (Este es un modelo para un crecimiento exponencial con varias fuentes de ruido blanco independientes 
-    en la tasa de crecimiento relativa.)
+    en la tasa de crecimiento relativa.)\\
+
+    \textbf{Solución:} proponemos la solución siguiente:
+    \[
+    X_t:=X_0e^{(r-\frac{1}{2}\sum_{k=1}^n\alpha_i^2)t+\sum_{k=1}^{n}\alpha_iB_i(t)}
+    \]
+    Resta comprobar que en efecto es solución de la ecuación diferencial estocástica anterior. Nótese que por 
+    la fórmula de Itô $n-$dimensional, utilizando la función 
+    \[
+    g:\R^{n}\times[0,\infty)\to \R, \qquad g(x_1,...,x_n,t)=X_0\exp \left\{\left(r-\frac{1}{2}\sum_{k=1}^n\alpha_i^2\right)t+\sum_{k=1}^{n}\alpha_ix_i\right\}.
+    \]
+    La función anterior es $C^{2,1}$, por lo que por la fórmula de Itô en $n$ dimensiones, y aprovechando que la derivada de la exponencial 
+    es ella misma salvo constantes,
+    
+    \begin{align*}
+        dX_t=dg(B_1,...,B_n,t)&=\partial_tg(X_t,t)dt+\sum_{k=1}^{n}\partial_ig(X_t,t)dB_i+\sum_{i,j}\partial_{ij}g(X_t,t)d<B_i,B_j>\\
+        &=\left(r-\frac{1}{2}\sum_{k=1}^n\alpha_i^2\right)X_t dt + \sum_{k=1}^{n}\alpha_iX_tdB_i+\frac{1}{2}\sum_{k=1}^{n}\alpha_i^2X_td<B_i,B_i>\\
+        &=\left(r-\frac{1}{2}\sum_{k=1}^n\alpha_i^2\right)X_t dt + \sum_{k=1}^{n}\alpha_iX_tdB_i+\frac{1}{2}\sum_{k=1}^{n}\alpha_i^2X_tdt\\
+        &=rX_t dt + \sum_{k=1}^{n}\alpha_iX_tdB_i\\
+        &=rX_t dt + X_t \left(\sum_{k=1}^{n}\alpha_idB_i\right)\\
+    \end{align*}
+    donde hemos utilizado que la variación cuadrática de dos brownianos independientes entre sí es cero, 
+    y que la variación cuadrática de un browniano consigo misma es $t$. Concluimos que el proceso d
+    definido antes satisface la ecuación diferencial estocástica dada.
+    
     \item[\textbf{4.}] Resolver las siguientes ecuaciones diferenciales estocásticas 
     \begin{enumerate}
         \item \[
@@ -166,14 +445,79 @@ Tarea 6}}
             dB_2
         \end{bmatrix}.
         \]
+        \textbf{Solución:}
+        Resolvemos por fórmula de Itô entrada a entrada. Para $X_1$, se tiene que 
+        \[
+        dX_1(t)=dt+dB_1(t)+0\cdot dB_2(t)=dt+dB_1(t),    
+        \]
+        de tal forma que 
+        \[
+        X_1(t)=X_0+t+B_1(t).    
+        \]
+        Mientras tanto, para la segunda ecuación, tenemos que 
+        \[
+            dX_2(t)=X_1(t)dB_2(t),
+        \]
+        Ahora bien, utilizando integración por partes, tenemos que 
+        \[
+            d(X_1B_2)=X_1dB_2+B_2dX_1+d<X_1,B_2>_t,
+        \]  
+        de donde se sigue que 
+        \begin{align*}
+            X_1dB_2(t)&=d(X_1B_2)(t)-B_2(dt+dB_1(t))-d<t+B_1,B_2>_t\\
+            &=d(X_1B_2)(t)-B_2dt-B_2(t)dB_1(t)-0-d<B_1,B_2>_t\\
+            &=d(X_1B_2)(t)-B_2(t)dt-B_2(t)dB_1(t),
+        \end{align*}
+        donde hemos usado que la covariación de $B_1$ y $B_2$ es 0, pues estamos suponiendo que son movimientos 
+        brownianos independientes. Lo anterior nos dice que 
+        \[
+        dX_2=X_1dB_2=d(X_1B_2)(t)-B_2(t)dt-B_2(t)dB_1(t),    
+        \]
+        así que 
+        \[
+        X_2(t)=X_1(t)B_2(t)-0-\int_{0}^{t}B_2(s)ds -\int_{0}^{t}B_2(s)dB_1(s),   
+        \]
+        es decir, 
+        \[
+        X_2(t)=\left(X_0+t+B_1(t)\right)B_2(t)-\int_{0}^{t}B_2(s)ds-\int_{0}^{t}B_2(s)dB_1(s)
+        \]
+        es solución de la ecuación anterior.
         \item $dX_t=X_tdt + dB_t$. (Sugerencia: multiplicar ambos lados con el `factor integrante' $e^{-t}$
-        y comparar con $d(e^{-t}X_t))$.
+        y comparar con $d(e^{-t}X_t))$.\\
+
+        \textbf{Solución:} definimos $Y_t:=e^{-t}X_t$ y notemos que por fórmula de Itô,
+        \[
+        dY_t=e^{-t}dX_t-e^{-t}X_tdt+\frac{1}{2}\cdot0 =e^{-t}(X_tdt+dB_t)-e^{-t}X_tdt=e^{-t}dB_t,
+        \]
+        de donde se sigue que 
+        \[
+        e^{-t}X_t=X_0+\int_{0}^{t}e^{-s}dB_s,    
+        \]
+        es decir, 
+        \[
+        X_t=e^{t}X_0+e^{t}\int_0^{t}e^{-s}dB_s    
+        \]
+        satisface la ecuación anterior.
         \item $dX_t=-X_tdt+e^{-t}dB_t$.
+        \textbf{Solución:} definimos nuevamente $Y_t:=e^{t}X_t$, entonces por Itô, 
+        \[
+        dY_t=e^{t}dX_t+e^{t}X_tdt+\frac{1}{2}\cdot 0=e^{t}(-X_tdt+e^{-t}dB_t)+e^{t}X_tdt=dB_t,
+        \]
+        de tal forma que 
+        \[
+        e^{t}X_t=X_0+\int_{0}^{t}dB_s,    
+        \]
+        así que 
+        \[
+        X_t=e^{-t}X_0+e^{-t}B_t    
+        \]
+        es solución a la ecuación anterior.
     \end{enumerate}
+
     \item[\textbf{5.}] Resolver la ecuación diferencial estocástica (2-dimensional)
     \begin{align*}
         &dX_1(t)=X_2(t)dt+\alpha dB_1(t)\\
-        &dX_2(t)=X_1(t)d+\beta dB_2(t)
+        &dX_2(t)=X_1(t)dt+\beta dB_2(t)
     \end{align*}
     donde $(B_1(t),B_2(t))$ es un movimiento Browniano 2-dimensional y $\alpha$, $\beta$ son constantes.
     Este es un modelo para una cuerda vibrante sujeta a una fuerza estocástica.
@@ -188,6 +532,49 @@ Tarea 6}}
     Y_t=a(1-t) + bt + (1-t)\int_{0}^{t}\frac{dB_s}{1-s}; \qquad 0\leq t <1    
     \]
     resuelve la ecuación y demostrar que $\displaystyle \lim_{t\to 1}Y_t=b$ c.s. El proceso 
-    $Y_t$ es denominado \textit{el puente Browniano} (de $a$ a $b$).
+    $Y_t$ es denominado \textit{el puente Browniano} (de $a$ a $b$).\\
+    
+    \textbf{Solución:} verificamos que el proceso $Y_t$ anterior cumple la ecuación dada. En efecto. Claramente $Y_0=a$. Definimos ahora 
+    $Z_t:=\frac{b-Y_t}{1-t}$. Nótese que 
+    \[
+    Y_t=    a(1-t) + bt + (1-t)\int_{0}^{t}\frac{dB_s}{1-s} \quad \ent \quad b-Y_t=b-\left(a(1-t) + bt + (1-t)\int_{0}^{t}\frac{dB_s}{1-s}\right),
+    \]
+    por lo que 
+    \[
+    Z_t=\frac{b-Y_t}{1-t}=\frac{b}{1-t}-a-\frac{bt}{1-t}-\int_{0}^{t}\frac{dB_s}{1-s}=b\frac{1-t}{1-t}-a-\int_{0}^{t}\frac{dB_s}{1-s}=b-a-\int_0^t\frac{dB_s}{1-s}.    
+    \]
+    y notamos que $Z_0=b-a$. Con ello, 
+    \[
+      dZ_t=\frac{1}{1-t}dB_t.
+    \]
+    Ahora, por definición, $Z_t=\frac{b-Y_t}{1-t}$, lo que nos dice que $Y_t=b-Z_t(1-t)$. Luego, utilizando 
+    la fórmula de Itô con la función $f(x,t)=b-x(1-t)$, que claramente es $C^{2,1}$, se tiene que 
+    \[
+    dY_t=-(1-t)dZ_t-(-Z_t)dt+\frac{1}{2}\cdot 0=-(1-t)(\frac{1}{1-t})dB_t+Z_tdt=dB_t+\frac{b-Y_t}{1-t}dt,    
+    \]
+    por lo que en efecto $Y$ definido como antes cumple con la ecuación diferencial mencionada.
+    \newline
+
+    Finalmente para demostrar la convergencia, aplicamos integración por partes en la definición de  $Y_t$:
+    \[
+    Y_t= a(1-t) + bt + (1-t)\int_{0}^{t}\frac{dB_s}{1-s} =  a(1-t) + bt + B_t+(1-t)\int_{0}^{t}\frac{B_s}{(1-s)^2}.
+    \]
+    Claramente la parte que multiplica a las constantes tiende a 1, por lo que resta probar que la parte de la derecha tiende a 0. Nótese que 
+    \[
+    B_t+ (1-t)\int_{0}^{t}\frac{B_s}{(1-s)^2}=(1-t)\int_{0}^{t}\frac{B_1-B_s}{(1-s)^2}ds.
+    \]
+    Recordamos ahora que, si $g$ es una función positiva y decreciente en [0,1] tal que $g(1)=0$, entonces 
+    para cualquier función positiva $f$ tal que 
+    \[
+    \int_0^{1}f(u)g(u)du <\infty,   
+    \]
+    se cumple que $\lim_{t\to 1}g(t)\int_{0}^{1}f(u)du=0$. Aplicando esto a la función $f(u)=\frac{B_1-B_t}{(1-u)^2}$
+    y $g(u)=1-u$, se tiene que 
+    \[
+        Y_t\xrightarrow[t\to1]{}b,
+    \]
+    casi seguramente.
+
+    
 \end{enumerate}
 \end{document}
